@@ -43,28 +43,13 @@ Implementation of Asterisk SIP server on docker along with TURN server for symme
 - DTMF Signal Decoding : Decoding the dual tone multiple frequency signals using the concept of filter banks and DFT.
 - Car to Car Communicaton : Creation of a car to car communication network (MATLAB) using Intelligent Driver Model and communication using two ray ground model and free space propagation model.
 
-```markdown
 
-## Header 2
-### Header 3
+### Socail Links
 
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/dineshvg/dineshvg.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+- [LinkedIn](https://www.linkedin.com/in/dineshvg2310/)
+- [Twitter](https://twitter.com/iAmDineshVg)
+- [Instagram](https://www.instagram.com/foodpics_dvg/)
 
 ### Support or Contact
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+For any information or if you need to contact me, please mail me @ *dineshvg1023@gmail.com*
