@@ -24,7 +24,7 @@ Currently pursuing Master in Infromation and Communication Engineering in Techni
 
 3. (Internet of Things) Facebook music :  Implementation of an application to play music on spotify as per user status on facebook. Implemetation using MQTT broker and using topic based publish-subscribe mechanism.
 
-4. SleepMode : Android app with more than 50 downloads. App to switch the phone to silent when the screen faces the ground.
+4. [SleepMode](https://play.google.com/store/apps/details?id=vg.dinesh.com.sleepmode) : Android app with more than 500 downloads. App to switch the phone to silent when the screen faces the ground.
 
 5. Shiftbuddy : Platform to link users who want to shift with users who want to make some money by helping people shift. Won the startup idea award in TU Setup competition.
 
