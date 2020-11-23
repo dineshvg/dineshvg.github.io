@@ -20,6 +20,6 @@ Pursuing my thirst for knowledge as a Software Developer in the Retail Industrry
 
 - [LinkedIn](https://www.linkedin.com/in/dineshvg2310/)
 
-### Support or Contact
+### Contact
 
 For any information or if you need to contact me, please mail me @ *dineshvg1023@gmail.com*
