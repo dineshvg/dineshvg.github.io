@@ -1,7 +1,7 @@
 
 ## Dinesh Vaithylaingam Gangatharan
 
-Pursuing my thirst for knowledge as a Software Developer in the Retail Industrry by gaining experience by working on the Rewe and Penny apps.
+Pursuing my thirst for knowledge as a Software Developer in the Retail Industry by gaining experience by working on the Rewe and Penny apps.
 
 ### Work Experience
 
