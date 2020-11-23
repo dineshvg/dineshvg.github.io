@@ -49,8 +49,6 @@ Implementation of Asterisk SIP server on docker along with TURN server for symme
 ### Socail Links
 
 - [LinkedIn](https://www.linkedin.com/in/dineshvg2310/)
-- [Twitter](https://twitter.com/iAmDineshVg)
-- [Instagram](https://www.instagram.com/foodpics_dvg/)
 
 ### Support or Contact
 
