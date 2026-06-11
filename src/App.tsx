@@ -286,7 +286,7 @@ const content: Record<Language, Translations> = {
         location: 'Köln, Deutschland',
         description: 'Fullstack-Entwicklung für die Rewe und Penny Android-Applikationen.',
         highlights: [
-          'Entwicklung von Features für Rewe und Penny Apps mit Kotlin und Android SDK.',
+          'Entwicklung von Features für Rewe und Penny Apps mit Kotlin and Android SDK.',
           'Gestaltung skalierbarer Architekturen (MVVM, MVP, MVI).',
           'Integration von REST-APIs und Firebase für Echtzeit-Dienste.'
         ],
@@ -356,17 +356,19 @@ const content: Record<Language, Translations> = {
 const ExperienceCard: React.FC<{ 
   exp: Experience; 
   theme: DesignTheme; 
+  lang: Language;
   labels: Translations['ui'];
   isLiked: boolean;
   onLike: () => void;
   comments: string[];
   onAddComment: (text: string) => void;
-}> = ({ exp, theme, labels, isLiked, onLike, comments, onAddComment }) => {
+}> = ({ exp, theme, lang, labels, isLiked, onLike, comments, onAddComment }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [newComment, setNewComment] = useState('');
   
   const isM3 = theme === 'material3';
+  const isDE = lang === 'de';
 
   const handleCommentSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -385,8 +387,8 @@ const ExperienceCard: React.FC<{
               {exp.company[0]}
             </div>
             <div>
-              <h4 className="font-black text-white text-2xl leading-tight tracking-tight">{exp.role}</h4>
-              <p className="text-blue-400 text-sm font-bold uppercase tracking-widest">{exp.company}</p>
+              <h4 className={`font-black text-white leading-tight tracking-tight transition-all ${isDE ? 'text-xl' : 'text-2xl'}`}>{exp.role}</h4>
+              <p className="text-blue-400 text-xs font-bold uppercase tracking-widest">{exp.company}</p>
             </div>
           </div>
           
@@ -395,7 +397,7 @@ const ExperienceCard: React.FC<{
              <span className="flex items-center gap-1 bg-slate-800/50 px-3 py-1.5 rounded-full border border-slate-700/50"><MapPin size={12} /> {exp.location}</span>
           </div>
 
-          <p className="text-slate-300 mb-8 leading-relaxed text-lg">
+          <p className={`text-slate-300 mb-8 leading-relaxed transition-all ${isDE ? 'text-base' : 'text-lg'}`}>
             {exp.description}
           </p>
 
@@ -520,7 +522,7 @@ const ExperienceCard: React.FC<{
         {exp.period}
       </div>
       <div className="md:col-span-3">
-        <h4 className="text-2xl font-bold text-slate-100 group-hover:text-blue-400 transition-colors mb-1">
+        <h4 className={`font-bold text-slate-100 group-hover:text-blue-400 transition-all mb-1 ${isDE ? 'text-lg' : 'text-2xl'}`}>
           {exp.role}
         </h4>
         <div className="flex flex-wrap items-center gap-2 text-slate-400 font-medium mb-4">
@@ -541,7 +543,7 @@ const ExperienceCard: React.FC<{
             </>
           )}
         </div>
-        <p className="text-slate-400 mb-6 leading-relaxed text-lg">
+        <p className={`text-slate-400 mb-6 leading-relaxed transition-all ${isDE ? 'text-base' : 'text-lg'}`}>
           {exp.description}
         </p>
         
@@ -600,6 +602,7 @@ const App: React.FC = () => {
   
   const t = content[lang];
   const isM3 = theme === 'material3';
+  const isDE = lang === 'de';
 
   const toggleLike = (id: string) => {
     setLikes(prev => ({ ...prev, [id]: !prev[id] }));
@@ -630,27 +633,27 @@ const App: React.FC = () => {
         <div className={`flex gap-2 p-1.5 rounded-full backdrop-blur-xl border shadow-2xl transition-colors ${isM3 ? 'bg-slate-900/90 border-slate-800' : 'bg-slate-900/80 border-slate-800'}`}>
           <button 
             onClick={() => setTheme('sleek')}
-            className={`px-5 py-2.5 rounded-full text-xs font-black transition-all tracking-widest ${theme === 'sleek' ? 'bg-blue-600 text-white shadow-[0_0_15px_rgba(37,99,235,0.4)]' : 'text-slate-400 hover:text-white'}`}
+            className={`px-5 py-2.5 rounded-full text-[10px] font-black transition-all tracking-widest ${theme === 'sleek' ? 'bg-blue-600 text-white shadow-[0_0_15px_rgba(37,99,235,0.4)]' : 'text-slate-400 hover:text-white'}`}
           >
             SLEEK
           </button>
           <button 
             onClick={() => setTheme('material3')}
-            className={`px-5 py-2.5 rounded-full text-xs font-black transition-all tracking-widest ${theme === 'material3' ? 'bg-indigo-600 text-white shadow-[0_0_15px_rgba(79,70,229,0.4)]' : 'text-slate-400 hover:text-white'}`}
+            className={`px-5 py-2.5 rounded-full text-[10px] font-black transition-all tracking-widest ${theme === 'material3' ? 'bg-indigo-600 text-white shadow-[0_0_15px_rgba(79,70,229,0.4)]' : 'text-slate-400 hover:text-white'}`}
           >
             MATERIAL 3
           </button>
           <div className={`w-[1px] my-2 bg-slate-700`} />
           <button 
             onClick={() => setLang(lang === 'en' ? 'de' : 'en')}
-            className={`px-5 py-2.5 rounded-full text-xs font-black transition-all tracking-widest ${isM3 ? 'text-indigo-400 hover:text-white' : 'text-blue-400 hover:text-white'}`}
+            className={`px-5 py-2.5 rounded-full text-[10px] font-black transition-all tracking-widest ${isM3 ? 'text-indigo-400 hover:text-white' : 'text-blue-400 hover:text-white'}`}
           >
             {lang.toUpperCase()}
           </button>
         </div>
       </div>
 
-      <div className={`mx-auto max-w-5xl transition-all duration-700 ${isM3 ? 'pt-32 pb-32' : 'pt-32 pb-32'}`}>
+      <div className={`mx-auto max-w-5xl transition-all duration-700 pt-32 pb-32`}>
         
         {/* Hero Section */}
         <header className="px-6 mb-24">
@@ -664,7 +667,7 @@ const App: React.FC = () => {
               <Terminal size={14} /> {t.hero.availability}
             </div>
             
-            <h1 className={`font-black tracking-tight mb-6 leading-[0.9] ${isM3 ? 'text-7xl md:text-8xl lg:text-9xl' : 'text-6xl md:text-8xl'}`}>
+            <h1 className={`font-black tracking-tight mb-6 leading-[0.9] transition-all ${isM3 ? 'text-6xl md:text-7xl lg:text-8xl' : 'text-6xl md:text-8xl'}`}>
               <span className={isM3 ? 'text-white' : 'bg-gradient-to-r from-white via-slate-200 to-slate-500 bg-clip-text text-transparent'}>Dinesh</span>
               <br />
               <span className={isM3 ? 'text-indigo-500' : 'bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent'}>
@@ -672,7 +675,7 @@ const App: React.FC = () => {
               </span>
             </h1>
 
-            <p className={`mb-10 leading-relaxed ${isM3 ? 'text-slate-400 text-xl md:text-2xl font-medium' : 'text-slate-400 text-xl md:text-2xl max-w-2xl'}`}>
+            <p className={`mb-10 leading-relaxed font-medium transition-all ${isM3 ? 'text-slate-400 text-lg md:text-xl' : 'text-slate-400 text-xl md:text-2xl max-w-2xl'}`}>
               {t.hero.description.split(',').map((part, i) => (
                 <span key={i}>
                   {i > 0 && ','}
@@ -706,7 +709,7 @@ const App: React.FC = () => {
               <div className={`p-3 rounded-2xl ${isM3 ? 'bg-indigo-600 shadow-[0_0_20px_rgba(79,70,229,0.5)] text-white' : 'bg-blue-500/10 text-blue-400'}`}>
                 <Briefcase size={28} />
               </div>
-              <h3 className={`font-black uppercase tracking-tight leading-none ${isM3 ? 'text-5xl text-white' : 'text-4xl'}`}>
+              <h3 className={`font-black uppercase tracking-tight leading-none transition-all ${isM3 ? 'text-4xl text-white' : 'text-4xl'}`}>
                 {t.sections.experience}
               </h3>
             </div>
@@ -716,6 +719,7 @@ const App: React.FC = () => {
                   key={idx} 
                   exp={exp} 
                   theme={theme} 
+                  lang={lang}
                   labels={t.ui}
                   isLiked={!!likes[exp.id]}
                   onLike={() => toggleLike(exp.id)}
@@ -732,7 +736,7 @@ const App: React.FC = () => {
               <div className={`p-3 rounded-2xl ${isM3 ? 'bg-blue-500 shadow-[0_0_20px_rgba(59,130,246,0.5)] text-white' : 'bg-emerald-500/10 text-emerald-400'}`}>
                 <Code2 size={28} />
               </div>
-              <h3 className={`font-black uppercase tracking-tight leading-none ${isM3 ? 'text-5xl text-white' : 'text-4xl'}`}>
+              <h3 className={`font-black uppercase tracking-tight leading-none transition-all ${isM3 ? 'text-4xl text-white' : 'text-4xl'}`}>
                 {t.sections.expertise}
               </h3>
             </div>
@@ -753,20 +757,20 @@ const App: React.FC = () => {
           </motion.section>
 
           {/* Education & Info */}
-          <div className={`grid gap-20 ${isM3 ? 'grid-cols-1 md:grid-cols-2' : 'md:grid-cols-2'}`}>
+          <div className={`grid gap-20 md:grid-cols-2`}>
             <motion.section {...fadeIn} id="education">
               <div className={`flex items-center gap-4 mb-12`}>
                 <div className={`p-3 rounded-2xl ${isM3 ? 'bg-indigo-600 text-white' : 'bg-purple-500/10 text-purple-400'}`}>
                   <GraduationCap size={28} />
                 </div>
-                <h3 className={`font-black uppercase tracking-tight ${isM3 ? 'text-4xl text-white' : 'text-3xl'}`}>{t.sections.education}</h3>
+                <h3 className={`font-black uppercase tracking-tight transition-all ${isM3 ? 'text-3xl text-white' : 'text-3xl'}`}>{t.sections.education}</h3>
               </div>
               <div className={`space-y-10 pl-6 border-l-4 ${isM3 ? 'border-indigo-500/20' : 'border-slate-800'}`}>
                 {t.education.map((edu, idx) => (
                   <div key={idx} className="relative">
                     <div className={`absolute -left-[30px] top-2 w-3 h-3 rounded-full ${isM3 ? 'bg-indigo-500' : 'bg-purple-500'}`} />
-                    <h4 className="font-black text-white uppercase text-lg tracking-tight mb-2">{edu.degree}</h4>
-                    <p className="text-slate-500 font-bold">{edu.school}</p>
+                    <h4 className={`font-black text-white uppercase tracking-tight mb-2 transition-all ${isDE ? 'text-sm' : 'text-lg'}`}>{edu.degree}</h4>
+                    <p className="text-slate-500 font-bold text-sm">{edu.school}</p>
                     <p className={`text-[11px] font-black mt-3 uppercase tracking-[0.2em] ${isM3 ? 'text-indigo-400' : 'text-slate-500'}`}>{edu.period}</p>
                   </div>
                 ))}
@@ -778,16 +782,16 @@ const App: React.FC = () => {
                 <div className={`p-3 rounded-2xl ${isM3 ? 'bg-rose-500 text-white' : 'bg-rose-500/10 text-rose-400'}`}>
                   <Languages size={28} />
                 </div>
-                <h3 className={`font-black uppercase tracking-tight ${isM3 ? 'text-4xl text-white' : 'text-3xl'}`}>{t.sections.languages}</h3>
+                <h3 className={`font-black uppercase tracking-tight transition-all ${isM3 ? 'text-3xl text-white' : 'text-3xl'}`}>{t.sections.languages}</h3>
               </div>
               <div className="grid grid-cols-2 gap-6">
                 <div className={`p-8 rounded-[32px] border ${isM3 ? 'bg-slate-900 border-slate-800/50' : 'bg-slate-900/30 border-slate-800/50'}`}>
                   <p className={`text-[10px] font-black uppercase mb-3 tracking-widest ${isM3 ? 'text-rose-400' : 'text-slate-500'}`}>English</p>
-                  <p className={`text-xl font-black text-white`}>C2 Proficient</p>
+                  <p className={`text-lg font-black text-white`}>C2 Proficient</p>
                 </div>
                 <div className={`p-8 rounded-[32px] border ${isM3 ? 'bg-slate-900 border-slate-800/50' : 'bg-slate-900/30 border-slate-800/50'}`}>
                   <p className={`text-[10px] font-black uppercase mb-3 tracking-widest ${isM3 ? 'text-rose-400' : 'text-slate-500'}`}>German</p>
-                  <p className={`text-xl font-black text-white`}>B2 Advanced</p>
+                  <p className={`text-lg font-black text-white`}>B2 Advanced</p>
                 </div>
               </div>
             </motion.section>
