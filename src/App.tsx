@@ -273,7 +273,7 @@ const App: React.FC = () => {
       </main>
 
       <footer className="relative max-w-5xl mx-auto px-6 py-20 border-t border-slate-900/50 flex flex-col md:flex-row justify-between items-center gap-8 text-slate-500 text-sm">
-        <p>© {new Date().getFullYear()} Dinesh Gangatharan. Munich, Germany.</p>
+        <p>© {new Date().getFullYear()} Dinesh Gangatharan. Stuttgart, Germany.</p>
         <div className="flex gap-6">
           <a href="#experience" className="hover:text-blue-400 transition-colors">Experience</a>
           <a href="#skills" className="hover:text-emerald-400 transition-colors">Expertise</a>
