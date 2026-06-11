@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Globe, 
   User, 
@@ -15,12 +15,15 @@ import {
   Minus,
   MessageCircle,
   Heart,
-  Send
+  Send,
+  Sun,
+  Moon
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 type Language = 'en' | 'de';
 type DesignTheme = 'sleek' | 'material3';
+type AppearanceMode = 'light' | 'dark';
 
 interface Experience {
   id: string;
@@ -356,17 +359,19 @@ const content: Record<Language, Translations> = {
 const ExperienceCard: React.FC<{ 
   exp: Experience; 
   theme: DesignTheme; 
+  mode: AppearanceMode;
   labels: Translations['ui'];
   isLiked: boolean;
   onLike: () => void;
   comments: string[];
   onAddComment: (text: string) => void;
-}> = ({ exp, theme, labels, isLiked, onLike, comments, onAddComment }) => {
+}> = ({ exp, theme, mode, labels, isLiked, onLike, comments, onAddComment }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [newComment, setNewComment] = useState('');
   
   const isM3 = theme === 'material3';
+  const isDark = mode === 'dark';
 
   const handleCommentSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -378,32 +383,54 @@ const ExperienceCard: React.FC<{
 
   if (isM3) {
     return (
-      <div className="bg-slate-900 rounded-[24px] shadow-xl border border-slate-800/50 overflow-hidden group transition-all hover:border-blue-500/30">
+      <div className={`rounded-[24px] shadow-xl border overflow-hidden group transition-all ${
+        isDark 
+          ? 'bg-slate-900 border-slate-800/50 hover:border-blue-500/30' 
+          : 'bg-white border-slate-200 hover:border-blue-400/30 shadow-slate-200/50'
+      }`}>
         <div className="p-6 md:p-8">
           <div className="flex items-center gap-4 mb-5">
-            <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-400 font-black text-lg border border-blue-500/20 shrink-0">
+            <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center font-black text-lg border shrink-0 transition-colors ${
+              isDark 
+                ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' 
+                : 'bg-blue-50 text-blue-600 border-blue-100'
+            }`}>
               {exp.company[0]}
             </div>
             <div>
-              <h4 className="font-black text-white text-lg md:text-xl leading-tight tracking-tight">{exp.role}</h4>
-              <p className="text-blue-400 text-[10px] font-bold uppercase tracking-widest">{exp.company}</p>
+              <h4 className={`font-black text-lg md:text-xl leading-tight tracking-tight transition-colors ${
+                isDark ? 'text-white' : 'text-slate-900'
+              }`}>{exp.role}</h4>
+              <p className={`text-[10px] font-bold uppercase tracking-widest transition-colors ${
+                isDark ? 'text-blue-400' : 'text-blue-600'
+              }`}>{exp.company}</p>
             </div>
           </div>
           
-          <div className="flex flex-wrap items-center gap-2 text-slate-500 text-[10px] font-black uppercase tracking-widest mb-5">
-             <span className="flex items-center gap-1 bg-slate-800/50 px-3 py-1 rounded-full border border-slate-700/50">{exp.period}</span>
-             <span className="flex items-center gap-1 bg-slate-800/50 px-3 py-1 rounded-full border border-slate-700/50"><MapPin size={10} /> {exp.location}</span>
+          <div className="flex flex-wrap items-center gap-2 text-[10px] font-black uppercase tracking-widest mb-5">
+             <span className={`flex items-center gap-1 px-3 py-1 rounded-full border transition-colors ${
+               isDark ? 'bg-slate-800/50 text-slate-500 border-slate-700/50' : 'bg-slate-50 text-slate-500 border-slate-200'
+             }`}>{exp.period}</span>
+             <span className={`flex items-center gap-1 px-3 py-1 rounded-full border transition-colors ${
+               isDark ? 'bg-slate-800/50 text-slate-500 border-slate-700/50' : 'bg-slate-50 text-slate-500 border-slate-200'
+             }`}><MapPin size={10} /> {exp.location}</span>
           </div>
 
-          <p className="text-slate-300 mb-6 leading-relaxed text-sm md:text-base">
+          <p className={`mb-6 leading-relaxed text-sm md:text-base transition-colors ${
+            isDark ? 'text-slate-300' : 'text-slate-600'
+          }`}>
             {exp.description}
           </p>
 
           <div className="space-y-4">
             <ul className="grid md:grid-cols-2 gap-3">
               {exp.highlights.map((h, i) => (
-                <li key={i} className="flex items-start gap-2 text-xs md:text-sm text-slate-400 leading-normal">
-                  <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 shrink-0 shadow-[0_0_8px_rgba(59,130,246,0.5)]" />
+                <li key={i} className={`flex items-start gap-2 text-xs md:text-sm leading-normal transition-colors ${
+                  isDark ? 'text-slate-400' : 'text-slate-500'
+                }`}>
+                  <div className={`w-1.5 h-1.5 rounded-full mt-1.5 shrink-0 shadow-[0_0_8px_rgba(59,130,246,0.5)] ${
+                    isDark ? 'bg-blue-500' : 'bg-blue-600'
+                  }`} />
                   {h}
                 </li>
               ))}
@@ -413,7 +440,11 @@ const ExperienceCard: React.FC<{
               <div className="pt-2">
                 <button 
                   onClick={() => setIsOpen(!isOpen)}
-                  className="w-full flex items-center justify-center gap-2 py-3 bg-slate-800/50 text-blue-400 rounded-xl text-xs font-black uppercase tracking-widest border border-slate-700/50 hover:bg-slate-800 transition-all active:scale-[0.98]"
+                  className={`w-full flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-black uppercase tracking-widest border transition-all active:scale-[0.98] ${
+                    isDark 
+                      ? 'bg-slate-800/50 text-blue-400 border-slate-700/50 hover:bg-slate-800' 
+                      : 'bg-slate-50 text-blue-600 border-slate-200 hover:bg-slate-100'
+                  }`}
                 >
                   {isOpen ? <Minus size={14} /> : <Plus size={14} />}
                   {isOpen ? labels.readLess : labels.readMore}
@@ -427,10 +458,16 @@ const ExperienceCard: React.FC<{
                       exit={{ height: 0, opacity: 0 }}
                       className="overflow-hidden"
                     >
-                      <ul className="mt-4 space-y-3 p-5 bg-slate-950/50 rounded-2xl border border-slate-800/50">
+                      <ul className={`mt-4 space-y-3 p-5 rounded-2xl border transition-colors ${
+                        isDark ? 'bg-slate-950/50 border-slate-800/50' : 'bg-slate-50/50 border-slate-200'
+                      }`}>
                         {exp.details.map((detail, i) => (
-                          <li key={i} className="text-slate-400 text-xs md:text-sm leading-relaxed flex gap-2">
-                            <span className="text-blue-500 font-black shrink-0">•</span> {detail}
+                          <li key={i} className={`text-xs md:text-sm leading-relaxed flex gap-2 transition-colors ${
+                            isDark ? 'text-slate-400' : 'text-slate-500'
+                          }`}>
+                            <span className={`font-black shrink-0 transition-colors ${
+                              isDark ? 'text-blue-500' : 'text-blue-600'
+                            }`}>•</span> {detail}
                           </li>
                         ))}
                       </ul>
@@ -443,19 +480,29 @@ const ExperienceCard: React.FC<{
         </div>
 
         {/* Interaction Bar */}
-        <div className="bg-slate-950/50 px-6 md:px-8 py-4 flex flex-col border-t border-slate-800/50">
+        <div className={`px-6 md:px-8 py-4 flex flex-col border-t transition-colors ${
+          isDark ? 'bg-slate-950/50 border-slate-800/50' : 'bg-slate-50/50 border-slate-100'
+        }`}>
           <div className="flex justify-between items-center">
             <div className="flex gap-6">
               <button 
                 onClick={onLike}
-                className={`flex items-center gap-2 transition-all active:scale-125 ${isLiked ? 'text-red-500' : 'text-slate-500 hover:text-red-400'}`}
+                className={`flex items-center gap-2 transition-all active:scale-125 ${
+                  isLiked 
+                    ? 'text-red-500' 
+                    : (isDark ? 'text-slate-500 hover:text-red-400' : 'text-slate-400 hover:text-red-500')
+                }`}
               >
                 <Heart size={20} fill={isLiked ? "currentColor" : "none"} />
                 <span className="text-xs font-black">{isLiked ? 1 : 0}</span>
               </button>
               <button 
                 onClick={() => setShowComments(!showComments)}
-                className={`flex items-center gap-2 transition-all ${showComments ? 'text-blue-400' : 'text-slate-500 hover:text-blue-400'}`}
+                className={`flex items-center gap-2 transition-all ${
+                  showComments 
+                    ? (isDark ? 'text-blue-400' : 'text-blue-600') 
+                    : (isDark ? 'text-slate-500 hover:text-blue-400' : 'text-slate-400 hover:text-blue-600')
+                }`}
               >
                 <MessageCircle size={20} />
                 <span className="text-xs font-black">{comments.length}</span>
@@ -465,7 +512,9 @@ const ExperienceCard: React.FC<{
               <a 
                 href={exp.certificateUrl} 
                 target="_blank" 
-                className="text-blue-400 font-black text-[10px] uppercase tracking-widest hover:text-blue-300 transition-colors"
+                className={`font-black text-[10px] uppercase tracking-widest transition-colors ${
+                  isDark ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-800'
+                }`}
               >
                 iSAQB Certificate
               </a>
@@ -482,8 +531,12 @@ const ExperienceCard: React.FC<{
               >
                 <div className="space-y-3 mb-4 max-h-40 overflow-y-auto pr-1 custom-scrollbar">
                   {comments.map((c, i) => (
-                    <div key={i} className="bg-slate-900 p-3 rounded-xl border border-slate-800/50">
-                      <p className="text-slate-300 text-xs leading-relaxed">{c}</p>
+                    <div key={i} className={`p-3 rounded-xl border transition-colors ${
+                      isDark ? 'bg-slate-900 border-slate-800/50' : 'bg-white border-slate-200 shadow-sm'
+                    }`}>
+                      <p className={`text-xs leading-relaxed transition-colors ${
+                        isDark ? 'text-slate-300' : 'text-slate-600'
+                      }`}>{c}</p>
                     </div>
                   ))}
                 </div>
@@ -493,11 +546,17 @@ const ExperienceCard: React.FC<{
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
                     placeholder={labels.commentPlaceholder}
-                    className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500/50 transition-all pr-10"
+                    className={`w-full rounded-xl px-4 py-2.5 text-xs focus:outline-none transition-all pr-10 border ${
+                      isDark 
+                        ? 'bg-slate-900 border-slate-800 text-white placeholder:text-slate-600 focus:border-blue-500/50' 
+                        : 'bg-white border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-blue-400/50'
+                    }`}
                   />
                   <button 
                     type="submit"
-                    className="absolute right-2 top-[calc(50%-4px)] -translate-y-1/2 p-2 text-blue-500 hover:text-blue-400 transition-colors"
+                    className={`absolute right-2 top-[calc(50%-4px)] -translate-y-1/2 p-2 transition-colors ${
+                      isDark ? 'text-blue-500 hover:text-blue-400' : 'text-blue-600 hover:text-blue-800'
+                    }`}
                   >
                     <Send size={16} />
                   </button>
@@ -512,40 +571,54 @@ const ExperienceCard: React.FC<{
 
   return (
     <div className="grid md:grid-cols-4 gap-4 group">
-      <div className="text-slate-500 font-mono text-[10px] pt-1 uppercase tracking-widest">
+      <div className={`font-mono text-[10px] pt-1 uppercase tracking-widest transition-colors ${
+        isDark ? 'text-slate-500' : 'text-slate-400'
+      }`}>
         {exp.period}
       </div>
       <div className="md:col-span-3">
-        <h4 className="font-bold text-slate-100 group-hover:text-blue-400 transition-all mb-1 text-lg md:text-xl">
+        <h4 className={`font-bold transition-all mb-1 text-lg md:text-xl ${
+          isDark ? 'text-slate-100 group-hover:text-blue-400' : 'text-slate-900 group-hover:text-blue-600'
+        }`}>
           {exp.role}
         </h4>
-        <div className="flex flex-wrap items-center gap-2 text-slate-400 font-medium mb-4">
+        <div className={`flex flex-wrap items-center gap-2 font-medium mb-4 transition-colors ${
+          isDark ? 'text-slate-400' : 'text-slate-500'
+        }`}>
           <span className="text-sm md:text-base">{exp.company}</span>
-          <span className="w-1 h-1 rounded-full bg-slate-700" />
+          <span className={`w-1 h-1 rounded-full ${isDark ? 'bg-slate-700' : 'bg-slate-300'}`} />
           <span className="flex items-center gap-1 text-xs"><MapPin size={10} /> {exp.location}</span>
           {exp.certificateUrl && (
             <>
-              <span className="w-1 h-1 rounded-full bg-slate-700" />
+              <span className={`w-1 h-1 rounded-full ${isDark ? 'bg-slate-700' : 'bg-slate-300'}`} />
               <a 
                 href={exp.certificateUrl} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="flex items-center gap-1 text-xs text-blue-400 hover:text-blue-300 transition-colors"
+                className={`flex items-center gap-1 text-xs transition-colors ${
+                  isDark ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-800'
+                }`}
               >
                 <ExternalLink size={10} /> iSAQB
               </a>
             </>
           )}
         </div>
-        <p className="text-slate-400 mb-5 leading-relaxed text-sm md:text-base">
+        <p className={`mb-5 leading-relaxed text-sm md:text-base transition-colors ${
+          isDark ? 'text-slate-400' : 'text-slate-600'
+        }`}>
           {exp.description}
         </p>
         
         <div className="space-y-4">
           <ul className="grid md:grid-cols-2 gap-3">
             {exp.highlights.map((h, i) => (
-              <li key={i} className="flex items-start gap-2 text-slate-500 text-xs md:text-sm group-hover:text-slate-400 transition-colors">
-                <ChevronRight size={14} className="text-blue-500/50 shrink-0 mt-0.5" />
+              <li key={i} className={`flex items-start gap-2 text-xs md:text-sm transition-colors ${
+                isDark ? 'text-slate-500 group-hover:text-slate-400' : 'text-slate-500 group-hover:text-slate-700'
+              }`}>
+                <ChevronRight size={14} className={`shrink-0 mt-0.5 transition-colors ${
+                  isDark ? 'text-blue-500/50' : 'text-blue-600/50'
+                }`} />
                 {h}
               </li>
             ))}
@@ -555,7 +628,9 @@ const ExperienceCard: React.FC<{
             <div className="pt-2">
               <button 
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center gap-2 text-xs font-bold text-blue-400 hover:text-blue-300 transition-colors group/btn"
+                className={`flex items-center gap-2 text-xs font-bold transition-colors group/btn ${
+                  isDark ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-800'
+                }`}
               >
                 {isOpen ? <Minus size={16} /> : <Plus size={16} />}
                 {isOpen ? labels.readLess : labels.readMore}
@@ -570,9 +645,13 @@ const ExperienceCard: React.FC<{
                     transition={{ duration: 0.3 }}
                     className="overflow-hidden"
                   >
-                    <ul className="mt-4 space-y-2 pl-4 border-l border-slate-800">
+                    <ul className={`mt-4 space-y-2 pl-4 border-l transition-colors ${
+                      isDark ? 'border-slate-800' : 'border-slate-200'
+                    }`}>
                       {exp.details.map((detail, i) => (
-                        <li key={i} className="text-slate-500 text-xs md:text-sm leading-relaxed">
+                        <li key={i} className={`text-xs md:text-sm leading-relaxed transition-colors ${
+                          isDark ? 'text-slate-500' : 'text-slate-600'
+                        }`}>
                           • {detail}
                         </li>
                       ))}
@@ -591,11 +670,23 @@ const ExperienceCard: React.FC<{
 const App: React.FC = () => {
   const [lang, setLang] = useState<Language>('en');
   const [theme, setTheme] = useState<DesignTheme>('sleek');
+  const [mode, setMode] = useState<AppearanceMode>('dark');
   const [likes, setLikes] = useState<Record<string, boolean>>({});
   const [comments, setComments] = useState<Record<string, string[]>>({});
   
+  useEffect(() => {
+    if (mode === 'dark') {
+      document.documentElement.classList.add('dark');
+      document.documentElement.style.colorScheme = 'dark';
+    } else {
+      document.documentElement.classList.remove('dark');
+      document.documentElement.style.colorScheme = 'light';
+    }
+  }, [mode]);
+
   const t = content[lang];
   const isM3 = theme === 'material3';
+  const isDark = mode === 'dark';
 
   const toggleLike = (id: string) => {
     setLikes(prev => ({ ...prev, [id]: !prev[id] }));
@@ -613,35 +704,72 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className={`min-h-screen font-sans selection:bg-blue-500/30 transition-colors duration-500 ${isM3 ? 'bg-slate-950 text-slate-200' : 'bg-[#020617] text-slate-200'}`}>
+    <div className={`min-h-screen font-sans selection:bg-blue-500/30 transition-colors duration-500 ${
+      isDark 
+        ? (isM3 ? 'bg-slate-950 text-slate-200' : 'bg-[#020617] text-slate-200') 
+        : (isM3 ? 'bg-slate-50 text-slate-800' : 'bg-white text-slate-900')
+    }`}>
       
       {/* Background Decor */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className={`absolute -top-[10%] -left-[10%] w-[40%] h-[40%] blur-[120px] rounded-full transition-colors duration-1000 ${isM3 ? 'bg-blue-600/10' : 'bg-blue-500/10'}`} />
-        <div className={`absolute top-[20%] -right-[10%] w-[30%] h-[30%] blur-[120px] rounded-full transition-colors duration-1000 ${isM3 ? 'bg-indigo-600/10' : 'bg-emerald-500/5'}`} />
+        <div className={`absolute -top-[10%] -left-[10%] w-[40%] h-[40%] blur-[120px] rounded-full transition-colors duration-1000 ${
+          isDark 
+            ? (isM3 ? 'bg-blue-600/10' : 'bg-blue-500/10') 
+            : (isM3 ? 'bg-blue-400/10' : 'bg-blue-200/20')
+        }`} />
+        <div className={`absolute top-[20%] -right-[10%] w-[30%] h-[30%] blur-[120px] rounded-full transition-colors duration-1000 ${
+          isDark 
+            ? (isM3 ? 'bg-indigo-600/10' : 'bg-emerald-500/5') 
+            : (isM3 ? 'bg-indigo-400/10' : 'bg-emerald-200/20')
+        }`} />
       </div>
 
       {/* Top Bar Controls */}
       <div className="fixed top-0 left-0 right-0 z-50 flex justify-center p-4">
-        <div className={`flex gap-2 p-1.5 rounded-full backdrop-blur-xl border shadow-2xl transition-colors ${isM3 ? 'bg-slate-900/90 border-slate-800' : 'bg-slate-900/80 border-slate-800'}`}>
+        <div className={`flex items-center gap-2 p-1.5 rounded-full backdrop-blur-xl border shadow-2xl transition-colors ${
+          isDark 
+            ? 'bg-slate-900/90 border-slate-800' 
+            : 'bg-white/90 border-slate-200'
+        }`}>
           <button 
             onClick={() => setTheme('sleek')}
-            className={`px-5 py-2.5 rounded-full text-[10px] font-black transition-all tracking-widest ${theme === 'sleek' ? 'bg-blue-600 text-white shadow-lg' : 'text-slate-400 hover:text-white'}`}
+            className={`px-5 py-2.5 rounded-full text-[10px] font-black transition-all tracking-widest ${
+              theme === 'sleek' 
+                ? 'bg-blue-600 text-white shadow-lg' 
+                : (isDark ? 'text-slate-400 hover:text-white' : 'text-slate-500 hover:text-slate-900')
+            }`}
           >
             SLEEK
           </button>
           <button 
             onClick={() => setTheme('material3')}
-            className={`px-5 py-2.5 rounded-full text-[10px] font-black transition-all tracking-widest ${theme === 'material3' ? 'bg-indigo-600 text-white shadow-lg' : 'text-slate-400 hover:text-white'}`}
+            className={`px-5 py-2.5 rounded-full text-[10px] font-black transition-all tracking-widest ${
+              theme === 'material3' 
+                ? 'bg-indigo-600 text-white shadow-lg' 
+                : (isDark ? 'text-slate-400 hover:text-white' : 'text-slate-500 hover:text-slate-900')
+            }`}
           >
             MATERIAL 3
           </button>
-          <div className={`w-[1px] my-2 bg-slate-700`} />
+          <div className={`w-[1px] my-2 ${isDark ? 'bg-slate-700' : 'bg-slate-200'}`} />
           <button 
             onClick={() => setLang(lang === 'en' ? 'de' : 'en')}
-            className={`px-5 py-2.5 rounded-full text-[10px] font-black transition-all tracking-widest ${isM3 ? 'text-indigo-400 hover:text-white' : 'text-blue-400 hover:text-white'}`}
+            className={`px-5 py-2.5 rounded-full text-[10px] font-black transition-all tracking-widest ${
+              isM3 
+                ? (isDark ? 'text-indigo-400 hover:text-white' : 'text-indigo-600 hover:text-indigo-800') 
+                : (isDark ? 'text-blue-400 hover:text-white' : 'text-blue-600 hover:text-blue-800')
+            }`}
           >
             {lang.toUpperCase()}
+          </button>
+          <div className={`w-[1px] my-2 ${isDark ? 'bg-slate-700' : 'bg-slate-200'}`} />
+          <button 
+            onClick={() => setMode(isDark ? 'light' : 'dark')}
+            className={`p-2.5 rounded-full transition-all ${
+              isDark ? 'text-yellow-400 hover:bg-slate-800' : 'text-slate-600 hover:bg-slate-100'
+            }`}
+          >
+            {isDark ? <Sun size={18} /> : <Moon size={18} />}
           </button>
         </div>
       </div>
@@ -657,24 +785,32 @@ const App: React.FC = () => {
             transition={{ duration: 0.8 }}
             className="w-full"
           >
-            <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border text-[10px] font-black uppercase tracking-widest mb-8 transition-colors ${isM3 ? 'bg-indigo-500/10 border-indigo-500/20 text-indigo-400' : 'bg-blue-500/10 border-blue-500/20 text-blue-400'}`}>
+            <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border text-[10px] font-black uppercase tracking-widest mb-8 transition-colors ${
+              isDark 
+                ? (isM3 ? 'bg-indigo-500/10 border-indigo-500/20 text-indigo-400' : 'bg-blue-500/10 border-blue-500/20 text-blue-400') 
+                : (isM3 ? 'bg-indigo-50 border-indigo-200 text-indigo-600' : 'bg-blue-50 border-blue-200 text-blue-600')
+            }`}>
               <Terminal size={14} /> {t.hero.availability}
             </div>
             
             <h1 className={`font-black tracking-tight mb-6 leading-[0.9] transition-all ${isM3 ? 'text-6xl md:text-8xl lg:text-9xl' : 'text-6xl md:text-8xl'}`}>
-              <span className={isM3 ? 'text-white' : 'bg-gradient-to-r from-white via-slate-200 to-slate-500 bg-clip-text text-transparent'}>Dinesh</span>
+              <span className={isDark ? (isM3 ? 'text-white' : 'bg-gradient-to-r from-white via-slate-200 to-slate-500 bg-clip-text text-transparent') : 'text-slate-900'}>Dinesh</span>
               <br />
-              <span className={isM3 ? 'text-indigo-500' : 'bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent'}>
+              <span className={isDark ? (isM3 ? 'text-indigo-500' : 'bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent') : (isM3 ? 'text-indigo-600' : 'text-blue-600')}>
                 Gangatharan
               </span>
             </h1>
 
-            <p className={`mb-10 leading-relaxed font-medium transition-all mx-auto md:mx-0 ${isM3 ? 'text-slate-400 text-lg md:text-2xl' : 'text-slate-400 text-xl md:text-2xl max-w-2xl'}`}>
+            <p className={`mb-10 leading-relaxed font-medium transition-all mx-auto md:mx-0 ${
+              isDark 
+                ? (isM3 ? 'text-slate-400 text-lg md:text-2xl' : 'text-slate-400 text-xl md:text-2xl max-w-2xl') 
+                : (isM3 ? 'text-slate-600 text-lg md:text-2xl' : 'text-slate-600 text-xl md:text-2xl max-w-2xl')
+            }`}>
               {t.hero.description.split(',').map((part, i) => (
                 <span key={i}>
                   {i > 0 && ','}
                   {part.includes('Stuttgart') || part.includes('cross-platform') || part.includes('cloud-native') || part.includes('mobile') || part.includes('Softwarearchitekt') ? (
-                    <span className={isM3 ? 'text-white font-bold' : 'text-slate-100'}>{part}</span>
+                    <span className={isDark ? (isM3 ? 'text-white font-bold' : 'text-slate-100') : 'text-slate-900 font-bold'}>{part}</span>
                   ) : part}
                 </span>
               ))}
@@ -682,13 +818,25 @@ const App: React.FC = () => {
             
             <div className="flex flex-wrap gap-4 items-center justify-center md:justify-start">
               <div className="flex gap-4">
-                <a href="https://github.com/dineshvg" target="_blank" className={`p-4 md:p-5 rounded-[24px] transition-all border ${isM3 ? 'bg-slate-900 border-slate-800 text-white hover:bg-slate-800 hover:border-indigo-500/30' : 'bg-slate-900/50 border-slate-800 text-slate-400 hover:bg-slate-800 hover:border-slate-700'}`}>
+                <a href="https://github.com/dineshvg" target="_blank" className={`p-4 md:p-5 rounded-[24px] transition-all border ${
+                  isDark 
+                    ? 'bg-slate-900 border-slate-800 text-white hover:bg-slate-800 hover:border-indigo-500/30' 
+                    : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50 hover:border-indigo-400/30 shadow-sm'
+                }`}>
                   <Globe size={24} />
                 </a>
-                <a href="https://www.linkedin.com/in/dineshvg2310/" target="_blank" className={`p-4 md:p-5 rounded-[24px] transition-all border ${isM3 ? 'bg-slate-900 border-slate-800 text-white hover:bg-slate-800 hover:border-indigo-500/30' : 'bg-slate-900/50 border-slate-800 text-slate-400 hover:bg-slate-800 hover:border-slate-700'}`}>
+                <a href="https://www.linkedin.com/in/dineshvg2310/" target="_blank" className={`p-4 md:p-5 rounded-[24px] transition-all border ${
+                  isDark 
+                    ? 'bg-slate-900 border-slate-800 text-white hover:bg-slate-800 hover:border-indigo-500/30' 
+                    : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50 hover:border-indigo-400/30 shadow-sm'
+                }`}>
                   <User size={24} />
                 </a>
-                <a href="mailto:dineshvg1023@gmail.com" className={`p-4 md:p-5 rounded-[24px] transition-all border ${isM3 ? 'bg-slate-900 border-slate-800 text-white hover:bg-slate-800 hover:border-indigo-500/30' : 'bg-slate-900/50 border-slate-800 text-slate-400 hover:bg-slate-800 hover:border-slate-700'}`}>
+                <a href="mailto:dineshvg1023@gmail.com" className={`p-4 md:p-5 rounded-[24px] transition-all border ${
+                  isDark 
+                    ? 'bg-slate-900 border-slate-800 text-white hover:bg-slate-800 hover:border-indigo-500/30' 
+                    : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50 hover:border-indigo-400/30 shadow-sm'
+                }`}>
                   <Mail size={24} />
                 </a>
               </div>
@@ -700,10 +848,18 @@ const App: React.FC = () => {
           {/* Experience Section */}
           <motion.section {...fadeIn} id="experience">
             <div className={`flex items-center gap-4 mb-16 justify-center md:justify-start`}>
-              <div className={`p-3 rounded-2xl ${isM3 ? 'bg-indigo-600 shadow-[0_0_20px_rgba(79,70,229,0.5)] text-white' : 'bg-blue-500/10 text-blue-400'}`}>
+              <div className={`p-3 rounded-2xl transition-all ${
+                isDark 
+                  ? (isM3 ? 'bg-indigo-600 shadow-[0_0_20px_rgba(79,70,229,0.5)] text-white' : 'bg-blue-500/10 text-blue-400') 
+                  : (isM3 ? 'bg-indigo-600 shadow-[0_10px_20px_rgba(79,70,229,0.3)] text-white' : 'bg-blue-50 text-blue-600')
+              }`}>
                 <Briefcase size={28} />
               </div>
-              <h3 className={`font-black uppercase tracking-tight leading-none transition-all ${isM3 ? 'text-4xl md:text-5xl text-white' : 'text-3xl md:text-4xl'}`}>
+              <h3 className={`font-black uppercase tracking-tight leading-none transition-all ${
+                isDark 
+                  ? (isM3 ? 'text-4xl md:text-5xl text-white' : 'text-3xl md:text-4xl text-slate-200') 
+                  : (isM3 ? 'text-4xl md:text-5xl text-slate-900' : 'text-3xl md:text-4xl text-slate-900')
+              }`}>
                 {t.sections.experience}
               </h3>
             </div>
@@ -713,6 +869,7 @@ const App: React.FC = () => {
                   key={idx} 
                   exp={exp} 
                   theme={theme} 
+                  mode={mode}
                   labels={t.ui}
                   isLiked={!!likes[exp.id]}
                   onLike={() => toggleLike(exp.id)}
@@ -726,20 +883,38 @@ const App: React.FC = () => {
           {/* Skills Section */}
           <motion.section {...fadeIn} id="skills">
             <div className={`flex items-center gap-4 mb-16 justify-center md:justify-start`}>
-              <div className={`p-3 rounded-2xl ${isM3 ? 'bg-blue-500 shadow-[0_0_20px_rgba(59,130,246,0.5)] text-white' : 'bg-emerald-500/10 text-emerald-400'}`}>
+              <div className={`p-3 rounded-2xl transition-all ${
+                isDark 
+                  ? (isM3 ? 'bg-blue-500 shadow-[0_0_20px_rgba(59,130,246,0.5)] text-white' : 'bg-emerald-500/10 text-emerald-400') 
+                  : (isM3 ? 'bg-blue-500 shadow-[0_10px_20px_rgba(59,130,246,0.3)] text-white' : 'bg-emerald-50 text-emerald-600')
+              }`}>
                 <Code2 size={28} />
               </div>
-              <h3 className={`font-black uppercase tracking-tight leading-none transition-all ${isM3 ? 'text-4xl md:text-5xl text-white' : 'text-3xl md:text-4xl'}`}>
+              <h3 className={`font-black uppercase tracking-tight leading-none transition-all ${
+                isDark 
+                  ? (isM3 ? 'text-4xl md:text-5xl text-white' : 'text-3xl md:text-4xl text-slate-200') 
+                  : (isM3 ? 'text-4xl md:text-5xl text-slate-900' : 'text-3xl md:text-4xl text-slate-900')
+              }`}>
                 {t.sections.expertise}
               </h3>
             </div>
             <div className={`grid gap-6 ${isM3 ? 'grid-cols-1 md:grid-cols-2' : 'sm:grid-cols-2 lg:grid-cols-4'}`}>
               {t.skills.map((cat, idx) => (
-                <div key={idx} className={`p-8 md:p-10 rounded-[32px] md:rounded-[40px] border transition-all ${isM3 ? 'bg-slate-900 border-slate-800/50 hover:border-blue-500/30' : 'bg-slate-900/30 border-slate-800/50 hover:border-emerald-500/30'}`}>
-                  <h4 className={`text-[10px] font-black mb-6 uppercase tracking-widest ${isM3 ? 'text-blue-400' : 'text-emerald-400'}`}>{cat.title}</h4>
+                <div key={idx} className={`p-8 md:p-10 rounded-[32px] md:rounded-[40px] border transition-all ${
+                  isDark 
+                    ? 'bg-slate-900 border-slate-800/50 hover:border-blue-500/30' 
+                    : 'bg-white border-slate-200 hover:border-blue-400/30 shadow-sm'
+                }`}>
+                  <h4 className={`text-[10px] font-black mb-6 uppercase tracking-widest transition-colors ${
+                    isDark ? (isM3 ? 'text-blue-400' : 'text-emerald-400') : (isM3 ? 'text-blue-600' : 'text-emerald-600')
+                  }`}>{cat.title}</h4>
                   <div className="flex flex-wrap gap-3">
                     {cat.skills.map((skill, i) => (
-                      <span key={i} className={`px-4 py-2 rounded-2xl text-[10px] font-black uppercase tracking-widest border transition-all ${isM3 ? 'bg-slate-800 text-white border-slate-700 hover:bg-slate-700' : 'bg-slate-800/50 text-slate-300 border-slate-700/30'}`}>
+                      <span key={i} className={`px-4 py-2 rounded-2xl text-[10px] font-black uppercase tracking-widest border transition-all ${
+                        isDark 
+                          ? 'bg-slate-800 text-white border-slate-700 hover:bg-slate-700' 
+                          : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                      }`}>
                         {skill}
                       </span>
                     ))}
@@ -753,18 +928,34 @@ const App: React.FC = () => {
           <div className={`grid gap-20 md:grid-cols-2`}>
             <motion.section {...fadeIn} id="education">
               <div className={`flex items-center gap-4 mb-12 justify-center md:justify-start`}>
-                <div className={`p-3 rounded-2xl ${isM3 ? 'bg-indigo-600 text-white' : 'bg-purple-500/10 text-purple-400'}`}>
+                <div className={`p-3 rounded-2xl transition-all ${
+                  isDark 
+                    ? (isM3 ? 'bg-indigo-600 text-white' : 'bg-purple-500/10 text-purple-400') 
+                    : (isM3 ? 'bg-indigo-600 text-white' : 'bg-purple-50 text-purple-600')
+                }`}>
                   <GraduationCap size={28} />
                 </div>
-                <h3 className={`font-black uppercase tracking-tight transition-all ${isM3 ? 'text-3xl md:text-4xl text-white' : 'text-2xl md:text-3xl'}`}>{t.sections.education}</h3>
+                <h3 className={`font-black uppercase tracking-tight transition-all ${
+                  isDark 
+                    ? (isM3 ? 'text-3xl md:text-4xl text-white' : 'text-2xl md:text-3xl text-slate-200') 
+                    : (isM3 ? 'text-3xl md:text-4xl text-slate-900' : 'text-2xl md:text-3xl text-slate-900')
+                }`}>{t.sections.education}</h3>
               </div>
-              <div className={`space-y-10 pl-6 border-l-4 ${isM3 ? 'border-indigo-500/20' : 'border-slate-800'}`}>
+              <div className={`space-y-10 pl-6 border-l-4 transition-colors ${
+                isDark ? (isM3 ? 'border-indigo-500/20' : 'border-slate-800') : (isM3 ? 'border-indigo-100' : 'border-slate-200')
+              }`}>
                 {t.education.map((edu, idx) => (
                   <div key={idx} className="relative text-left">
-                    <div className={`absolute -left-[30px] top-2 w-3 h-3 rounded-full ${isM3 ? 'bg-indigo-500' : 'bg-purple-500'}`} />
-                    <h4 className="font-black text-white uppercase text-base md:text-lg tracking-tight mb-2">{edu.degree}</h4>
-                    <p className="text-slate-500 font-bold text-sm">{edu.school}</p>
-                    <p className={`text-[11px] font-black mt-3 uppercase tracking-[0.2em] ${isM3 ? 'text-indigo-400' : 'text-slate-500'}`}>{edu.period}</p>
+                    <div className={`absolute -left-[30px] top-2 w-3 h-3 rounded-full transition-colors ${
+                      isDark ? (isM3 ? 'bg-indigo-500' : 'bg-purple-500') : (isM3 ? 'bg-indigo-600' : 'bg-purple-600')
+                    }`} />
+                    <h4 className={`font-black uppercase text-base md:text-lg tracking-tight mb-2 transition-colors ${
+                      isDark ? 'text-white' : 'text-slate-900'
+                    }`}>{edu.degree}</h4>
+                    <p className={`font-bold text-sm transition-colors ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>{edu.school}</p>
+                    <p className={`text-[11px] font-black mt-3 uppercase tracking-[0.2em] transition-colors ${
+                      isDark ? (isM3 ? 'text-indigo-400' : 'text-slate-500') : (isM3 ? 'text-indigo-600' : 'text-slate-400')
+                    }`}>{edu.period}</p>
                   </div>
                 ))}
               </div>
@@ -772,29 +963,47 @@ const App: React.FC = () => {
 
             <motion.section {...fadeIn} id="languages">
               <div className={`flex items-center gap-4 mb-12 justify-center md:justify-start`}>
-                <div className={`p-3 rounded-2xl ${isM3 ? 'bg-rose-500 text-white' : 'bg-rose-500/10 text-rose-400'}`}>
+                <div className={`p-3 rounded-2xl transition-all ${
+                  isDark 
+                    ? (isM3 ? 'bg-rose-500 text-white' : 'bg-rose-500/10 text-rose-400') 
+                    : (isM3 ? 'bg-rose-500 text-white' : 'bg-rose-50 text-rose-600')
+                }`}>
                   <Languages size={28} />
                 </div>
-                <h3 className={`font-black uppercase tracking-tight transition-all ${isM3 ? 'text-3xl md:text-4xl text-white' : 'text-2xl md:text-3xl'}`}>{t.sections.languages}</h3>
+                <h3 className={`font-black uppercase tracking-tight transition-all ${
+                  isDark 
+                    ? (isM3 ? 'text-3xl md:text-4xl text-white' : 'text-2xl md:text-3xl text-slate-200') 
+                    : (isM3 ? 'text-3xl md:text-4xl text-slate-900' : 'text-2xl md:text-3xl text-slate-900')
+                }`}>{t.sections.languages}</h3>
               </div>
               <div className="grid grid-cols-2 gap-6">
-                <div className={`p-6 md:p-8 rounded-[24px] md:rounded-[32px] border ${isM3 ? 'bg-slate-900 border-slate-800/50' : 'bg-slate-900/30 border-slate-800/50'}`}>
-                  <p className={`text-[10px] font-black uppercase mb-3 tracking-widest ${isM3 ? 'text-rose-400' : 'text-slate-500'}`}>English</p>
-                  <p className={`text-lg md:text-xl font-black text-white`}>C2 Proficient</p>
+                <div className={`p-6 md:p-8 rounded-[24px] md:rounded-[32px] border transition-all ${
+                  isDark ? 'bg-slate-900 border-slate-800/50' : 'bg-white border-slate-200 shadow-sm'
+                }`}>
+                  <p className={`text-[10px] font-black uppercase mb-3 tracking-widest transition-colors ${
+                    isDark ? (isM3 ? 'text-rose-400' : 'text-slate-500') : 'text-rose-600'
+                  }`}>English</p>
+                  <p className={`text-lg md:text-xl font-black transition-colors ${isDark ? 'text-white' : 'text-slate-900'}`}>C2 Proficient</p>
                 </div>
-                <div className={`p-6 md:p-8 rounded-[24px] md:rounded-[32px] border ${isM3 ? 'bg-slate-900 border-slate-800/50' : 'bg-slate-900/30 border-slate-800/50'}`}>
-                  <p className={`text-[10px] font-black uppercase mb-3 tracking-widest ${isM3 ? 'text-rose-400' : 'text-slate-500'}`}>German</p>
-                  <p className={`text-lg md:text-xl font-black text-white`}>B2 Advanced</p>
+                <div className={`p-6 md:p-8 rounded-[24px] md:rounded-[32px] border transition-all ${
+                  isDark ? 'bg-slate-900 border-slate-800/50' : 'bg-white border-slate-200 shadow-sm'
+                }`}>
+                  <p className={`text-[10px] font-black uppercase mb-3 tracking-widest transition-colors ${
+                    isDark ? (isM3 ? 'text-rose-400' : 'text-slate-500') : 'text-rose-600'
+                  }`}>German</p>
+                  <p className={`text-lg md:text-xl font-black transition-colors ${isDark ? 'text-white' : 'text-slate-900'}`}>B2 Advanced</p>
                 </div>
               </div>
             </motion.section>
           </div>
         </main>
 
-        <footer className={`px-6 py-32 border-t flex flex-col justify-center items-center gap-12 text-xs transition-colors ${isM3 ? 'border-slate-800/50 text-slate-500' : 'border-slate-900/50 text-slate-500'}`}>
+        <footer className={`px-6 py-32 border-t flex flex-col justify-center items-center gap-12 text-xs transition-colors ${
+          isDark ? 'border-slate-800/50 text-slate-500' : 'border-slate-200 text-slate-400'
+        }`}>
           <div className={`flex gap-10 font-black uppercase tracking-[0.3em]`}>
-            <a href="#experience" className={`transition-colors ${isM3 ? 'hover:text-indigo-400' : 'hover:text-blue-400'}`}>{t.sections.experience}</a>
-            <a href="#skills" className={`transition-colors ${isM3 ? 'hover:text-indigo-400' : 'hover:text-emerald-400'}`}>{t.sections.expertise}</a>
+            <a href="#experience" className={`transition-colors ${isDark ? (isM3 ? 'hover:text-indigo-400' : 'hover:text-blue-400') : 'hover:text-blue-600'}`}>{t.sections.experience}</a>
+            <a href="#skills" className={`transition-colors ${isDark ? (isM3 ? 'hover:text-indigo-400' : 'hover:text-emerald-400') : 'hover:text-emerald-600'}`}>{t.sections.expertise}</a>
           </div>
           <p className="font-bold tracking-widest uppercase text-[10px] text-slate-600">© {new Date().getFullYear()} Dinesh Gangatharan • {t.ui.footer}</p>
         </footer>
