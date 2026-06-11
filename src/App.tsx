@@ -13,8 +13,6 @@ import {
   Terminal,
   Plus,
   Minus,
-  Palette,
-  Layout,
   MessageCircle,
   Heart,
   Send
