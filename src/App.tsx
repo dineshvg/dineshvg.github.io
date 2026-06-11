@@ -247,7 +247,7 @@ const App: React.FC = () => {
             </span>
           </h1>
           <p className="text-xl md:text-2xl text-slate-400 max-w-2xl leading-relaxed mb-10">
-            Software Architect specializing in <span className="text-slate-100">cross-platform systems</span>, 
+            Software Architect based in <span className="text-slate-100">Stuttgart, Germany</span>, specializing in <span className="text-slate-100">cross-platform systems</span>, 
             <span className="text-slate-100"> cloud-native backend</span>, and <span className="text-slate-100">mobile innovation</span>.
           </p>
           
@@ -256,7 +256,7 @@ const App: React.FC = () => {
               <a href="https://github.com/dineshvg" target="_blank" className="p-3 bg-slate-900/50 rounded-full hover:bg-slate-800 transition-colors border border-slate-800 hover:border-slate-700">
                 <Globe size={20} />
               </a>
-              <a href="https://linkedin.com/in/dineshvg" target="_blank" className="p-3 bg-slate-900/50 rounded-full hover:bg-slate-800 transition-colors border border-slate-800 hover:border-slate-700">
+              <a href="https://www.linkedin.com/in/dineshvg2310/" target="_blank" className="p-3 bg-slate-900/50 rounded-full hover:bg-slate-800 transition-colors border border-slate-800 hover:border-slate-700">
                 <User size={20} />
               </a>
               <a href="mailto:dineshvg1023@gmail.com" className="p-3 bg-slate-900/50 rounded-full hover:bg-slate-800 transition-colors border border-slate-800 hover:border-slate-700">
