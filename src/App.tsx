@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Globe, 
   User, 
@@ -10,12 +10,106 @@ import {
   GraduationCap, 
   Languages,
   ChevronRight,
-  Terminal
+  Terminal,
+  Plus,
+  Minus
 } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
+
+interface Experience {
+  company: string;
+  role: string;
+  period: string;
+  location: string;
+  description: string;
+  highlights: string[];
+  certificateUrl?: string;
+  details?: string[];
+}
+
+const ExperienceCard: React.FC<{ exp: Experience }> = ({ exp }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="grid md:grid-cols-4 gap-4 group">
+      <div className="text-slate-500 font-mono text-sm pt-1 uppercase tracking-widest">
+        {exp.period}
+      </div>
+      <div className="md:col-span-3">
+        <h4 className="text-2xl font-bold text-slate-100 group-hover:text-blue-400 transition-colors mb-1">
+          {exp.role}
+        </h4>
+        <div className="flex flex-wrap items-center gap-2 text-slate-400 font-medium mb-4">
+          <span>{exp.company}</span>
+          <span className="w-1 h-1 rounded-full bg-slate-700" />
+          <span className="flex items-center gap-1 text-xs"><MapPin size={12} /> {exp.location}</span>
+          {exp.certificateUrl && (
+            <>
+              <span className="w-1 h-1 rounded-full bg-slate-700" />
+              <a 
+                href={exp.certificateUrl} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center gap-1 text-xs text-blue-400 hover:text-blue-300 transition-colors"
+              >
+                <ExternalLink size={12} /> View iSAQB Certificate
+              </a>
+            </>
+          )}
+        </div>
+        <p className="text-slate-400 mb-6 leading-relaxed text-lg">
+          {exp.description}
+        </p>
+        
+        <div className="space-y-4">
+          <ul className="grid md:grid-cols-2 gap-3">
+            {exp.highlights.map((h, i) => (
+              <li key={i} className="flex items-start gap-2 text-slate-500 text-sm group-hover:text-slate-400 transition-colors">
+                <ChevronRight size={14} className="text-blue-500/50 shrink-0 mt-1" />
+                {h}
+              </li>
+            ))}
+          </ul>
+
+          {exp.details && (
+            <div className="pt-2">
+              <button 
+                onClick={() => setIsOpen(!isOpen)}
+                className="flex items-center gap-2 text-sm font-bold text-blue-400 hover:text-blue-300 transition-colors group/btn"
+              >
+                {isOpen ? <Minus size={16} /> : <Plus size={16} />}
+                {isOpen ? 'Read Less' : 'Read More Details'}
+              </button>
+              
+              <AnimatePresence>
+                {isOpen && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="overflow-hidden"
+                  >
+                    <ul className="mt-4 space-y-2 pl-4 border-l border-slate-800">
+                      {exp.details.map((detail, i) => (
+                        <li key={i} className="text-slate-500 text-sm leading-relaxed">
+                          • {detail}
+                        </li>
+                      ))}
+                    </ul>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const App: React.FC = () => {
-  const experiences = [
+  const experiences: Experience[] = [
     {
       company: 'Gematik GmbH',
       role: 'Software Architect',
@@ -28,7 +122,13 @@ const App: React.FC = () => {
         'Technical leadership for external projects and team consulting.',
         'Advanced CI/CD infrastructure with modular Gradle plugins.'
       ],
-      certificateUrl: 'https://www.credly.com/badges/7d95218f-8be4-455a-950c-c17663d5b9e9/linked_in_profile'
+      certificateUrl: 'https://www.credly.com/badges/7d95218f-8be4-455a-950c-c17663d5b9e9/linked_in_profile',
+      details: [
+        'Architected the E-Rezept Android-App (2M+ Downloads) and FHIR-VZD Backend Token-Service for Pharmacies.',
+        'Re-implemented FHIR parsing using Kotlinx Serialization and strongly typed Kotlin, migrating the app to a multi-module architecture.',
+        'Managed technical integration with external partners and improved App Rating from 2.0 to 4.2 through quality improvements.',
+        'Developed Demo-Mode module for Google Play Store releases.'
+      ]
     },
     {
       company: 'Gematik GmbH',
@@ -40,6 +140,10 @@ const App: React.FC = () => {
         'Responsibility for Android-Apps and connected backend services.',
         'Implementation of FHIR-based services and KMP modules.',
         'Mentoring junior developers and conducting architecture reviews.'
+      ],
+      details: [
+        'Evolved CI/CD infrastructure through modular Gradle plugins and shared pipelines across multiple products.',
+        'Acted as Team Lead, responsible for release cycles and presenting releases within the organization.'
       ]
     },
     {
@@ -47,11 +151,15 @@ const App: React.FC = () => {
       role: 'Senior Developer',
       period: 'Jan 2022 - Aug 2023',
       location: 'Remote (Berlin)',
-      description: 'Worked on high-impact projects like E-Rezept and Barmer-eCare.',
+      description: 'Senior development lead for high-impact healthcare solutions.',
       highlights: [
-        'Developed "Mutter-Pass" function for pregnant women.',
-        'Led Flutter initiative for time tracking modernization with Python-Django backend.',
-        'Collaborated on Kotlin Multiplatform and SwiftUI cross-platform development.'
+        'Developed the "Maternity Pass" feature for expectant mothers in Barmer-eCare.',
+        'Led a Flutter initiative to modernize time tracking, including Python/Django backend.',
+        'Leveraged Kotlin Multiplatform and SwiftUI for cross-platform development.'
+      ],
+      details: [
+        'Collaborated closely with iOS engineers to ensure feature parity using KMP.',
+        'Architected and implemented complex UI components in Barmer-eCare ensuring accessibility and performance.'
       ]
     },
     {
@@ -59,10 +167,16 @@ const App: React.FC = () => {
       role: 'Software Developer',
       period: 'Jul 2019 - Dec 2021',
       location: 'Cologne, Germany',
-      description: 'Fullstack development focusing on Android SDK, Kotlin, TypeScript, Node.js, and Firebase.',
+      description: 'Fullstack development for the Rewe and Penny Android applications.',
       highlights: [
-        'Designed scalable architectures using MVVM, MVP, and MVI.',
-        'Focused on Clean Architecture and Testing.'
+        'Developed features for both Rewe and Penny apps using Kotlin and Android SDK.',
+        'Designed scalable architectures using MVVM, MVP, and MVI patterns.',
+        'Integrated REST APIs and Firebase for real-time services.'
+      ],
+      details: [
+        'Worked on core features of the Rewe and Penny loyalty programs.',
+        'Applied Clean Architecture principles to decouple business logic from UI.',
+        'Improved app stability through rigorous testing and CI/CD integration.'
       ]
     },
     {
@@ -73,7 +187,8 @@ const App: React.FC = () => {
       description: 'Developed certifications for the Android app and migrated Java to Kotlin.',
       highlights: [
         'Applied Clean Code and MVP principles.',
-        'Migrated legacy codebases to modern standards.'
+        'Migrated legacy codebases to modern standards.',
+        'Developed security-critical authentication features.'
       ]
     }
   ];
@@ -163,43 +278,7 @@ const App: React.FC = () => {
           </div>
           <div className="space-y-16">
             {experiences.map((exp, idx) => (
-              <div key={idx} className="grid md:grid-cols-4 gap-4 group">
-                <div className="text-slate-500 font-mono text-sm pt-1 uppercase tracking-widest">
-                  {exp.period}
-                </div>
-                <div className="md:col-span-3">
-                  <h4 className="text-2xl font-bold text-slate-100 group-hover:text-blue-400 transition-colors mb-1">{exp.role}</h4>
-                  <div className="flex items-center gap-2 text-slate-400 font-medium mb-4">
-                    <span>{exp.company}</span>
-                    <span className="w-1 h-1 rounded-full bg-slate-700" />
-                    <span className="flex items-center gap-1 text-xs"><MapPin size={12} /> {exp.location}</span>
-                    {exp.certificateUrl && (
-                      <>
-                        <span className="w-1 h-1 rounded-full bg-slate-700" />
-                        <a 
-                          href={exp.certificateUrl} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-1 text-xs text-blue-400 hover:text-blue-300 transition-colors"
-                        >
-                          <ExternalLink size={12} /> View iSAQB Certificate
-                        </a>
-                      </>
-                    )}
-                  </div>
-                  <p className="text-slate-400 mb-6 leading-relaxed text-lg">
-                    {exp.description}
-                  </p>
-                  <ul className="grid md:grid-cols-2 gap-3">
-                    {exp.highlights.map((h, i) => (
-                      <li key={i} className="flex items-start gap-2 text-slate-500 text-sm group-hover:text-slate-400 transition-colors">
-                        <ChevronRight size={14} className="text-blue-500/50 shrink-0 mt-1" />
-                        {h}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
+              <ExperienceCard key={idx} exp={exp} />
             ))}
           </div>
         </motion.section>
