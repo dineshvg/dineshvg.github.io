@@ -1,0 +1,19 @@
+{
+  "cli_version": "0.7.5",
+  "checkpoint_id": "45abced03a99",
+  "strategy": "manual-commit",
+  "branch": "light-mode",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "src/App.tsx",
+    "src/index.css"
+  ],
+  "sessions": [
+    {
+      "metadata": "/45/abced03a99/0/metadata.json",
+      "transcript": "/45/abced03a99/0/full.jsonl",
+      "content_hash": "/45/abced03a99/0/content_hash.txt",
+      "prompt": "/45/abced03a99/0/prompt.txt"
+    }
+  ]
+}

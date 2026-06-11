@@ -1,0 +1,1 @@
+ok now make a branch called light-mode and add a light mode possibility too this screen too
