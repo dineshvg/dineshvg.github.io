@@ -14,7 +14,10 @@ import {
   Plus,
   Minus,
   Palette,
-  Layout
+  Layout,
+  MessageCircle,
+  Share2,
+  Heart
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -337,16 +340,94 @@ const content: Record<Language, Translations> = {
 
 const ExperienceCard: React.FC<{ exp: Experience; theme: DesignTheme; labels: { readMore: string; readLess: string } }> = ({ exp, theme, labels }) => {
   const [isOpen, setIsOpen] = useState(false);
-
   const isM3 = theme === 'material3';
 
+  if (isM3) {
+    return (
+      <div className="bg-white rounded-[28px] shadow-sm border border-slate-100 overflow-hidden group">
+        <div className="p-6">
+          <div className="flex items-center gap-4 mb-4">
+            <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 font-bold">
+              {exp.company[0]}
+            </div>
+            <div>
+              <h4 className="font-bold text-slate-900 text-lg leading-tight">{exp.role}</h4>
+              <p className="text-blue-600 text-sm font-medium">{exp.company}</p>
+            </div>
+          </div>
+          
+          <div className="flex items-center gap-3 text-slate-500 text-xs font-mono mb-4">
+             <span className="flex items-center gap-1 bg-slate-50 px-2 py-1 rounded-md">{exp.period}</span>
+             <span className="flex items-center gap-1 bg-slate-50 px-2 py-1 rounded-md"><MapPin size={12} /> {exp.location}</span>
+          </div>
+
+          <p className="text-slate-600 mb-6 leading-relaxed">
+            {exp.description}
+          </p>
+
+          <div className="space-y-4">
+            <ul className="space-y-2">
+              {exp.highlights.slice(0, 3).map((h, i) => (
+                <li key={i} className="flex items-start gap-2 text-sm text-slate-500">
+                  <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 shrink-0" />
+                  {h}
+                </li>
+              ))}
+            </ul>
+
+            {exp.details && (
+              <div className="pt-2">
+                <button 
+                  onClick={() => setIsOpen(!isOpen)}
+                  className="w-full flex items-center justify-center gap-2 py-3 bg-blue-50 text-blue-700 rounded-2xl text-sm font-bold hover:bg-blue-100 transition-colors"
+                >
+                  {isOpen ? <Minus size={16} /> : <Plus size={16} />}
+                  {isOpen ? labels.readLess : labels.readMore}
+                </button>
+                
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className="overflow-hidden"
+                    >
+                      <ul className="mt-4 space-y-3 p-4 bg-slate-50 rounded-2xl">
+                        {exp.details.map((detail, i) => (
+                          <li key={i} className="text-slate-600 text-sm leading-relaxed flex gap-2">
+                            <span className="text-blue-400">•</span> {detail}
+                          </li>
+                        ))}
+                      </ul>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="bg-slate-50 px-6 py-3 flex justify-between items-center border-t border-slate-100">
+          <div className="flex gap-4">
+            <Heart size={18} className="text-slate-400 cursor-pointer hover:text-red-500 transition-colors" />
+            <MessageCircle size={18} className="text-slate-400 cursor-pointer hover:text-blue-500 transition-colors" />
+            <Share2 size={18} className="text-slate-400 cursor-pointer hover:text-green-500 transition-colors" />
+          </div>
+          {exp.certificateUrl && (
+            <a href={exp.certificateUrl} target="_blank" className="text-blue-600 font-bold text-xs uppercase tracking-wider">iSAQB Certificate</a>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className={`grid md:grid-cols-4 gap-4 group ${isM3 ? 'bg-slate-900/40 p-6 rounded-3xl border border-slate-800' : ''}`}>
-      <div className={`font-mono text-sm pt-1 uppercase tracking-widest ${isM3 ? 'text-blue-300' : 'text-slate-500'}`}>
+    <div className="grid md:grid-cols-4 gap-4 group">
+      <div className="text-slate-500 font-mono text-sm pt-1 uppercase tracking-widest">
         {exp.period}
       </div>
       <div className="md:col-span-3">
-        <h4 className={`text-2xl font-bold transition-colors mb-1 ${isM3 ? 'text-white group-hover:text-blue-300' : 'text-slate-100 group-hover:text-blue-400'}`}>
+        <h4 className="text-2xl font-bold text-slate-100 group-hover:text-blue-400 transition-colors mb-1">
           {exp.role}
         </h4>
         <div className="flex flex-wrap items-center gap-2 text-slate-400 font-medium mb-4">
@@ -360,7 +441,7 @@ const ExperienceCard: React.FC<{ exp: Experience; theme: DesignTheme; labels: { 
                 href={exp.certificateUrl} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className={`flex items-center gap-1 text-xs transition-colors ${isM3 ? 'text-blue-300 hover:text-blue-200' : 'text-blue-400 hover:text-blue-300'}`}
+                className="flex items-center gap-1 text-xs text-blue-400 hover:text-blue-300 transition-colors"
               >
                 <ExternalLink size={12} /> iSAQB
               </a>
@@ -374,8 +455,8 @@ const ExperienceCard: React.FC<{ exp: Experience; theme: DesignTheme; labels: { 
         <div className="space-y-4">
           <ul className="grid md:grid-cols-2 gap-3">
             {exp.highlights.map((h, i) => (
-              <li key={i} className={`flex items-start gap-2 text-sm transition-colors ${isM3 ? 'text-slate-300 group-hover:text-white' : 'text-slate-500 group-hover:text-slate-400'}`}>
-                <ChevronRight size={14} className={`shrink-0 mt-1 ${isM3 ? 'text-blue-300' : 'text-blue-500/50'}`} />
+              <li key={i} className="flex items-start gap-2 text-slate-500 text-sm group-hover:text-slate-400 transition-colors">
+                <ChevronRight size={14} className="text-blue-500/50 shrink-0 mt-1" />
                 {h}
               </li>
             ))}
@@ -385,7 +466,7 @@ const ExperienceCard: React.FC<{ exp: Experience; theme: DesignTheme; labels: { 
             <div className="pt-2">
               <button 
                 onClick={() => setIsOpen(!isOpen)}
-                className={`flex items-center gap-2 text-sm font-bold transition-colors group/btn ${isM3 ? 'bg-blue-300/10 text-blue-300 px-4 py-2 rounded-full hover:bg-blue-300/20' : 'text-blue-400 hover:text-blue-300'}`}
+                className="flex items-center gap-2 text-sm font-bold text-blue-400 hover:text-blue-300 transition-colors group/btn"
               >
                 {isOpen ? <Minus size={16} /> : <Plus size={16} />}
                 {isOpen ? labels.readLess : labels.readMore}
@@ -400,7 +481,7 @@ const ExperienceCard: React.FC<{ exp: Experience; theme: DesignTheme; labels: { 
                     transition={{ duration: 0.3 }}
                     className="overflow-hidden"
                   >
-                    <ul className={`mt-4 space-y-2 pl-4 border-l ${isM3 ? 'border-blue-300/30' : 'border-slate-800'}`}>
+                    <ul className="mt-4 space-y-2 pl-4 border-l border-slate-800">
                       {exp.details.map((detail, i) => (
                         <li key={i} className="text-slate-500 text-sm leading-relaxed">
                           • {detail}
@@ -433,172 +514,190 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className={`min-h-screen font-sans selection:bg-blue-500/30 transition-colors duration-500 ${isM3 ? 'bg-slate-950 text-slate-100' : 'bg-[#020617] text-slate-200'}`}>
-      {/* Background Decor */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className={`absolute -top-[10%] -left-[10%] w-[40%] h-[40%] blur-[120px] rounded-full transition-colors duration-1000 ${isM3 ? 'bg-blue-600/10' : 'bg-blue-500/10'}`} />
-        <div className={`absolute top-[20%] -right-[10%] w-[30%] h-[30%] blur-[120px] rounded-full transition-colors duration-1000 ${isM3 ? 'bg-indigo-600/10' : 'bg-emerald-500/5'}`} />
+    <div className={`min-h-screen font-sans selection:bg-blue-500/30 transition-colors duration-500 ${isM3 ? 'bg-[#f7f9ff] text-slate-900' : 'bg-[#020617] text-slate-200'}`}>
+      
+      {/* Sleek Theme Decor */}
+      {!isM3 && (
+        <div className="fixed inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-blue-500/10 blur-[120px] rounded-full" />
+          <div className="absolute top-[20%] -right-[10%] w-[30%] h-[30%] bg-emerald-500/5 blur-[120px] rounded-full" />
+        </div>
+      )}
+
+      {/* Top Bar Controls */}
+      <div className="fixed top-0 left-0 right-0 z-50 flex justify-center p-4">
+        <div className={`flex gap-2 p-1.5 rounded-full backdrop-blur-xl border shadow-2xl transition-colors ${isM3 ? 'bg-white/80 border-slate-100' : 'bg-slate-900/80 border-slate-800'}`}>
+          <button 
+            onClick={() => setTheme('sleek')}
+            className={`px-4 py-2 rounded-full text-xs font-black transition-all ${theme === 'sleek' ? 'bg-blue-600 text-white shadow-lg' : isM3 ? 'text-slate-500 hover:bg-slate-50' : 'text-slate-400 hover:text-white'}`}
+          >
+            SLEEK
+          </button>
+          <button 
+            onClick={() => setTheme('material3')}
+            className={`px-4 py-2 rounded-full text-xs font-black transition-all ${theme === 'material3' ? 'bg-indigo-600 text-white shadow-lg' : isM3 ? 'text-slate-500 hover:bg-slate-50' : 'text-slate-400 hover:text-white'}`}
+          >
+            MATERIAL 3
+          </button>
+          <div className={`w-[1px] my-2 transition-colors ${isM3 ? 'bg-slate-100' : 'bg-slate-700'}`} />
+          <button 
+            onClick={() => setLang(lang === 'en' ? 'de' : 'en')}
+            className={`px-4 py-2 rounded-full text-xs font-black transition-all ${isM3 ? 'text-indigo-600 hover:bg-indigo-50' : 'text-blue-400 hover:text-white'}`}
+          >
+            {lang.toUpperCase()}
+          </button>
+        </div>
       </div>
 
-      {/* Controls */}
-      <div className="fixed top-6 right-6 z-50 flex gap-3">
-        <button 
-          onClick={() => setTheme(theme === 'sleek' ? 'material3' : 'sleek')}
-          className={`flex items-center gap-2 px-4 py-2 backdrop-blur-md border rounded-full text-sm font-bold transition-all shadow-xl ${isM3 ? 'bg-blue-300 text-slate-950 border-blue-200' : 'bg-slate-900/80 text-slate-200 border-slate-800 hover:bg-slate-800'}`}
-        >
-          {isM3 ? <Layout size={16} /> : <Palette size={16} />}
-          {isM3 ? t.ui.designSleek : t.ui.designMaterial3}
-        </button>
-        <button 
-          onClick={() => setLang(lang === 'en' ? 'de' : 'en')}
-          className={`flex items-center gap-2 px-4 py-2 backdrop-blur-md border rounded-full text-sm font-bold transition-all shadow-xl ${isM3 ? 'bg-slate-900/80 text-blue-300 border-slate-800 hover:bg-slate-800' : 'bg-slate-900/80 text-blue-400 border-slate-800 hover:bg-slate-800'}`}
-        >
-          <Languages size={16} />
-          {lang === 'en' ? 'Deutsch' : 'English'}
-        </button>
-      </div>
-
-      {/* Hero Section */}
-      <header className="relative max-w-5xl mx-auto pt-32 pb-24 px-6">
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8 }}
-        >
-          <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border text-xs font-medium mb-6 transition-colors ${isM3 ? 'bg-blue-300/10 border-blue-300/20 text-blue-300' : 'bg-blue-500/10 border-blue-500/20 text-blue-400'}`}>
-            <Terminal size={14} /> {t.hero.availability}
-          </div>
-          <h1 className={`text-6xl md:text-8xl font-black tracking-tight mb-6 leading-tight`}>
-            {isM3 ? (
-              <>
-                <span className="text-white">Dinesh</span>
-                <br />
-                <span className="text-blue-300">Gangatharan</span>
-              </>
-            ) : (
-              <>
-                <span className="bg-gradient-to-r from-white via-slate-200 to-slate-500 bg-clip-text text-transparent">Dinesh</span>
-                <br />
-                <span className="bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">Gangatharan</span>
-              </>
-            )}
-          </h1>
-          <p className="text-xl md:text-2xl text-slate-400 max-w-2xl leading-relaxed mb-10">
-            {t.hero.description.split(',').map((part, i) => (
-              <span key={i}>
-                {i > 0 && ','}
-                {part.includes('Stuttgart') || part.includes('cross-platform') || part.includes('cloud-native') || part.includes('mobile') || part.includes('Softwarearchitekt') ? (
-                  <span className={isM3 ? 'text-blue-200 font-medium' : 'text-slate-100'}>{part}</span>
-                ) : part}
-              </span>
-            ))}
-          </p>
-          
-          <div className="flex flex-wrap gap-4 items-center">
-            <div className="flex gap-3">
-              <a href="https://github.com/dineshvg" target="_blank" className={`p-3 rounded-full transition-all border ${isM3 ? 'bg-slate-900 border-slate-800 text-blue-300 hover:bg-slate-800' : 'bg-slate-900/50 border-slate-800 text-slate-400 hover:bg-slate-800 hover:border-slate-700'}`}>
-                <Globe size={20} />
-              </a>
-              <a href="https://www.linkedin.com/in/dineshvg2310/" target="_blank" className={`p-3 rounded-full transition-all border ${isM3 ? 'bg-slate-900 border-slate-800 text-blue-300 hover:bg-slate-800' : 'bg-slate-900/50 border-slate-800 text-slate-400 hover:bg-slate-800 hover:border-slate-700'}`}>
-                <User size={20} />
-              </a>
-              <a href="mailto:dineshvg1023@gmail.com" className={`p-3 rounded-full transition-all border ${isM3 ? 'bg-slate-900 border-slate-800 text-blue-300 hover:bg-slate-800' : 'bg-slate-900/50 border-slate-800 text-slate-400 hover:bg-slate-800 hover:border-slate-700'}`}>
-                <Mail size={20} />
-              </a>
-            </div>
-          </div>
-        </motion.div>
-      </header>
-
-      <main className="relative max-w-5xl mx-auto px-6 pb-32 space-y-32">
-        {/* Experience Section */}
-        <motion.section {...fadeIn} id="experience">
-          <div className="flex items-center gap-3 mb-16">
-            <div className={`p-2 rounded-lg ${isM3 ? 'bg-blue-300/10 text-blue-300' : 'bg-blue-500/10 text-blue-400'}`}>
-              <Briefcase size={24} />
-            </div>
-            <h3 className="text-4xl font-bold tracking-tight">{t.sections.experience}</h3>
-          </div>
-          <div className="space-y-16">
-            {t.experience.map((exp, idx) => (
-              <ExperienceCard key={idx} exp={exp} theme={theme} labels={{ readMore: t.ui.readMore, readLess: t.ui.readLess }} />
-            ))}
-          </div>
-        </motion.section>
-
-        {/* Skills Section */}
-        <motion.section {...fadeIn} id="skills">
-          <div className="flex items-center gap-3 mb-16">
-            <div className={`p-2 rounded-lg ${isM3 ? 'bg-blue-300/10 text-blue-300' : 'bg-emerald-500/10 text-emerald-400'}`}>
-              <Code2 size={24} />
-            </div>
-            <h3 className="text-4xl font-bold tracking-tight">{t.sections.expertise}</h3>
-          </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {t.skills.map((cat, idx) => (
-              <div key={idx} className={`p-8 rounded-3xl border transition-all hover:-translate-y-1 ${isM3 ? 'bg-slate-900 border-slate-800 hover:border-blue-300/30' : 'bg-slate-900/30 border-slate-800/50 hover:border-emerald-500/30'}`}>
-                <h4 className={`text-sm font-mono mb-6 uppercase tracking-widest ${isM3 ? 'text-blue-200' : 'text-emerald-400'}`}>{cat.title}</h4>
-                <div className="flex flex-wrap gap-2">
-                  {cat.skills.map((skill, i) => (
-                    <span key={i} className={`px-3 py-1 rounded-lg text-xs border transition-colors ${isM3 ? 'bg-slate-800 text-blue-100 border-blue-900/30' : 'bg-slate-800/50 text-slate-300 border-slate-700/30'}`}>
-                      {skill}
-                    </span>
-                  ))}
+      <div className={`mx-auto transition-all duration-700 ${isM3 ? 'max-w-[480px] pt-24 pb-20' : 'max-w-5xl pt-32 pb-32'}`}>
+        
+        {/* Hero Section */}
+        <header className={`px-6 mb-16 ${isM3 ? 'text-center' : ''}`}>
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+          >
+            {isM3 && (
+              <div className="relative w-32 h-32 mx-auto mb-8">
+                <div className="absolute inset-0 bg-gradient-to-tr from-indigo-600 to-blue-400 rounded-full animate-pulse" />
+                <div className="absolute inset-1 bg-white rounded-full flex items-center justify-center overflow-hidden">
+                   <User size={64} className="text-indigo-600" />
                 </div>
               </div>
-            ))}
-          </div>
-        </motion.section>
-
-        {/* Education & Info */}
-        <div className="grid md:grid-cols-2 gap-16">
-          <motion.section {...fadeIn} id="education">
-            <div className="flex items-center gap-3 mb-10">
-              <div className={`p-2 rounded-lg ${isM3 ? 'bg-blue-300/10 text-blue-300' : 'bg-purple-500/10 text-purple-400'}`}>
-                <GraduationCap size={24} />
-              </div>
-              <h3 className="text-3xl font-bold">{t.sections.education}</h3>
+            )}
+            
+            <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border text-[10px] font-black uppercase tracking-widest mb-6 transition-colors ${isM3 ? 'bg-indigo-50 border-indigo-100 text-indigo-600' : 'bg-blue-500/10 border-blue-500/20 text-blue-400'}`}>
+              <Terminal size={14} /> {t.hero.availability}
             </div>
-            <div className={`space-y-8 pl-4 border-l ${isM3 ? 'border-blue-300/20' : 'border-slate-800'}`}>
-              {t.education.map((edu, idx) => (
-                <div key={idx}>
-                  <h4 className="text-lg font-bold text-slate-100">{edu.degree}</h4>
-                  <p className="text-slate-400">{edu.school}</p>
-                  <p className={`text-sm font-mono mt-1 ${isM3 ? 'text-blue-300/60' : 'text-slate-500'}`}>{edu.period}</p>
+            
+            <h1 className={`font-black tracking-tight mb-4 leading-tight ${isM3 ? 'text-4xl text-slate-900' : 'text-6xl md:text-8xl'}`}>
+              Dinesh<br />
+              <span className={isM3 ? 'text-indigo-600' : 'bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent'}>
+                Gangatharan
+              </span>
+            </h1>
+
+            <p className={`mb-10 leading-relaxed ${isM3 ? 'text-slate-600 text-lg px-4' : 'text-slate-400 text-xl md:text-2xl max-w-2xl'}`}>
+              {t.hero.description.split(',').map((part, i) => (
+                <span key={i}>
+                  {i > 0 && ','}
+                  {part.includes('Stuttgart') || part.includes('cross-platform') || part.includes('cloud-native') || part.includes('mobile') || part.includes('Softwarearchitekt') ? (
+                    <span className={isM3 ? 'text-indigo-600 font-bold' : 'text-slate-100'}>{part}</span>
+                  ) : part}
+                </span>
+              ))}
+            </p>
+            
+            <div className={`flex flex-wrap gap-4 items-center ${isM3 ? 'justify-center' : ''}`}>
+              <div className="flex gap-4">
+                <a href="https://github.com/dineshvg" target="_blank" className={`p-4 rounded-[20px] transition-all border ${isM3 ? 'bg-white border-slate-200 text-slate-900 shadow-sm hover:shadow-md' : 'bg-slate-900/50 border-slate-800 text-slate-400 hover:bg-slate-800 hover:border-slate-700'}`}>
+                  <Globe size={24} />
+                </a>
+                <a href="https://www.linkedin.com/in/dineshvg2310/" target="_blank" className={`p-4 rounded-[20px] transition-all border ${isM3 ? 'bg-white border-slate-200 text-slate-900 shadow-sm hover:shadow-md' : 'bg-slate-900/50 border-slate-800 text-slate-400 hover:bg-slate-800 hover:border-slate-700'}`}>
+                  <User size={24} />
+                </a>
+                <a href="mailto:dineshvg1023@gmail.com" className={`p-4 rounded-[20px] transition-all border ${isM3 ? 'bg-white border-slate-200 text-slate-900 shadow-sm hover:shadow-md' : 'bg-slate-900/50 border-slate-800 text-slate-400 hover:bg-slate-800 hover:border-slate-700'}`}>
+                  <Mail size={24} />
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        </header>
+
+        <main className={`px-6 space-y-24 ${isM3 ? 'max-w-full' : ''}`}>
+          {/* Experience Section */}
+          <motion.section {...fadeIn} id="experience">
+            <div className={`flex items-center gap-3 mb-10 ${isM3 ? 'justify-center' : ''}`}>
+              <div className={`p-2 rounded-xl ${isM3 ? 'bg-indigo-600 text-white' : 'bg-blue-500/10 text-blue-400'}`}>
+                <Briefcase size={24} />
+              </div>
+              <h3 className={`font-black uppercase tracking-tighter ${isM3 ? 'text-2xl text-slate-900' : 'text-4xl'}`}>
+                {t.sections.experience}
+              </h3>
+            </div>
+            <div className="space-y-8">
+              {t.experience.map((exp, idx) => (
+                <ExperienceCard key={idx} exp={exp} theme={theme} labels={{ readMore: t.ui.readMore, readLess: t.ui.readLess }} />
+              ))}
+            </div>
+          </motion.section>
+
+          {/* Skills Section */}
+          <motion.section {...fadeIn} id="skills">
+            <div className={`flex items-center gap-3 mb-10 ${isM3 ? 'justify-center' : ''}`}>
+              <div className={`p-2 rounded-xl ${isM3 ? 'bg-indigo-600 text-white' : 'bg-emerald-500/10 text-emerald-400'}`}>
+                <Code2 size={24} />
+              </div>
+              <h3 className={`font-black uppercase tracking-tighter ${isM3 ? 'text-2xl text-slate-900' : 'text-4xl'}`}>
+                {t.sections.expertise}
+              </h3>
+            </div>
+            <div className={`grid gap-4 ${isM3 ? 'grid-cols-1' : 'sm:grid-cols-2 lg:grid-cols-4'}`}>
+              {t.skills.map((cat, idx) => (
+                <div key={idx} className={`p-8 rounded-[32px] border transition-all ${isM3 ? 'bg-white border-slate-100 shadow-sm hover:shadow-md' : 'bg-slate-900/30 border-slate-800/50 hover:border-emerald-500/30'}`}>
+                  <h4 className={`text-xs font-black mb-6 uppercase tracking-widest ${isM3 ? 'text-indigo-600' : 'text-emerald-400'}`}>{cat.title}</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {cat.skills.map((skill, i) => (
+                      <span key={i} className={`px-3 py-1.5 rounded-xl text-[10px] font-bold uppercase tracking-wider border transition-colors ${isM3 ? 'bg-indigo-50 text-indigo-700 border-indigo-100' : 'bg-slate-800/50 text-slate-300 border-slate-700/30'}`}>
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>
           </motion.section>
 
-          <motion.section {...fadeIn} id="languages">
-            <div className="flex items-center gap-3 mb-10">
-              <div className={`p-2 rounded-lg ${isM3 ? 'bg-blue-300/10 text-blue-300' : 'bg-rose-500/10 text-rose-400'}`}>
-                <Languages size={24} />
+          {/* Education & Info */}
+          <div className={`grid gap-12 ${isM3 ? 'grid-cols-1' : 'md:grid-cols-2'}`}>
+            <motion.section {...fadeIn} id="education">
+              <div className={`flex items-center gap-3 mb-8 ${isM3 ? 'justify-center' : ''}`}>
+                <div className={`p-2 rounded-xl ${isM3 ? 'bg-indigo-600 text-white' : 'bg-purple-500/10 text-purple-400'}`}>
+                  <GraduationCap size={24} />
+                </div>
+                <h3 className={`font-black uppercase tracking-tighter ${isM3 ? 'text-xl' : 'text-3xl'}`}>{t.sections.education}</h3>
               </div>
-              <h3 className="text-3xl font-bold">{t.sections.languages}</h3>
-            </div>
-            <div className="grid grid-cols-2 gap-8">
-              <div className={`p-6 rounded-2xl border ${isM3 ? 'bg-slate-900 border-slate-800' : 'bg-slate-900/30 border-slate-800/50'}`}>
-                <p className={`text-xs font-mono uppercase mb-2 ${isM3 ? 'text-blue-300/60' : 'text-slate-500'}`}>English</p>
-                <p className="text-xl font-bold text-slate-200">C2 Proficient</p>
+              <div className={`space-y-6 pl-4 border-l-4 ${isM3 ? 'border-indigo-600/10' : 'border-slate-800'}`}>
+                {t.education.map((edu, idx) => (
+                  <div key={idx} className={isM3 ? 'bg-white p-4 rounded-2xl shadow-sm' : ''}>
+                    <h4 className="font-black text-slate-900 dark:text-inherit uppercase text-sm tracking-wide">{edu.degree}</h4>
+                    <p className="text-slate-500 text-sm mt-1">{edu.school}</p>
+                    <p className={`text-[10px] font-black mt-2 uppercase tracking-widest ${isM3 ? 'text-indigo-600' : 'text-slate-500'}`}>{edu.period}</p>
+                  </div>
+                ))}
               </div>
-              <div className={`p-6 rounded-2xl border ${isM3 ? 'bg-slate-900 border-slate-800' : 'bg-slate-900/30 border-slate-800/50'}`}>
-                <p className={`text-xs font-mono uppercase mb-2 ${isM3 ? 'text-blue-300/60' : 'text-slate-500'}`}>German</p>
-                <p className="text-xl font-bold text-slate-200">B2 Advanced</p>
-              </div>
-            </div>
-          </motion.section>
-        </div>
-      </main>
+            </motion.section>
 
-      <footer className={`relative max-w-5xl mx-auto px-6 py-20 border-t flex flex-col md:flex-row justify-between items-center gap-8 text-sm transition-colors ${isM3 ? 'border-slate-900 text-slate-400' : 'border-slate-900/50 text-slate-500'}`}>
-        <p>© {new Date().getFullYear()} Dinesh Gangatharan. {t.ui.footer}</p>
-        <div className="flex gap-6">
-          <a href="#experience" className={`transition-colors ${isM3 ? 'hover:text-blue-300' : 'hover:text-blue-400'}`}>{t.sections.experience}</a>
-          <a href="#skills" className={`transition-colors ${isM3 ? 'hover:text-blue-200' : 'hover:text-emerald-400'}`}>{t.sections.expertise}</a>
-          <a href="mailto:dineshvg1023@gmail.com" className="hover:text-white transition-colors">{t.ui.contact}</a>
-        </div>
-      </footer>
+            <motion.section {...fadeIn} id="languages">
+              <div className={`flex items-center gap-3 mb-8 ${isM3 ? 'justify-center' : ''}`}>
+                <div className={`p-2 rounded-xl ${isM3 ? 'bg-indigo-600 text-white' : 'bg-rose-500/10 text-rose-400'}`}>
+                  <Languages size={24} />
+                </div>
+                <h3 className={`font-black uppercase tracking-tighter ${isM3 ? 'text-xl' : 'text-3xl'}`}>{t.sections.languages}</h3>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className={`p-6 rounded-[24px] border ${isM3 ? 'bg-white border-slate-100 shadow-sm' : 'bg-slate-900/30 border-slate-800/50'}`}>
+                  <p className={`text-[10px] font-black uppercase mb-2 ${isM3 ? 'text-indigo-600/60' : 'text-slate-500'}`}>English</p>
+                  <p className={`text-lg font-black ${isM3 ? 'text-slate-900' : 'text-slate-200'}`}>C2 Proficient</p>
+                </div>
+                <div className={`p-6 rounded-[24px] border ${isM3 ? 'bg-white border-slate-100 shadow-sm' : 'bg-slate-900/30 border-slate-800/50'}`}>
+                  <p className={`text-[10px] font-black uppercase mb-2 ${isM3 ? 'text-indigo-600/60' : 'text-slate-500'}`}>German</p>
+                  <p className={`text-lg font-black ${isM3 ? 'text-slate-900' : 'text-slate-200'}`}>B2 Advanced</p>
+                </div>
+              </div>
+            </motion.section>
+          </div>
+        </main>
+
+        <footer className={`px-6 py-20 border-t flex flex-col justify-center items-center gap-8 text-xs transition-colors ${isM3 ? 'border-slate-100 text-slate-400' : 'border-slate-900/50 text-slate-500'}`}>
+          <div className={`flex gap-8 font-black uppercase tracking-widest`}>
+            <a href="#experience" className={`transition-colors ${isM3 ? 'hover:text-indigo-600' : 'hover:text-blue-400'}`}>{t.sections.experience}</a>
+            <a href="#skills" className={`transition-colors ${isM3 ? 'hover:text-indigo-600' : 'hover:text-emerald-400'}`}>{t.sections.expertise}</a>
+          </div>
+          <p className="font-medium tracking-tight">© {new Date().getFullYear()} Dinesh Gangatharan • {t.ui.footer}</p>
+        </footer>
+      </div>
     </div>
   );
 };
