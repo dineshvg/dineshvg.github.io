@@ -10,7 +10,6 @@ import {
   GraduationCap, 
   Languages,
   ChevronRight,
-  Download,
   Terminal
 } from 'lucide-react';
 import { motion } from 'motion/react';
@@ -29,7 +28,7 @@ const App: React.FC = () => {
         'Technical leadership for external projects and team consulting.',
         'Advanced CI/CD infrastructure with modular Gradle plugins.'
       ],
-      certificateUrl: 'https://www.isaqb.org/certificates/dinesh-gangatharan'
+      certificateUrl: 'https://www.credly.com/badges/7d95218f-8be4-455a-950c-c17663d5b9e9/linked_in_profile'
     },
     {
       company: 'Gematik GmbH',
@@ -138,15 +137,7 @@ const App: React.FC = () => {
           </p>
           
           <div className="flex flex-wrap gap-4 items-center">
-            <a 
-              href="/CV_Dinesh_Gangatharan.pdf" 
-              download
-              className="group flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-full font-bold transition-all hover:scale-105 active:scale-95 shadow-lg shadow-blue-500/20"
-            >
-              <Download size={20} className="group-hover:animate-bounce" />
-              Download CV
-            </a>
-            <div className="flex gap-3 ml-2">
+            <div className="flex gap-3">
               <a href="https://github.com/dineshvg" target="_blank" className="p-3 bg-slate-900/50 rounded-full hover:bg-slate-800 transition-colors border border-slate-800 hover:border-slate-700">
                 <Globe size={20} />
               </a>
