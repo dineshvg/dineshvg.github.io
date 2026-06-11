@@ -33,5 +33,9 @@ git push origin main
 - **Icons:** Lucide React
 
 ## 📄 CV & Certificates
-- The CV is located in `public/CV_Dinesh_Gangatharan.pdf`.
-- iSAQB Certificate links and professional experience are managed in `src/App.tsx`.
+- **Privacy:** Professional documents (CVs, PDFs) are kept in `src/assets/` and `public/` locally but are **excluded from GitHub** via `.gitignore` for privacy.
+- **iSAQB:** Certificate links and professional experience are managed in `src/App.tsx`.
+
+## 🔗 Links
+- **LinkedIn:** [dineshvg2310](https://www.linkedin.com/in/dineshvg2310/)
+- **GitHub:** [dineshvg](https://github.com/dineshvg)
