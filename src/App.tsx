@@ -13,8 +13,6 @@ import {
   Terminal,
   Plus,
   Minus,
-  Palette,
-  Layout,
   MessageCircle,
   Heart,
   Send
@@ -288,7 +286,7 @@ const content: Record<Language, Translations> = {
         location: 'Köln, Deutschland',
         description: 'Fullstack-Entwicklung für die Rewe und Penny Android-Applikationen.',
         highlights: [
-          'Entwicklung von Features für Rewe und Penny Apps mit Kotlin und Android SDK.',
+          'Entwicklung von Features für Rewe und Penny Apps mit Kotlin and Android SDK.',
           'Gestaltung skalierbarer Architekturen (MVVM, MVP, MVI).',
           'Integration von REST-APIs und Firebase für Echtzeit-Dienste.'
         ],
@@ -380,32 +378,32 @@ const ExperienceCard: React.FC<{
 
   if (isM3) {
     return (
-      <div className="bg-slate-900 rounded-[32px] shadow-2xl border border-slate-800/50 overflow-hidden group transition-all hover:border-blue-500/30">
-        <div className="p-8">
-          <div className="flex items-center gap-5 mb-6">
-            <div className="w-14 h-14 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-400 font-black text-xl border border-blue-500/20">
+      <div className="bg-slate-900 rounded-[24px] shadow-xl border border-slate-800/50 overflow-hidden group transition-all hover:border-blue-500/30">
+        <div className="p-5 md:p-8">
+          <div className="flex items-center gap-4 mb-4">
+            <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-400 font-black text-lg border border-blue-500/20 shrink-0">
               {exp.company[0]}
             </div>
             <div>
-              <h4 className="font-black text-white text-2xl leading-tight tracking-tight">{exp.role}</h4>
-              <p className="text-blue-400 text-sm font-bold uppercase tracking-widest">{exp.company}</p>
+              <h4 className="font-black text-white text-base md:text-xl leading-tight tracking-tight">{exp.role}</h4>
+              <p className="text-blue-400 text-[10px] font-bold uppercase tracking-widest">{exp.company}</p>
             </div>
           </div>
           
-          <div className="flex flex-wrap items-center gap-3 text-slate-500 text-[10px] font-black uppercase tracking-widest mb-6">
-             <span className="flex items-center gap-1 bg-slate-800/50 px-3 py-1.5 rounded-full border border-slate-700/50">{exp.period}</span>
-             <span className="flex items-center gap-1 bg-slate-800/50 px-3 py-1.5 rounded-full border border-slate-700/50"><MapPin size={12} /> {exp.location}</span>
+          <div className="flex flex-wrap items-center gap-2 text-slate-500 text-[9px] font-black uppercase tracking-widest mb-4">
+             <span className="flex items-center gap-1 bg-slate-800/50 px-2 py-1 rounded-full border border-slate-700/50">{exp.period}</span>
+             <span className="flex items-center gap-1 bg-slate-800/50 px-2 py-1 rounded-full border border-slate-700/50"><MapPin size={10} /> {exp.location}</span>
           </div>
 
-          <p className="text-slate-300 mb-8 leading-relaxed text-lg">
+          <p className="text-slate-300 mb-6 leading-relaxed text-sm md:text-base">
             {exp.description}
           </p>
 
-          <div className="space-y-6">
-            <ul className="grid md:grid-cols-2 gap-4">
+          <div className="space-y-4">
+            <ul className="grid md:grid-cols-2 gap-3">
               {exp.highlights.map((h, i) => (
-                <li key={i} className="flex items-start gap-3 text-sm text-slate-400">
-                  <div className="w-2 h-2 rounded-full bg-blue-500 mt-1.5 shrink-0 shadow-[0_0_8px_rgba(59,130,246,0.5)]" />
+                <li key={i} className="flex items-start gap-2 text-[11px] md:text-sm text-slate-400 leading-tight">
+                  <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1 shrink-0 shadow-[0_0_8px_rgba(59,130,246,0.5)]" />
                   {h}
                 </li>
               ))}
@@ -415,9 +413,9 @@ const ExperienceCard: React.FC<{
               <div className="pt-2">
                 <button 
                   onClick={() => setIsOpen(!isOpen)}
-                  className="w-full flex items-center justify-center gap-2 py-4 bg-slate-800/50 text-blue-400 rounded-[20px] text-sm font-black uppercase tracking-widest border border-slate-700/50 hover:bg-slate-800 transition-all active:scale-[0.98]"
+                  className="w-full flex items-center justify-center gap-2 py-3 bg-slate-800/50 text-blue-400 rounded-xl text-[11px] font-black uppercase tracking-widest border border-slate-700/50 hover:bg-slate-800 transition-all active:scale-[0.98]"
                 >
-                  {isOpen ? <Minus size={16} /> : <Plus size={16} />}
+                  {isOpen ? <Minus size={14} /> : <Plus size={14} />}
                   {isOpen ? labels.readLess : labels.readMore}
                 </button>
                 
@@ -429,10 +427,10 @@ const ExperienceCard: React.FC<{
                       exit={{ height: 0, opacity: 0 }}
                       className="overflow-hidden"
                     >
-                      <ul className="mt-6 space-y-4 p-6 bg-slate-950/50 rounded-[24px] border border-slate-800/50">
+                      <ul className="mt-4 space-y-3 p-4 md:p-6 bg-slate-950/50 rounded-2xl border border-slate-800/50">
                         {exp.details.map((detail, i) => (
-                          <li key={i} className="text-slate-400 text-sm leading-relaxed flex gap-3">
-                            <span className="text-blue-500 font-black">•</span> {detail}
+                          <li key={i} className="text-slate-400 text-[11px] md:text-sm leading-relaxed flex gap-2">
+                            <span className="text-blue-500 font-black shrink-0">•</span> {detail}
                           </li>
                         ))}
                       </ul>
@@ -445,31 +443,31 @@ const ExperienceCard: React.FC<{
         </div>
 
         {/* Interaction Bar */}
-        <div className="bg-slate-950/50 px-8 py-4 flex flex-col border-t border-slate-800/50">
-          <div className="flex justify-between items-center mb-2">
-            <div className="flex gap-6">
+        <div className="bg-slate-950/50 px-5 md:px-8 py-3 flex flex-col border-t border-slate-800/50">
+          <div className="flex justify-between items-center">
+            <div className="flex gap-5">
               <button 
                 onClick={onLike}
-                className={`flex items-center gap-2 transition-all active:scale-125 ${isLiked ? 'text-red-500' : 'text-slate-500 hover:text-red-400'}`}
+                className={`flex items-center gap-1.5 transition-all active:scale-125 ${isLiked ? 'text-red-500' : 'text-slate-500 hover:text-red-400'}`}
               >
-                <Heart size={22} fill={isLiked ? "currentColor" : "none"} />
-                <span className="text-xs font-black">{isLiked ? 1 : 0}</span>
+                <Heart size={18} fill={isLiked ? "currentColor" : "none"} />
+                <span className="text-[10px] font-black">{isLiked ? 1 : 0}</span>
               </button>
               <button 
                 onClick={() => setShowComments(!showComments)}
-                className={`flex items-center gap-2 transition-all ${showComments ? 'text-blue-400' : 'text-slate-500 hover:text-blue-400'}`}
+                className={`flex items-center gap-1.5 transition-all ${showComments ? 'text-blue-400' : 'text-slate-500 hover:text-blue-400'}`}
               >
-                <MessageCircle size={22} />
-                <span className="text-xs font-black">{comments.length}</span>
+                <MessageCircle size={18} />
+                <span className="text-[10px] font-black">{comments.length}</span>
               </button>
             </div>
             {exp.certificateUrl && (
               <a 
                 href={exp.certificateUrl} 
                 target="_blank" 
-                className="text-blue-400 font-black text-[10px] uppercase tracking-widest hover:text-blue-300 transition-colors bg-blue-500/5 px-3 py-1.5 rounded-full border border-blue-500/10"
+                className="text-blue-400 font-black text-[9px] uppercase tracking-widest hover:text-blue-300 transition-colors"
               >
-                iSAQB Certificate
+                Certificate
               </a>
             )}
           </div>
@@ -480,32 +478,28 @@ const ExperienceCard: React.FC<{
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: 'auto', opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
-                className="overflow-hidden pt-4"
+                className="overflow-hidden pt-3"
               >
-                <div className="space-y-3 mb-6 max-h-40 overflow-y-auto pr-2 custom-scrollbar">
-                  {comments.length === 0 ? (
-                    <p className="text-slate-600 text-[10px] italic font-medium uppercase tracking-widest text-center py-2">No comments yet</p>
-                  ) : (
-                    comments.map((c, i) => (
-                      <div key={i} className="bg-slate-900 p-3 rounded-2xl border border-slate-800/50">
-                        <p className="text-slate-300 text-xs leading-relaxed">{c}</p>
-                      </div>
-                    ))
-                  )}
+                <div className="space-y-2 mb-4 max-h-32 overflow-y-auto pr-1 custom-scrollbar">
+                  {comments.map((c, i) => (
+                    <div key={i} className="bg-slate-900 p-2 rounded-xl border border-slate-800/50">
+                      <p className="text-slate-300 text-[10px] leading-relaxed">{c}</p>
+                    </div>
+                  ))}
                 </div>
-                <form onSubmit={handleCommentSubmit} className="relative">
+                <form onSubmit={handleCommentSubmit} className="relative pb-2">
                   <input 
                     type="text"
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
                     placeholder={labels.commentPlaceholder}
-                    className="w-full bg-slate-900 border border-slate-800 rounded-2xl px-5 py-3 text-xs text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500/50 transition-all pr-12"
+                    className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2 text-[10px] text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500/50 transition-all pr-10"
                   />
                   <button 
                     type="submit"
-                    className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-blue-500 hover:text-blue-400 transition-colors"
+                    className="absolute right-2 top-[calc(50%-4px)] -translate-y-1/2 p-1.5 text-blue-500 hover:text-blue-400 transition-colors"
                   >
-                    <Send size={18} />
+                    <Send size={14} />
                   </button>
                 </form>
               </motion.div>
@@ -517,18 +511,18 @@ const ExperienceCard: React.FC<{
   }
 
   return (
-    <div className="grid md:grid-cols-4 gap-4 group">
-      <div className="text-slate-500 font-mono text-sm pt-1 uppercase tracking-widest">
+    <div className="grid md:grid-cols-4 gap-3 group">
+      <div className="text-slate-500 font-mono text-[10px] pt-1 uppercase tracking-widest">
         {exp.period}
       </div>
       <div className="md:col-span-3">
-        <h4 className="text-2xl font-bold text-slate-100 group-hover:text-blue-400 transition-colors mb-1">
+        <h4 className="font-bold text-slate-100 group-hover:text-blue-400 transition-all mb-1 text-base md:text-lg">
           {exp.role}
         </h4>
-        <div className="flex flex-wrap items-center gap-2 text-slate-400 font-medium mb-4">
-          <span>{exp.company}</span>
+        <div className="flex flex-wrap items-center gap-2 text-slate-400 font-medium mb-3">
+          <span className="text-sm">{exp.company}</span>
           <span className="w-1 h-1 rounded-full bg-slate-700" />
-          <span className="flex items-center gap-1 text-xs"><MapPin size={12} /> {exp.location}</span>
+          <span className="flex items-center gap-1 text-[10px]"><MapPin size={10} /> {exp.location}</span>
           {exp.certificateUrl && (
             <>
               <span className="w-1 h-1 rounded-full bg-slate-700" />
@@ -536,34 +530,34 @@ const ExperienceCard: React.FC<{
                 href={exp.certificateUrl} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="flex items-center gap-1 text-xs text-blue-400 hover:text-blue-300 transition-colors"
+                className="flex items-center gap-1 text-[10px] text-blue-400 hover:text-blue-300 transition-colors"
               >
-                <ExternalLink size={12} /> iSAQB
+                <ExternalLink size={10} /> iSAQB
               </a>
             </>
           )}
         </div>
-        <p className="text-slate-400 mb-6 leading-relaxed text-lg">
+        <p className="text-slate-400 mb-4 leading-relaxed text-sm">
           {exp.description}
         </p>
         
-        <div className="space-y-4">
-          <ul className="grid md:grid-cols-2 gap-3">
+        <div className="space-y-3">
+          <ul className="grid md:grid-cols-2 gap-2">
             {exp.highlights.map((h, i) => (
-              <li key={i} className="flex items-start gap-2 text-slate-500 text-sm group-hover:text-slate-400 transition-colors">
-                <ChevronRight size={14} className="text-blue-500/50 shrink-0 mt-1" />
+              <li key={i} className="flex items-start gap-2 text-slate-500 text-[11px] md:text-xs group-hover:text-slate-400 transition-colors">
+                <ChevronRight size={12} className="text-blue-500/50 shrink-0 mt-0.5" />
                 {h}
               </li>
             ))}
           </ul>
 
           {exp.details && (
-            <div className="pt-2">
+            <div className="pt-1">
               <button 
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center gap-2 text-sm font-bold text-blue-400 hover:text-blue-300 transition-colors group/btn"
+                className="flex items-center gap-2 text-[11px] font-bold text-blue-400 hover:text-blue-300 transition-colors group/btn"
               >
-                {isOpen ? <Minus size={16} /> : <Plus size={16} />}
+                {isOpen ? <Minus size={14} /> : <Plus size={14} />}
                 {isOpen ? labels.readLess : labels.readMore}
               </button>
               
@@ -576,9 +570,9 @@ const ExperienceCard: React.FC<{
                     transition={{ duration: 0.3 }}
                     className="overflow-hidden"
                   >
-                    <ul className="mt-4 space-y-2 pl-4 border-l border-slate-800">
+                    <ul className="mt-3 space-y-2 pl-3 border-l border-slate-800">
                       {exp.details.map((detail, i) => (
-                        <li key={i} className="text-slate-500 text-sm leading-relaxed">
+                        <li key={i} className="text-slate-500 text-[11px] md:text-xs leading-relaxed">
                           • {detail}
                         </li>
                       ))}
@@ -612,10 +606,10 @@ const App: React.FC = () => {
   };
 
   const fadeIn = {
-    initial: { opacity: 0, y: 20 },
+    initial: { opacity: 0, y: 15 },
     whileInView: { opacity: 1, y: 0 },
     viewport: { once: true },
-    transition: { duration: 0.6 }
+    transition: { duration: 0.5 }
   };
 
   return (
@@ -628,45 +622,45 @@ const App: React.FC = () => {
       </div>
 
       {/* Top Bar Controls */}
-      <div className="fixed top-0 left-0 right-0 z-50 flex justify-center p-4">
-        <div className={`flex gap-2 p-1.5 rounded-full backdrop-blur-xl border shadow-2xl transition-colors ${isM3 ? 'bg-slate-900/90 border-slate-800' : 'bg-slate-900/80 border-slate-800'}`}>
+      <div className="fixed top-0 left-0 right-0 z-50 flex justify-center p-3">
+        <div className={`flex gap-1.5 p-1 rounded-full backdrop-blur-xl border shadow-2xl transition-colors ${isM3 ? 'bg-slate-900/90 border-slate-800' : 'bg-slate-900/80 border-slate-800'}`}>
           <button 
             onClick={() => setTheme('sleek')}
-            className={`px-5 py-2.5 rounded-full text-xs font-black transition-all tracking-widest ${theme === 'sleek' ? 'bg-blue-600 text-white shadow-[0_0_15px_rgba(37,99,235,0.4)]' : 'text-slate-400 hover:text-white'}`}
+            className={`px-4 py-2 rounded-full text-[9px] font-black transition-all tracking-widest ${theme === 'sleek' ? 'bg-blue-600 text-white shadow-lg' : 'text-slate-400 hover:text-white'}`}
           >
             SLEEK
           </button>
           <button 
             onClick={() => setTheme('material3')}
-            className={`px-5 py-2.5 rounded-full text-xs font-black transition-all tracking-widest ${theme === 'material3' ? 'bg-indigo-600 text-white shadow-[0_0_15px_rgba(79,70,229,0.4)]' : 'text-slate-400 hover:text-white'}`}
+            className={`px-4 py-2 rounded-full text-[9px] font-black transition-all tracking-widest ${theme === 'material3' ? 'bg-indigo-600 text-white shadow-lg' : 'text-slate-400 hover:text-white'}`}
           >
             MATERIAL 3
           </button>
           <div className={`w-[1px] my-2 bg-slate-700`} />
           <button 
             onClick={() => setLang(lang === 'en' ? 'de' : 'en')}
-            className={`px-5 py-2.5 rounded-full text-xs font-black transition-all tracking-widest ${isM3 ? 'text-indigo-400 hover:text-white' : 'text-blue-400 hover:text-white'}`}
+            className={`px-4 py-2 rounded-full text-[9px] font-black transition-all tracking-widest ${isM3 ? 'text-indigo-400 hover:text-white' : 'text-blue-400 hover:text-white'}`}
           >
             {lang.toUpperCase()}
           </button>
         </div>
       </div>
 
-      <div className={`mx-auto max-w-5xl transition-all duration-700 ${isM3 ? 'pt-32 pb-32' : 'pt-32 pb-32'}`}>
+      <div className={`mx-auto max-w-5xl transition-all duration-700 pt-24 pb-24`}>
         
         {/* Hero Section */}
-        <header className="px-6 mb-24">
+        <header className="px-6 mb-16">
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
           >
-            <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border text-[10px] font-black uppercase tracking-widest mb-8 transition-colors ${isM3 ? 'bg-indigo-500/10 border-indigo-500/20 text-indigo-400' : 'bg-blue-500/10 border-blue-500/20 text-blue-400'}`}>
-              <Terminal size={14} /> {t.hero.availability}
+            <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-[9px] font-black uppercase tracking-widest mb-6 transition-colors ${isM3 ? 'bg-indigo-500/10 border-indigo-500/20 text-indigo-400' : 'bg-blue-500/10 border-blue-500/20 text-blue-400'}`}>
+              <Terminal size={12} /> {t.hero.availability}
             </div>
             
-            <h1 className={`font-black tracking-tight mb-6 leading-[0.9] ${isM3 ? 'text-7xl md:text-8xl lg:text-9xl' : 'text-6xl md:text-8xl'}`}>
+            <h1 className={`font-black tracking-tight mb-4 leading-[0.85] transition-all ${isM3 ? 'text-5xl md:text-7xl lg:text-8xl' : 'text-5xl md:text-7xl lg:text-8xl'}`}>
               <span className={isM3 ? 'text-white' : 'bg-gradient-to-r from-white via-slate-200 to-slate-500 bg-clip-text text-transparent'}>Dinesh</span>
               <br />
               <span className={isM3 ? 'text-indigo-500' : 'bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent'}>
@@ -674,7 +668,7 @@ const App: React.FC = () => {
               </span>
             </h1>
 
-            <p className={`mb-10 leading-relaxed ${isM3 ? 'text-slate-400 text-xl md:text-2xl font-medium' : 'text-slate-400 text-xl md:text-2xl max-w-2xl'}`}>
+            <p className={`mb-8 leading-relaxed font-medium transition-all max-w-xl ${isM3 ? 'text-slate-400 text-base md:text-lg' : 'text-slate-400 text-base md:text-lg'}`}>
               {t.hero.description.split(',').map((part, i) => (
                 <span key={i}>
                   {i > 0 && ','}
@@ -685,34 +679,35 @@ const App: React.FC = () => {
               ))}
             </p>
             
-            <div className={`flex flex-wrap gap-4 items-center`}>
-              <div className="flex gap-4">
-                <a href="https://github.com/dineshvg" target="_blank" className={`p-5 rounded-[24px] transition-all border ${isM3 ? 'bg-slate-900 border-slate-800 text-white hover:bg-slate-800 hover:border-indigo-500/30' : 'bg-slate-900/50 border-slate-800 text-slate-400 hover:bg-slate-800 hover:border-slate-700'}`}>
-                  <Globe size={24} />
+            {/* LTR Scrollable Socials for Mobile */}
+            <div className="overflow-x-auto no-scrollbar -mx-6 px-6">
+              <div className="flex gap-3 min-w-max pb-2">
+                <a href="https://github.com/dineshvg" target="_blank" className={`p-4 rounded-2xl transition-all border ${isM3 ? 'bg-slate-900 border-slate-800 text-white shadow-sm' : 'bg-slate-900/50 border-slate-800 text-slate-400 hover:bg-slate-800 hover:border-slate-700'}`}>
+                  <Globe size={20} />
                 </a>
-                <a href="https://www.linkedin.com/in/dineshvg2310/" target="_blank" className={`p-5 rounded-[24px] transition-all border ${isM3 ? 'bg-slate-900 border-slate-800 text-white hover:bg-slate-800 hover:border-indigo-500/30' : 'bg-slate-900/50 border-slate-800 text-slate-400 hover:bg-slate-800 hover:border-slate-700'}`}>
-                  <User size={24} />
+                <a href="https://www.linkedin.com/in/dineshvg2310/" target="_blank" className={`p-4 rounded-2xl transition-all border ${isM3 ? 'bg-slate-900 border-slate-800 text-white shadow-sm' : 'bg-slate-900/50 border-slate-800 text-slate-400 hover:bg-slate-800 hover:border-slate-700'}`}>
+                  <User size={20} />
                 </a>
-                <a href="mailto:dineshvg1023@gmail.com" className={`p-5 rounded-[24px] transition-all border ${isM3 ? 'bg-slate-900 border-slate-800 text-white hover:bg-slate-800 hover:border-indigo-500/30' : 'bg-slate-900/50 border-slate-800 text-slate-400 hover:bg-slate-800 hover:border-slate-700'}`}>
-                  <Mail size={24} />
+                <a href="mailto:dineshvg1023@gmail.com" className={`p-4 rounded-2xl transition-all border ${isM3 ? 'bg-slate-900 border-slate-800 text-white shadow-sm' : 'bg-slate-900/50 border-slate-800 text-slate-400 hover:bg-slate-800 hover:border-slate-700'}`}>
+                  <Mail size={20} />
                 </a>
               </div>
             </div>
           </motion.div>
         </header>
 
-        <main className="px-6 space-y-32">
+        <main className="px-6 space-y-24">
           {/* Experience Section */}
           <motion.section {...fadeIn} id="experience">
-            <div className={`flex items-center gap-4 mb-16`}>
-              <div className={`p-3 rounded-2xl ${isM3 ? 'bg-indigo-600 shadow-[0_0_20px_rgba(79,70,229,0.5)] text-white' : 'bg-blue-500/10 text-blue-400'}`}>
-                <Briefcase size={28} />
+            <div className="flex items-center gap-3 mb-10">
+              <div className={`p-2 rounded-xl ${isM3 ? 'bg-indigo-600 text-white' : 'bg-blue-500/10 text-blue-400'}`}>
+                <Briefcase size={24} />
               </div>
-              <h3 className={`font-black uppercase tracking-tight leading-none ${isM3 ? 'text-5xl text-white' : 'text-4xl'}`}>
+              <h3 className={`font-black uppercase tracking-tight text-2xl md:text-3xl transition-all`}>
                 {t.sections.experience}
               </h3>
             </div>
-            <div className="space-y-12">
+            <div className="space-y-10">
               {t.experience.map((exp, idx) => (
                 <ExperienceCard 
                   key={idx} 
@@ -730,78 +725,81 @@ const App: React.FC = () => {
 
           {/* Skills Section */}
           <motion.section {...fadeIn} id="skills">
-            <div className={`flex items-center gap-4 mb-16`}>
-              <div className={`p-3 rounded-2xl ${isM3 ? 'bg-blue-500 shadow-[0_0_20px_rgba(59,130,246,0.5)] text-white' : 'bg-emerald-500/10 text-emerald-400'}`}>
-                <Code2 size={28} />
+            <div className="flex items-center gap-3 mb-10">
+              <div className={`p-2 rounded-xl ${isM3 ? 'bg-blue-500 text-white' : 'bg-emerald-500/10 text-emerald-400'}`}>
+                <Code2 size={24} />
               </div>
-              <h3 className={`font-black uppercase tracking-tight leading-none ${isM3 ? 'text-5xl text-white' : 'text-4xl'}`}>
+              <h3 className={`font-black uppercase tracking-tight text-2xl md:text-3xl transition-all`}>
                 {t.sections.expertise}
               </h3>
             </div>
-            <div className={`grid gap-6 ${isM3 ? 'grid-cols-1 md:grid-cols-2' : 'sm:grid-cols-2 lg:grid-cols-4'}`}>
-              {t.skills.map((cat, idx) => (
-                <div key={idx} className={`p-10 rounded-[40px] border transition-all ${isM3 ? 'bg-slate-900 border-slate-800/50 hover:border-blue-500/30' : 'bg-slate-900/30 border-slate-800/50 hover:border-emerald-500/30'}`}>
-                  <h4 className={`text-xs font-black mb-8 uppercase tracking-widest ${isM3 ? 'text-blue-400' : 'text-emerald-400'}`}>{cat.title}</h4>
-                  <div className="flex flex-wrap gap-3">
-                    {cat.skills.map((skill, i) => (
-                      <span key={i} className={`px-4 py-2 rounded-2xl text-[10px] font-black uppercase tracking-widest border transition-all ${isM3 ? 'bg-slate-800 text-white border-slate-700 hover:bg-slate-700' : 'bg-slate-800/50 text-slate-300 border-slate-700/30'}`}>
-                        {skill}
-                      </span>
-                    ))}
+            {/* LTR Scrollable Skills for Mobile */}
+            <div className="overflow-x-auto no-scrollbar -mx-6 px-6 pb-2">
+              <div className="flex gap-4 md:grid md:grid-cols-4 min-w-max md:min-w-0">
+                {t.skills.map((cat, idx) => (
+                  <div key={idx} className={`p-6 w-72 md:w-auto rounded-[32px] border transition-all ${isM3 ? 'bg-slate-900 border-slate-800/50' : 'bg-slate-900/30 border-slate-800/50'}`}>
+                    <h4 className={`text-[10px] font-black mb-4 uppercase tracking-widest ${isM3 ? 'text-blue-400' : 'text-emerald-400'}`}>{cat.title}</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {cat.skills.map((skill, i) => (
+                        <span key={i} className={`px-2.5 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest border border-slate-700/50 bg-slate-800/50 text-slate-300`}>
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </motion.section>
 
           {/* Education & Info */}
-          <div className={`grid gap-20 ${isM3 ? 'grid-cols-1 md:grid-cols-2' : 'md:grid-cols-2'}`}>
+          <div className="grid gap-16 md:grid-cols-2">
             <motion.section {...fadeIn} id="education">
-              <div className={`flex items-center gap-4 mb-12`}>
-                <div className={`p-3 rounded-2xl ${isM3 ? 'bg-indigo-600 text-white' : 'bg-purple-500/10 text-purple-400'}`}>
-                  <GraduationCap size={28} />
+              <div className="flex items-center gap-3 mb-8">
+                <div className={`p-2 rounded-xl ${isM3 ? 'bg-indigo-600 text-white' : 'bg-purple-500/10 text-purple-400'}`}>
+                  <GraduationCap size={24} />
                 </div>
-                <h3 className={`font-black uppercase tracking-tight ${isM3 ? 'text-4xl text-white' : 'text-3xl'}`}>{t.sections.education}</h3>
+                <h3 className="font-black uppercase tracking-tight text-xl md:text-2xl">{t.sections.education}</h3>
               </div>
-              <div className={`space-y-10 pl-6 border-l-4 ${isM3 ? 'border-indigo-500/20' : 'border-slate-800'}`}>
+              <div className={`space-y-8 pl-5 border-l-2 ${isM3 ? 'border-indigo-500/20' : 'border-slate-800'}`}>
                 {t.education.map((edu, idx) => (
                   <div key={idx} className="relative">
-                    <div className={`absolute -left-[30px] top-2 w-3 h-3 rounded-full ${isM3 ? 'bg-indigo-500' : 'bg-purple-500'}`} />
-                    <h4 className="font-black text-white uppercase text-lg tracking-tight mb-2">{edu.degree}</h4>
-                    <p className="text-slate-500 font-bold">{edu.school}</p>
-                    <p className={`text-[11px] font-black mt-3 uppercase tracking-[0.2em] ${isM3 ? 'text-indigo-400' : 'text-slate-500'}`}>{edu.period}</p>
+                    <div className={`absolute -left-[27px] top-1.5 w-2 h-2 rounded-full ${isM3 ? 'bg-indigo-500' : 'bg-purple-500'}`} />
+                    <h4 className="font-black text-white uppercase text-xs md:text-sm tracking-tight mb-1">{edu.degree}</h4>
+                    <p className="text-slate-500 font-bold text-xs">{edu.school}</p>
+                    <p className={`text-[9px] font-black mt-2 uppercase tracking-widest ${isM3 ? 'text-indigo-400' : 'text-slate-500'}`}>{edu.period}</p>
                   </div>
                 ))}
               </div>
             </motion.section>
 
             <motion.section {...fadeIn} id="languages">
-              <div className={`flex items-center gap-4 mb-12`}>
-                <div className={`p-3 rounded-2xl ${isM3 ? 'bg-rose-500 text-white' : 'bg-rose-500/10 text-rose-400'}`}>
-                  <Languages size={28} />
+              <div className="flex items-center gap-3 mb-8">
+                <div className={`p-2 rounded-xl ${isM3 ? 'bg-rose-500 text-white' : 'bg-rose-500/10 text-rose-400'}`}>
+                  <Languages size={24} />
                 </div>
-                <h3 className={`font-black uppercase tracking-tight ${isM3 ? 'text-4xl text-white' : 'text-3xl'}`}>{t.sections.languages}</h3>
+                <h3 className="font-black uppercase tracking-tight text-xl md:text-2xl">{t.sections.languages}</h3>
               </div>
-              <div className="grid grid-cols-2 gap-6">
-                <div className={`p-8 rounded-[32px] border ${isM3 ? 'bg-slate-900 border-slate-800/50' : 'bg-slate-900/30 border-slate-800/50'}`}>
-                  <p className={`text-[10px] font-black uppercase mb-3 tracking-widest ${isM3 ? 'text-rose-400' : 'text-slate-500'}`}>English</p>
-                  <p className={`text-xl font-black text-white`}>C2 Proficient</p>
+              <div className="grid grid-cols-2 gap-4">
+                <div className={`p-5 rounded-2xl border ${isM3 ? 'bg-slate-900 border-slate-800/50' : 'bg-slate-900/30 border-slate-800/50'}`}>
+                  <p className={`text-[9px] font-black uppercase mb-1 tracking-widest ${isM3 ? 'text-rose-400' : 'text-slate-500'}`}>English</p>
+                  <p className="text-sm font-black text-white">C2 Proficient</p>
                 </div>
-                <div className={`p-8 rounded-[32px] border ${isM3 ? 'bg-slate-900 border-slate-800/50' : 'bg-slate-900/30 border-slate-800/50'}`}>
-                  <p className={`text-[10px] font-black uppercase mb-3 tracking-widest ${isM3 ? 'text-rose-400' : 'text-slate-500'}`}>German</p>
-                  <p className={`text-xl font-black text-white`}>B2 Advanced</p>
+                <div className={`p-5 rounded-2xl border ${isM3 ? 'bg-slate-900 border-slate-800/50' : 'bg-slate-900/30 border-slate-800/50'}`}>
+                  <p className={`text-[9px] font-black uppercase mb-1 tracking-widest ${isM3 ? 'text-rose-400' : 'text-slate-500'}`}>German</p>
+                  <p className="text-sm font-black text-white">B2 Advanced</p>
                 </div>
               </div>
             </motion.section>
           </div>
         </main>
 
-        <footer className={`px-6 py-32 border-t flex flex-col justify-center items-center gap-12 text-xs transition-colors ${isM3 ? 'border-slate-800/50 text-slate-500' : 'border-slate-900/50 text-slate-500'}`}>
-          <div className={`flex gap-10 font-black uppercase tracking-[0.3em]`}>
-            <a href="#experience" className={`transition-colors ${isM3 ? 'hover:text-indigo-400' : 'hover:text-blue-400'}`}>{t.sections.experience}</a>
-            <a href="#skills" className={`transition-colors ${isM3 ? 'hover:text-indigo-400' : 'hover:text-emerald-400'}`}>{t.sections.expertise}</a>
+        <footer className="px-6 py-20 border-t border-slate-800/50 flex flex-col justify-center items-center gap-8 text-[9px] text-slate-500">
+          <div className="flex gap-8 font-black uppercase tracking-widest">
+            <a href="#experience" className="hover:text-blue-400 transition-colors">{t.sections.experience}</a>
+            <a href="#skills" className="hover:text-blue-400 transition-colors">{t.sections.expertise}</a>
           </div>
-          <p className="font-bold tracking-widest uppercase text-[10px] text-slate-600">© {new Date().getFullYear()} Dinesh Gangatharan • {t.ui.footer}</p>
+          <p className="font-bold tracking-widest uppercase">© {new Date().getFullYear()} Dinesh Gangatharan • {t.ui.footer}</p>
         </footer>
       </div>
     </div>
