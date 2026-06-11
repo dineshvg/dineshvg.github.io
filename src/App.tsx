@@ -655,13 +655,12 @@ const App: React.FC = () => {
       <div className={`mx-auto max-w-5xl transition-all duration-700 ${isM3 ? 'pt-32 pb-32' : 'pt-32 pb-32'}`}>
         
         {/* Hero Section */}
-        <header className={`px-6 mb-24 ${isM3 ? 'flex flex-col md:flex-row items-center gap-12' : ''}`}>
+        <header className="px-6 mb-24">
           <motion.div 
-            initial={{ opacity: 0, x: isM3 ? -50 : 0 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className={isM3 ? 'flex-1' : ''}
           >
             <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border text-[10px] font-black uppercase tracking-widest mb-8 transition-colors ${isM3 ? 'bg-indigo-500/10 border-indigo-500/20 text-indigo-400' : 'bg-blue-500/10 border-blue-500/20 text-blue-400'}`}>
               <Terminal size={14} /> {t.hero.availability}
@@ -700,22 +699,6 @@ const App: React.FC = () => {
               </div>
             </div>
           </motion.div>
-
-          {isM3 && (
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="hidden lg:block relative"
-            >
-              <div className="w-80 h-80 rounded-[4rem] bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-transparent group-hover:opacity-100 opacity-0 transition-opacity" />
-                <User size={160} className="text-indigo-500 relative z-10" />
-                <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-blue-500/10 blur-[40px] rounded-full" />
-              </div>
-            </motion.div>
-          )}
         </header>
 
         <main className="px-6 space-y-32">
