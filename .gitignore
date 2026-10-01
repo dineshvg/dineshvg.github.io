@@ -25,4 +25,9 @@ dist-ssr
 
 # PDF files & local text extraction
 src/assets/*.pdf
+assets/*.pdf
+public/*.pdf
 *.txt
+/.output/
+/.run/main.pdf
+/out/

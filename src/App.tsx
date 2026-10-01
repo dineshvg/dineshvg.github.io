@@ -83,6 +83,7 @@ interface Translations {
     readMore: string;
     readLess: string;
     contact: string;
+    downloadCv: string;
     footer: string;
     designSleek: string;
     designMaterial3: string;
@@ -316,6 +317,7 @@ const content: Record<Language, Translations> = {
       readMore: "Read More Details",
       readLess: "Read Less",
       contact: "Contact",
+      downloadCv: "Download English CV",
       footer: "Stuttgart, Germany.",
       designSleek: "Sleek Dark",
       designMaterial3: "Material 3",
@@ -547,6 +549,7 @@ const content: Record<Language, Translations> = {
       readMore: "Mehr Details anzeigen",
       readLess: "Weniger anzeigen",
       contact: "Kontakt",
+      downloadCv: "Englischen Lebenslauf herunterladen",
       footer: "Stuttgart, Deutschland.",
       designSleek: "Sleek Dark",
       designMaterial3: "Material 3",

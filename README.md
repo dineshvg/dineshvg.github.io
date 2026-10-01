@@ -36,6 +36,16 @@ git push origin main
 - **Privacy:** Professional documents (CVs, PDFs) are kept in `src/assets/` and `public/` locally but are **excluded from GitHub** via `.gitignore` for privacy.
 - **iSAQB:** Certificate links and professional experience are managed in `src/App.tsx`.
 
+### Generate the English software architect CV
+
+Edit `latex/main.tex`, then generate the downloadable PDF with:
+
+```bash
+npm run generate:cv
+```
+
+The generator uses a local Tectonic installation when available and otherwise runs Tectonic through Docker. It writes `public/Software_Architect_EN.pdf`; the GitHub Pages workflow regenerates this file before each site build.
+
 ## 🔗 Links
 - **LinkedIn:** [dineshvg2310](https://www.linkedin.com/in/dineshvg2310/)
 - **GitHub:** [dineshvg](https://github.com/dineshvg)
