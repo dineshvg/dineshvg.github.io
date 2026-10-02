@@ -219,7 +219,7 @@ const content: Record<Language, Translations> = {
       {
         id: 'gematik-sr',
         company: 'Gematik GmbH',
-        role: 'Senior Developer',
+        role: 'Lead Developer',
         period: 'Sep 2023 - Jan 2026',
         location: 'Remote (Berlin)',
         description: 'Senior development lead for Android-based E-Health solutions.',
@@ -450,7 +450,7 @@ const content: Record<Language, Translations> = {
       {
         id: 'gematik-sr',
         company: 'Gematik GmbH',
-        role: 'Senior Entwickler',
+        role: 'Lead Entwickler',
         period: 'Sep 2023 - Jan 2026',
         location: 'Remote (Berlin)',
         description: 'Senior Entwicklungsleiter für Android-basierte E-Health-Lösungen.',

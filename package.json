@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "generate:cv": "bash scripts/generate-cv.sh",
     "lint": "eslint .",
     "preview": "vite preview"
   },

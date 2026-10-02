@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="pdf-resume" type="LATEX_RUN_CONFIGURATION" factoryName="LaTeX configuration factory">
+    <option name="beforeRunCode" />
+    <option name="mainFilePath" value="$PROJECT_DIR$/latex/main.tex" />
+    <steps>
+      <latexCompile id="abdc6332-4e30-46f4-b4bc-bb5bf5ed5107">
+        <option name="compiler" value="TECTONIC" />
+      </latexCompile>
+      <pdfViewer id="1e7537f3-7287-4e4e-88b4-100de0a5fd6b">
+        <option name="pdfViewerName" value="system-default" />
+      </pdfViewer>
+    </steps>
+    <method v="2" />
+  </configuration>
+</component>
