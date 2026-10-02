@@ -5,7 +5,6 @@
     <steps>
       <latexCompile id="abdc6332-4e30-46f4-b4bc-bb5bf5ed5107">
         <option name="compiler" value="TECTONIC" />
-        <option name="compilerPath" value="/opt/homebrew/bin/tectonic" />
       </latexCompile>
       <pdfViewer id="1e7537f3-7287-4e4e-88b4-100de0a5fd6b">
         <option name="pdfViewerName" value="system-default" />
