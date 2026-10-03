@@ -27,10 +27,6 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm install
-      - name: Generate English CV
-        # Don't block the site deploy if the PDF build breaks.
-        continue-on-error: true
-        run: npm run generate:cv
       - name: Build
         run: npm run build
       - name: Setup Pages
