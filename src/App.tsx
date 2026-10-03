@@ -215,7 +215,7 @@ const content: Record<Language, Translations> = {
       {
         id: 'android-mcp-testing',
         title: 'MCP server for AI-driven Android app testing',
-        badge: 'In Development • Proprietary',
+        badge: 'AI Agents • App Testing',
         category: 'AI Agents & Kotlin Multiplatform',
         period: '2026',
         description: 'Kotlin Multiplatform MCP (Model Context Protocol) server that lets AI agents test Android apps on real devices from natural-language prompts.',
@@ -480,7 +480,7 @@ const content: Record<Language, Translations> = {
       {
         id: 'android-mcp-testing',
         title: 'MCP-Server für KI-gestützte Android-App-Tests',
-        badge: 'In Entwicklung • Proprietär',
+        badge: 'KI-Agenten • App-Tests',
         category: 'KI-Agenten & Kotlin Multiplatform',
         period: '2026',
         description: 'MCP-Server (Model Context Protocol) auf Basis von Kotlin Multiplatform, mit dem KI-Agenten Android-Apps auf echten Geräten anhand von Prompts in natürlicher Sprache testen.',
