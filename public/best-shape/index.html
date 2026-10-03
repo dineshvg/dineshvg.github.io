@@ -81,6 +81,15 @@
   .seg { display: flex; background: var(--line); border-radius: 10px; padding: 3px; gap: 3px; margin-top: 12px; }
   .seg button { flex: 1; background: none; padding: 8px; font-size: 14px; }
   .seg button.active { background: var(--card); font-weight: 600; }
+  details.ex { border-top: 1px solid var(--line); padding: 10px 0; }
+  details.ex summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 8px; font-weight: 600; }
+  details.ex summary::-webkit-details-marker { display: none; }
+  details.ex summary .rx { font-weight: 400; color: var(--muted); white-space: nowrap; }
+  details.ex summary::after { content: '+'; color: var(--muted); }
+  details.ex[open] summary::after { content: '–'; }
+  details.ex ol { margin: 8px 0 4px; padding-left: 20px; }
+  details.ex li { margin: 3px 0; font-size: 14px; }
+  details.ex .how { font-size: 14px; color: var(--muted); margin-top: 4px; }
   nav { position: fixed; bottom: 0; left: 0; right: 0; display: flex; background: var(--card);
         border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom); z-index: 5; }
   nav button { flex: 1; background: none; border-radius: 0; padding: 10px 2px 12px; color: var(--muted); font-size: 12px; }
@@ -117,6 +126,7 @@
         <div class="mid"><b id="mealDay"></b><div class="muted" id="mealSub"></div></div>
         <button id="mealNext" aria-label="Next day">›</button>
       </div>
+      <div class="seg" id="styleSeg" style="margin-top:10px"></div>
     </div>
     <div class="note hidden" id="mealPrep"></div>
     <div class="card" id="mealList"></div>
@@ -164,15 +174,18 @@
 
   <!-- TRAIN -->
   <section id="tab-train" class="hidden">
+    <div class="card">
+      <div class="datebar">
+        <button id="prevWeekW">‹</button>
+        <div class="mid"><b id="weekLabelW">Week</b><div class="muted" id="weekDatesW"></div></div>
+        <button id="nextWeekW">›</button>
+      </div>
+      <div class="seg" id="sessionSeg"></div>
+    </div>
+    <div id="guide"></div>
+    <h2 style="margin:18px 4px 8px">Log your sessions</h2>
     <div class="needs-auth"></div>
     <div class="authed">
-      <div class="card">
-        <div class="datebar">
-          <button id="prevWeekW">‹</button>
-          <div class="mid"><b id="weekLabelW">Week</b><div class="muted" id="weekDatesW"></div></div>
-          <button id="nextWeekW">›</button>
-        </div>
-      </div>
       <div id="sessions"></div>
     </div>
   </section>
@@ -224,6 +237,7 @@
 
 <script src="config.js"></script>
 <script src="meals.js"></script>
+<script src="training.js"></script>
 <script src="app.js"></script>
 <script src="https://accounts.google.com/gsi/client" async defer onload="window.onGisLoad && window.onGisLoad()"></script>
 </body>

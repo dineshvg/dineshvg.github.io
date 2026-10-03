@@ -100,6 +100,73 @@ window.MEALS = (() => {
       how: 'Leftover or fresh rice, 3 eggs, 100 g chicken, 400 g frozen stir-fry veg, soy sauce. One pan, 10 min.',
       buy: [I('Eggs', 3, 'pcs', 'protein'), I('Chicken breast', 100, 'g', 'protein'), I('Frozen stir-fry veg', 400, 'g', 'veg'), I('Basmati rice', 75, 'g', 'carbs')],
     },
+    // Option 2: Indian home-style (same targets, pork-free).
+    masalaOats: {
+      name: 'Masala oats + Skyr', kcal: 440, protein: 35,
+      how: '60 g oats cooked savoury with onion, tomato, peas, mustard seeds and a pinch of turmeric. 250 g Skyr on the side (or as raita).',
+      buy: [I('Oats (Haferflocken)', 60, 'g', 'carbs'), I('Skyr', 250, 'g', 'dairy'), I('Tomatoes', 1, 'pcs', 'veg'), I('Frozen peas', 50, 'g', 'veg')],
+    },
+    eggBhurji: {
+      name: 'Egg bhurji + chapati', kcal: 460, protein: 35,
+      how: 'Scramble 3 eggs with onion, tomato, green chili and 100 g Hüttenkäse, 1 tsp oil. 1 wholewheat chapati (30 g atta) or 1 slice Vollkornbrot.',
+      buy: [I('Eggs', 3, 'pcs', 'protein'), I('Hüttenkäse', 100, 'g', 'dairy'), I('Atta (wholewheat flour)', 30, 'g', 'carbs'), I('Tomatoes', 1, 'pcs', 'veg')],
+    },
+    besanChilla: {
+      name: 'Besan chilla + Skyr', kcal: 450, protein: 37,
+      how: '70 g besan whisked with water, onion, tomato, coriander, salt. Cook 2 thin pancakes with 1 tsp oil. 200 g Skyr with mint on the side.',
+      buy: [I('Besan (gram flour)', 70, 'g', 'tins'), I('Skyr', 200, 'g', 'dairy'), I('Tomatoes', 1, 'pcs', 'veg'), I('Onions', 0.5, 'pcs', 'veg')],
+    },
+    paratha: {
+      name: 'Weekend paneer paratha + raita', kcal: 580, protein: 37,
+      how: '1 paratha: 60 g atta dough filled with 80 g grated paneer, onion, chili; dry-roast, 1 tsp butter. Raita: 150 g Skyr + cucumber.',
+      buy: [I('Atta (wholewheat flour)', 60, 'g', 'carbs'), I('Paneer', 80, 'g', 'dairy'), I('Skyr', 150, 'g', 'dairy'), I('Cucumber', 0.5, 'pcs', 'veg')],
+    },
+    chanaButtermilk: {
+      name: 'Roasted chana + Buttermilch', kcal: 250, protein: 18,
+      how: '40 g roasted chickpeas (Asia shop) and 300 ml Buttermilch with a pinch of roasted cumin and salt.',
+      buy: [I('Roasted chana', 40, 'g', 'tins'), I('Buttermilch', 300, 'ml', 'dairy')],
+    },
+    tikkaWrap: {
+      name: 'Chicken tikka wrap + mint raita', kcal: 600, protein: 46,
+      how: '150 g chicken strips with tikka spice + 1 tbsp Skyr, pan-fried. 2 wholegrain wraps, onion, salad, 50 g Skyr with mint.',
+      buy: [I('Chicken breast', 150, 'g', 'protein'), I('Wholegrain wraps', 2, 'pcs', 'carbs'), I('Salad bag', 0.5, 'bag', 'veg'), I('Skyr', 70, 'g', 'dairy')],
+    },
+    keema: {
+      name: 'Chicken keema matar + chapati', kcal: 560, protein: 50, portions: 2, freezes: true,
+      how: 'Fry onion, garlic, ginger, 1 tsp oil; brown 400 g Hähnchen- or Putenhack, add canned tomatoes, 200 g peas, garam masala, 15 min. 2 chapati (60 g atta) per plate.',
+      buy: [I('Hähnchen- or Putenhack', 400, 'g', 'protein'), I('Frozen peas', 200, 'g', 'veg'), I('Canned tomatoes', 1, 'can', 'tins'),
+            I('Onions', 1, 'pcs', 'veg'), I('Atta (wholewheat flour)', 120, 'g', 'carbs')],
+    },
+    palakChicken: {
+      name: 'Palak chicken + rice', kcal: 600, protein: 52, portions: 2, freezes: true,
+      how: 'Fry onion, garlic, ginger, 1 tsp oil; add 360 g diced chicken, 450 g frozen spinach, spices, 10 min; stir in 100 g Skyr off the heat. 1 cupped hand rice per plate.',
+      buy: [I('Chicken breast', 360, 'g', 'protein'), I('Spinach (frozen)', 450, 'g', 'veg'), I('Skyr', 100, 'g', 'dairy'),
+            I('Onions', 1, 'pcs', 'veg'), I('Basmati rice', 150, 'g', 'carbs')],
+    },
+    biryani: {
+      name: 'One-pot chicken biryani + raita', kcal: 600, protein: 50, portions: 2,
+      how: 'Marinate 360 g chicken in 150 g Skyr + biryani masala. Fry onion with 2 tsp oil, add chicken, 150 g rinsed basmati and 300 ml water, cover, low heat 20 min. Cucumber on the side.',
+      buy: [I('Chicken breast', 360, 'g', 'protein'), I('Skyr', 150, 'g', 'dairy'), I('Basmati rice', 150, 'g', 'carbs'),
+            I('Onions', 2, 'pcs', 'veg'), I('Cucumber', 0.5, 'pcs', 'veg')],
+    },
+    tandooriTray: {
+      name: 'Oven tray: tandoori chicken + potatoes + veg', kcal: 600, protein: 48, portions: 2,
+      how: '200 °C, 30 min: 360 g chicken marinated in 100 g Skyr + tandoori masala, potatoes, peppers, cauliflower, 1 tbsp oil.',
+      buy: [I('Chicken breast', 360, 'g', 'protein'), I('Skyr', 100, 'g', 'dairy'), I('Potatoes', 500, 'g', 'carbs'),
+            I('Cauliflower', 0.5, 'pcs', 'veg'), I('Peppers', 1, 'pcs', 'veg')],
+    },
+    fishCurry: {
+      name: 'Fish curry + rice', kcal: 540, protein: 43, portions: 2, freezes: true,
+      how: 'Onion-tomato gravy with garlic, ginger, curry powder and 100 ml light coconut milk; add 400 g Alaska-Seelachs (frozen) for the last 8 min. 1 cupped hand rice per plate.',
+      buy: [I('Alaska-Seelachs (frozen)', 400, 'g', 'protein'), I('Light coconut milk', 100, 'ml', 'tins'), I('Canned tomatoes', 1, 'can', 'tins'),
+            I('Onions', 1, 'pcs', 'veg'), I('Basmati rice', 150, 'g', 'carbs')],
+    },
+    eggCurry: {
+      name: 'Egg curry + rice + raita', kcal: 620, protein: 41, portions: 1,
+      how: '3 boiled eggs in an onion-tomato masala (1 tsp oil), 10 min. 1 cupped hand rice, 150 g Skyr with cucumber.',
+      buy: [I('Eggs', 3, 'pcs', 'protein'), I('Canned tomatoes', 0.5, 'can', 'tins'), I('Onions', 1, 'pcs', 'veg'),
+            I('Basmati rice', 75, 'g', 'carbs'), I('Skyr', 150, 'g', 'dairy'), I('Cucumber', 0.5, 'pcs', 'veg')],
+    },
     flexible: {
       name: 'Flexible meal (80/20)', kcal: 800, protein: 35,
       how: 'Pizza night or eating out. Enjoy it, one plate, no "cheat day".',
@@ -133,6 +200,35 @@ window.MEALS = (() => {
       prep: 'Sunday batch cook (~90 min): a pot of chicken curry (for Monday lunch + freezer), a pot of rice, a tray of roasted veg, 10 boiled eggs.' },
   ];
 
+  // Option 2: Indian home-style rotation (same rhythm: Sunday batch feeds Monday lunch).
+  const WEEK_A_IN = [
+    { training: 'A', b: 'masalaOats', l: leftover('curry'), s: 'skyrFruit', d: 'palakChicken' },
+    { b: 'eggBhurji', l: leftover('palakChicken'), s: 'chanaButtermilk', d: 'biryani' },
+    { training: 'B', b: 'masalaOats', l: leftover('biryani'), s: 'proteinYog', d: 'tandooriTray',
+      prep: 'Wednesday top-up (30 min): tandoori tray in the oven tonight, or defrost a frozen portion.' },
+    { b: 'besanChilla', l: leftover('tandooriTray'), s: 'huttenVeg', d: 'fishCurry' },
+    { b: 'eggBhurji', l: leftover('fishCurry'), s: 'skyrFruit', d: 'flexible' },
+    { training: 'C', b: 'masalaOats', l: 'tikkaWrap', s: 'eggsApple', d: 'dal' },
+    { b: 'paratha', l: leftover('dal'), s: 'proteinYog', d: 'eggCurry', batch: 'keema',
+      prep: 'Sunday batch cook (~90 min): a pot of keema matar (Monday lunch + 2 freezer boxes), a pot of rice, chapati dough for 2 days, 10 boiled eggs.' },
+  ];
+  const WEEK_B_IN = [
+    { training: 'A', b: 'masalaOats', l: leftover('keema'), s: 'skyrFruit', d: 'biryani' },
+    { b: 'eggBhurji', l: leftover('biryani'), s: 'huttenVeg', d: 'palakChicken' },
+    { training: 'B', b: 'masalaOats', l: leftover('palakChicken'), s: 'proteinYog', d: 'tandooriTray',
+      prep: 'Wednesday top-up (30 min): tandoori tray in the oven tonight, or defrost a frozen portion.' },
+    { b: 'besanChilla', l: leftover('tandooriTray'), s: 'chanaButtermilk', d: 'dal' },
+    { b: 'eggBhurji', l: leftover('dal'), s: 'skyrFruit', d: 'flexible' },
+    { training: 'C', b: 'masalaOats', l: 'tikkaWrap', s: 'chanaButtermilk', d: 'fishCurry' },
+    { b: 'paratha', l: leftover('fishCurry'), s: 'eggsApple', d: 'eggCurry', batch: 'curry',
+      prep: 'Sunday batch cook (~90 min): a pot of chicken curry (Monday lunch + freezer), a pot of rice, chapati dough for 2 days, 10 boiled eggs.' },
+  ];
+
+  const STYLES = {
+    mix: { label: 'Everyday mix', weeks: [WEEK_A, WEEK_B] },
+    indian: { label: 'Indian home-style', weeks: [WEEK_A_IN, WEEK_B_IN] },
+  };
+
   // Always worth having at home. "Running low" items get added to the shopping list.
   const PANTRY = [
     ['Oats (Haferflocken)', 'carbs'], ['Basmati rice', 'carbs'], ['Wholegrain pasta', 'carbs'], ['Vollkornbrot (freezer)', 'carbs'],
@@ -141,6 +237,8 @@ window.MEALS = (() => {
     ['Frozen vegetable mix', 'veg'], ['Frozen stir-fry veg', 'veg'], ['Frozen berries', 'veg'], ['Spinach (frozen)', 'veg'],
     ['Salmon (frozen)', 'protein'], ['Eggs', 'protein'],
     ['Olive oil', 'other'], ['Spices: curry, chili, cumin, paprika, turmeric', 'other'], ['Soy sauce', 'other'], ['Mustard / salsa / hot sauce', 'other'],
+    ['Atta (wholewheat flour)', 'carbs'], ['Besan (gram flour)', 'tins'], ['Frozen peas', 'veg'],
+    ['Spices: garam masala, tandoori, chaat masala, mustard seeds', 'other'],
     ['Nuts (portion bags)', 'other'], ['Sugar-free gum (cravings)', 'other'], ['Sparkling water', 'other'], ['Tea', 'other'],
   ];
 
@@ -154,5 +252,5 @@ window.MEALS = (() => {
 
   const CATS = { protein: 'Meat, fish & eggs', dairy: 'Dairy', carbs: 'Bread, grains & potatoes', veg: 'Fruit & veg', tins: 'Tins & dry goods', other: 'Other' };
 
-  return { M, WEEK_A, WEEK_B, PANTRY, RULES, CATS, TARGET: { kcal: 2000, protein: 140 } };
+  return { M, WEEK_A, WEEK_B, STYLES, PANTRY, RULES, CATS, TARGET: { kcal: 2000, protein: 140 } };
 })();

@@ -1,6 +1,6 @@
 // Offline cache for the app shell. Google API calls always go to the network.
-const VERSION = 'best-shape-v3';
-const SHELL = ['./', 'index.html', 'app.js', 'meals.js', 'config.js', 'manifest.webmanifest', 'icon.svg', 'icon-180.png', 'icon-192.png', 'icon-512.png'];
+const VERSION = 'best-shape-v4';
+const SHELL = ['./', 'index.html', 'app.js', 'meals.js', 'training.js', 'config.js', 'manifest.webmanifest', 'icon.svg', 'icon-180.png', 'icon-192.png', 'icon-512.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(VERSION).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));

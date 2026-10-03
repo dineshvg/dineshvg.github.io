@@ -5,7 +5,7 @@
   const START_DEFAULT = '2026-10-05';
   const SCOPES = 'https://www.googleapis.com/auth/spreadsheets openid email';
   const $ = id => document.getElementById(id);
-  const state = { rules: {}, week: 1, start: START_DEFAULT, mealDate: null, shopWeek: 0, shopView: 'list', token: null };
+  const state = { rules: {}, week: 1, start: START_DEFAULT, style: 'mix', mealDate: null, shopWeek: 0, shopView: 'list', token: null };
 
   /* ---------- helpers ---------- */
   const pad = n => String(n).padStart(2, '0');
@@ -37,8 +37,19 @@
   const appWeekIndex = iso => Math.floor((dayNum(iso) - dayNum(state.start)) / 7); // 0 = week 1
   const templateFor = iso => {
     const w = appWeekIndex(iso);
-    return (((w % 2) + 2) % 2 === 0 ? MEALS.WEEK_A : MEALS.WEEK_B)[weekdayIdx(iso)];
+    const weeks = (MEALS.STYLES[state.style] || MEALS.STYLES.mix).weeks;
+    return weeks[((w % 2) + 2) % 2][weekdayIdx(iso)];
   };
+
+  function renderStyleSeg() {
+    $('styleSeg').innerHTML = Object.entries(MEALS.STYLES).map(([k, v]) =>
+      `<button data-style="${k}" class="${k === state.style ? 'active' : ''}">${esc(v.label)}</button>`).join('');
+  }
+  $('styleSeg').addEventListener('click', e => {
+    const b = e.target.closest('button[data-style]'); if (!b) return;
+    state.style = b.dataset.style; store.set('foodStyle', state.style);
+    renderStyleSeg(); renderMeals();
+  });
 
   function renderMeals() {
     const iso = state.mealDate;
@@ -285,6 +296,50 @@
     } catch (err) { fail(err); } finally { btn.disabled = false; btn.textContent = 'Save day'; }
   }
 
+  /* ---------- Train guide (works without sign-in) ---------- */
+  const TR = window.TRAINING;
+  const defaultSession = () => ['A', 'B', 'B', 'C', 'C', 'C', 'A'][weekdayIdx(todayIso())];
+  const ytLink = q => `<a href="${TR.yt(q)}" target="_blank" rel="noopener">Watch a video ↗</a>`;
+  const list = items => '<ol>' + items.map(x => `<li>${esc(x)}</li>`).join('') + '</ol>';
+  function exHtml(key, rx) {
+    const e = TR.EX[key];
+    return `<details class="ex"><summary><span>${esc(e.name)}</span><span class="rx">${esc(rx)}</span></summary>
+      ${list(e.steps)}
+      <div class="how"><b>Check:</b> ${e.tips.map(esc).join(' ')}</div>
+      <div class="how"><b>Easier:</b> ${esc(e.easier)} <b>Harder:</b> ${esc(e.harder)}</div>
+      <div class="how">${ytLink(e.video)}</div></details>`;
+  }
+  function blockHtml(key, label) {
+    const b = TR.BLOCKS[key];
+    return `<details class="ex"><summary><span>${esc(label || b.name)}</span><span class="rx"></span></summary>
+      ${list(b.steps)}${b.tips ? `<div class="how"><b>Check:</b> ${b.tips.map(esc).join(' ')}</div>` : ''}
+      <div class="how">${ytLink(b.video)}</div></details>`;
+  }
+  function renderGuide() {
+    const n = state.week; weekHeader(n);
+    const ph = TR.phaseFor(n);
+    state.session = state.session || defaultSession();
+    $('sessionSeg').innerHTML = ['A', 'B', 'C'].map(k =>
+      `<button data-session="${k}" class="${k === state.session ? 'active' : ''}">Session ${k}</button>`).join('');
+    const s = ph.s[state.session];
+    const note = TR.weekNote(n);
+    $('guide').innerHTML = `
+      <div class="card"><h2 style="margin:0">Session ${state.session}: ${esc(s.focus)}</h2>
+        <div class="muted" style="margin-top:4px">Phase ${ph.n} · ${esc(ph.name)} · rest ${esc(s.rest)}</div>
+        ${note ? `<div class="note" style="margin-top:10px">${esc(note)}</div>` : ''}
+        <div class="muted" style="margin-top:8px">Tap an exercise to see how to do it.</div></div>
+      <div class="card"><h2>1. Warm-up</h2>${blockHtml('warmup')}</div>
+      <div class="card"><h2>2. Strength</h2>${s.ex.map(([k, rx]) => exHtml(k, rx)).join('')}</div>
+      <div class="card"><h2>3. ${esc(s.skill.name)}</h2><div class="how muted">${esc(s.skill.plan)}</div>
+        ${s.skill.blocks.map(b => blockHtml(b)).join('')}</div>
+      <div class="card"><h2>4. Cool-down</h2>${blockHtml('cooldown')}</div>
+      <div class="card muted" style="font-size:14px">${esc(TR.RPE)}<br><br>${esc(TR.PROGRESS)}<br><br>${esc(TR.SAFETY)}</div>`;
+  }
+  $('sessionSeg').addEventListener('click', e => {
+    const b = e.target.closest('button[data-session]'); if (!b) return;
+    state.session = b.dataset.session; renderGuide();
+  });
+
   /* ---------- Train (Workouts) + weekly review ---------- */
   function weekHeader(n) {
     const mon = shiftIso(state.start, (n - 1) * 7);
@@ -385,6 +440,7 @@
   function refreshTab() {
     if (current === 'meals') renderMeals();
     if (current === 'shop') showShopView(state.shopView);
+    if (current === 'train') renderGuide();
     if (!state.token) return;
     if (current === 'log') loadDay();
     if (current === 'train') loadTrain();
@@ -430,6 +486,8 @@
   async function init() {
     const today = todayIso();
     state.mealDate = today;
+    state.style = MEALS.STYLES[store.get('foodStyle', 'mix')] ? store.get('foodStyle', 'mix') : 'mix';
+    renderStyleSeg();
     $('date').value = dayNum(today) < dayNum(state.start) ? state.start : today;
     state.week = Math.max(1, Math.min(52, appWeekIndex(today) + 1));
     loadToken();
