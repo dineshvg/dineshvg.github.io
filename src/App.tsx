@@ -54,6 +54,7 @@ interface Project {
   details?: string[];
   tags: string[];
   iconType: 'kmp' | 'auth' | 'server' | 'ehealth' | 'ai';
+  links?: { label: string; url: string }[];
 }
 
 interface Translations {
@@ -200,6 +201,7 @@ const content: Record<Language, Translations> = {
         period: '2026',
         description: 'Designed an AI agent skill that turns a person\'s health goals into training and nutrition plans, a Google Sheets tracker and an installable offline-first PWA with daily meals, shopping lists and logging. Built with Claude Code as a public template; personal data stays in the user\'s private Google Sheet.',
         iconType: 'ai',
+        links: [{ label: 'Article', url: 'https://medium.com/@dineshvg.1023/i-asked-an-ai-agent-for-a-health-plan-it-built-me-an-app-0fef893d8da4' }, { label: 'GitHub', url: 'https://github.com/dineshvg/health-plan-app' }],
         highlights: [
           'Agent skill that interviews the user, computes energy targets, writes the plans and generates the app data and tracker.',
           'Privacy by design: public static app on GitHub Pages, personal data only in the user\'s private Sheet via OAuth and the Sheets API, no backend.',
@@ -465,6 +467,7 @@ const content: Record<Language, Translations> = {
         period: '2026',
         description: 'Konzeption eines KI-Agent-Skills, der aus persönlichen Gesundheitszielen Trainings- und Ernährungspläne, einen Google-Sheets-Tracker und eine installierbare Offline-First-PWA mit Tagesmahlzeiten, Einkaufslisten und Protokollierung erzeugt. Mit Claude Code als öffentliche Vorlage umgesetzt; personenbezogene Daten verbleiben im privaten Google Sheet der Nutzer.',
         iconType: 'ai',
+        links: [{ label: 'Artikel', url: 'https://medium.com/@dineshvg.1023/i-asked-an-ai-agent-for-a-health-plan-it-built-me-an-app-0fef893d8da4' }, { label: 'GitHub', url: 'https://github.com/dineshvg/health-plan-app' }],
         highlights: [
           'Agent-Skill, der Nutzer befragt, Energiebedarf berechnet, Pläne erstellt sowie App-Daten und Tracker generiert.',
           'Privacy by Design: statische App auf GitHub Pages, personenbezogene Daten ausschließlich im privaten Sheet (OAuth, Sheets API), kein Backend.',
@@ -1124,6 +1127,23 @@ const ProjectCard: React.FC<{
                 <span className="text-xs font-black">{comments.length}</span>
               </button>
             </div>
+            {project.links && project.links.length > 0 && (
+              <div className="flex gap-4">
+                {project.links.map(link => (
+                  <a
+                    key={link.url}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`font-black text-[10px] uppercase tracking-widest transition-colors ${
+                      isDark ? 'text-indigo-400 hover:text-indigo-300' : 'text-indigo-600 hover:text-indigo-800'
+                    }`}
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            )}
           </div>
 
           <AnimatePresence>
@@ -1312,6 +1332,23 @@ const ProjectCard: React.FC<{
             <span className="text-xs font-black">{comments.length}</span>
           </button>
         </div>
+        {project.links && project.links.length > 0 && (
+          <div className="flex gap-4">
+            {project.links.map(link => (
+              <a
+                key={link.url}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`font-black text-[10px] uppercase tracking-widest transition-colors ${
+                  isDark ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-800'
+                }`}
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+        )}
       </div>
 
       <AnimatePresence>
