@@ -22,7 +22,8 @@ import {
   Boxes,
   KeyRound,
   Cpu,
-  ShieldCheck
+  ShieldCheck,
+  Bot
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -52,7 +53,7 @@ interface Project {
   highlights: string[];
   details?: string[];
   tags: string[];
-  iconType: 'kmp' | 'auth' | 'server' | 'ehealth';
+  iconType: 'kmp' | 'auth' | 'server' | 'ehealth' | 'ai';
 }
 
 interface Translations {
@@ -190,6 +191,40 @@ const content: Record<Language, Translations> = {
           'Documented step-by-step developer guides and troubleshooting runbooks for external client teams.'
         ],
         tags: ['Docker Compose', 'PoPP Reference Stack', 'ZETA Dev Proxy', 'Integration Testing', 'Microservices', 'Network Bridging']
+      },
+      {
+        id: 'health-plan-app',
+        title: 'Health plan → app: AI agent skill & PWA template',
+        badge: 'Open Source • AI Agents',
+        category: 'Agent Skill & Offline-First PWA',
+        period: '2026',
+        description: 'Designed an AI agent skill that turns a person\'s health goals into training and nutrition plans, a Google Sheets tracker and an installable offline-first PWA with daily meals, shopping lists and logging. Built with Claude Code as a public template; personal data stays in the user\'s private Google Sheet.',
+        iconType: 'ai',
+        highlights: [
+          'Agent skill that interviews the user, computes energy targets, writes the plans and generates the app data and tracker.',
+          'Privacy by design: public static app on GitHub Pages, personal data only in the user\'s private Sheet via OAuth and the Sheets API, no backend.',
+          'Plan validator (diet exclusions, macro ranges, data-leak scan) and Playwright smoke tests with mocked Google APIs.'
+        ],
+        details: [
+          'Evaluated the skill with agent dry runs on synthetic personas (vegetarian, pescatarian with allergy and hypertension) and fixed the defects they surfaced.',
+          'All UI labels are read from the private sheet after sign-in, so the public code stays free of personal details.',
+          'Service-worker caching for offline meals and shopping lists; installable on Android and iOS.'
+        ],
+        tags: ['AI Agents', 'Agent Skills', 'Claude Code', 'PWA', 'Google Sheets API', 'OAuth 2.0', 'Playwright', 'Privacy by Design']
+      },
+      {
+        id: 'android-mcp-testing',
+        title: 'MCP server for AI-driven Android app testing',
+        badge: 'In Development • Proprietary',
+        category: 'AI Agents & Kotlin Multiplatform',
+        period: '2026',
+        description: 'Kotlin Multiplatform MCP (Model Context Protocol) server that lets AI agents test Android apps on real devices from natural-language prompts.',
+        iconType: 'ai',
+        highlights: [
+          'AI agents drive and verify Android apps on real devices through the Model Context Protocol.',
+          'Test scenarios written as plain-language prompts instead of scripted UI tests.'
+        ],
+        tags: ['MCP', 'AI Agents', 'Kotlin Multiplatform', 'Android', 'App Testing']
       }
     ],
     experience: [
@@ -421,6 +456,40 @@ const content: Record<Language, Translations> = {
           'Dokumentation von Schritt-für-Schritt-Entwicklungsleitfäden und Troubleshooting-Runbooks für externe Kassen-Entwickler.'
         ],
         tags: ['Docker Compose', 'PoPP Referenz Stack', 'ZETA Dev Proxy', 'Integration Testing', 'Microservices', 'Network Bridging']
+      },
+      {
+        id: 'health-plan-app',
+        title: 'Health plan → App: KI-Agent-Skill & PWA-Vorlage',
+        badge: 'Open Source • KI-Agenten',
+        category: 'Agent-Skill & Offline-First-PWA',
+        period: '2026',
+        description: 'Konzeption eines KI-Agent-Skills, der aus persönlichen Gesundheitszielen Trainings- und Ernährungspläne, einen Google-Sheets-Tracker und eine installierbare Offline-First-PWA mit Tagesmahlzeiten, Einkaufslisten und Protokollierung erzeugt. Mit Claude Code als öffentliche Vorlage umgesetzt; personenbezogene Daten verbleiben im privaten Google Sheet der Nutzer.',
+        iconType: 'ai',
+        highlights: [
+          'Agent-Skill, der Nutzer befragt, Energiebedarf berechnet, Pläne erstellt sowie App-Daten und Tracker generiert.',
+          'Privacy by Design: statische App auf GitHub Pages, personenbezogene Daten ausschließlich im privaten Sheet (OAuth, Sheets API), kein Backend.',
+          'Plan-Validator (Ernährungsausschlüsse, Makro-Bereiche, Datenleck-Prüfung) und Playwright-Smoke-Tests mit gemockten Google-APIs.'
+        ],
+        details: [
+          'Evaluierung des Skills durch Agent-Testläufe mit synthetischen Personas (vegetarisch; pescetarisch mit Allergie und Bluthochdruck) und Behebung der gefundenen Mängel.',
+          'Sämtliche Beschriftungen werden nach der Anmeldung aus dem privaten Sheet gelesen, sodass der öffentliche Code frei von persönlichen Angaben bleibt.',
+          'Service-Worker-Caching für Mahlzeiten und Einkaufslisten offline; installierbar auf Android und iOS.'
+        ],
+        tags: ['KI-Agenten', 'Agent Skills', 'Claude Code', 'PWA', 'Google Sheets API', 'OAuth 2.0', 'Playwright', 'Privacy by Design']
+      },
+      {
+        id: 'android-mcp-testing',
+        title: 'MCP-Server für KI-gestützte Android-App-Tests',
+        badge: 'In Entwicklung • Proprietär',
+        category: 'KI-Agenten & Kotlin Multiplatform',
+        period: '2026',
+        description: 'MCP-Server (Model Context Protocol) auf Basis von Kotlin Multiplatform, mit dem KI-Agenten Android-Apps auf echten Geräten anhand von Prompts in natürlicher Sprache testen.',
+        iconType: 'ai',
+        highlights: [
+          'KI-Agenten steuern und prüfen Android-Apps auf echten Geräten über das Model Context Protocol.',
+          'Testszenarien als Prompts in natürlicher Sprache statt als geskriptete UI-Tests.'
+        ],
+        tags: ['MCP', 'KI-Agenten', 'Kotlin Multiplatform', 'Android', 'App-Tests']
       }
     ],
     experience: [
@@ -903,6 +972,8 @@ const ProjectCard: React.FC<{
         return <Cpu size={22} />;
       case 'ehealth':
         return <ShieldCheck size={22} />;
+      case 'ai':
+        return <Bot size={22} />;
       default:
         return <Layers size={22} />;
     }
