@@ -6,6 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dinesh Gangatharan | Software Architect</title>
     <meta name="description" content="Portfolio of Dinesh Gangatharan, Senior Software Architect and Engineer based in Stuttgart, Germany." />
+    <meta name="theme-color" content="#f5f2ec" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0e1012" media="(prefers-color-scheme: dark)" />
+    <meta property="og:title" content="Dinesh Gangatharan | Software Architect" />
+    <meta property="og:description" content="Software Architect and Lead Android Developer based in Stuttgart, Germany." />
+    <meta property="og:type" content="profile" />
+    <script>
+      // Apply the saved or system colour scheme before first paint to avoid a flash.
+      try {
+        var m = localStorage.getItem('mode');
+        if (m === 'dark' || (!m && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.classList.add('dark');
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <div id="root"></div>
