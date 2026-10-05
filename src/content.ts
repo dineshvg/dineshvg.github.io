@@ -90,7 +90,7 @@ export const content: Record<Language, Translations> = {
         description: 'Lead Android engineering and system architecture for Germany\'s official Das E-Rezept app for android platform (2M+ active users) and the connected Push-Gateway backend service. Responsible for end-to-end push notification delivery, secure app-to-app intent handling, FHIR communication, and release engineering.',
         iconType: 'ehealth',
         highlights: [
-          'Lead Android Developer overseeing core architecture, feature delivery, and release cycles (1.40+).',
+          'Lead Android Developer overseeing core architecture, feature delivery, and release cycles (1.20+).',
           'Engineered Push-Gateway integration for secure notification dispatching and target app validation.',
           'Deep intent handling and App Link architecture for seamless external authentication jumps.',
           'Elevated Google Play Store app rating from 2.0 to 4.2+ through stability, accessibility, and UX improvements.'
@@ -219,7 +219,7 @@ export const content: Record<Language, Translations> = {
         ],
         certificateUrl: 'https://www.credly.com/badges/7d95218f-8be4-455a-950c-c17663d5b9e9/linked_in_profile',
         details: [
-          'Directed core mobile architecture and release engineering for Das E-Rezept app for android platform (1.40+ releases), external auth intent handling, and Room database migrations.',
+          'Directed core mobile architecture and release engineering for Das E-Rezept app for android platform (1.20+ releases), external auth intent handling, and Room database migrations.',
           'Architected end-to-end Push-Gateway messaging: Developed client activation/delivery in Das E-Rezept app for android platform and backend routing in push-gateway (target app ID resolution, app ID security validation).',
           'Designed and modularized the PoPP Multiplatform SDK: A UI-decoupled, multi-tier KMP architecture for statutory health insurance apps featuring a headless facade, robust domain modeling, and native platform integration.',
           'Built local app-to-app authentication for Gesundheit with mock sectoral ID implementation: High-performance JVM Ktor Mock IDP server supporting EC P-256 JWKs, PKCE, and real-time WebSocket token streaming.',
@@ -365,7 +365,7 @@ export const content: Record<Language, Translations> = {
         description: 'Lead Android-Entwicklung und Systemarchitektur für die offizielle Das E-Rezept App für die Android-Plattform (über 2 Mio. Nutzer) und den angebundenen Push-Gateway-Backend-Dienst. Verantwortung für Push-Notification-Routing, sicheres Intent-Handling, FHIR-Kommunikation und Release-Zyklen.',
         iconType: 'ehealth',
         highlights: [
-          'Lead Android Developer mit Gesamtverantwortung für Kernarchitektur, Feature-Entwicklung und Releases (1.40+).',
+          'Lead Android Developer mit Gesamtverantwortung für Kernarchitektur, Feature-Entwicklung und Releases (1.20+).',
           'Architektur der Push-Gateway-Anbindung für sichere Benachrichtigungen und Ziel-App-Validierung.',
           'Sicheres Intent-Handling und App-Links für reibungslose externe Authentifizierungssprünge.',
           'Steigerung der Play-Store-Bewertung von 2.0 auf 4.2+ durch Stabilitäts- und Barrierefreiheitsmaßnahmen.'
@@ -494,7 +494,7 @@ export const content: Record<Language, Translations> = {
         ],
         certificateUrl: 'https://www.credly.com/badges/7d95218f-8be4-455a-950c-c17663d5b9e9/linked_in_profile',
         details: [
-          'Leitung der mobilen Kernarchitektur und Releases für Das E-Rezept App für die Android-Plattform (Releases 1.40+), Intent-Handling für externe Authentifizierung und Room-Datenbankmigrationen.',
+          'Leitung der mobilen Kernarchitektur und Releases für Das E-Rezept App für die Android-Plattform (Releases 1.20+), Intent-Handling für externe Authentifizierung und Room-Datenbankmigrationen.',
           'Architektur des Push-Gateway-Systems: Entwicklung von Client-Aktivierung in Das E-Rezept App für die Android-Plattform und Backend-Routing im push-gateway (Ziel-App-Identifikationsprüfung, App-ID-Validierung).',
           'Modularisierung des PoPP-Multiplatform-SDKs in entkoppelte KMP-Schichten: Headless SDK-Fassade, PACE-Protokoll via WebSockets für eGK/SMC-B-Smartcards, FHIR-VZD-Suche und native NFC-Treiber.',
           'Entwicklung lokaler App-zu-App-Authentifizierung für Gesundheit mit Mock-Sektoraler-ID-Implementierung: Autarker JVM Ktor Mock-IDP-Server mit EC P-256 JWKs, PKCE und WebSocket-Token-Push für reibungslose lokale Integrationstests.',
