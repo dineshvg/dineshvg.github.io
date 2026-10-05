@@ -3,7 +3,7 @@
  * Dashboard: https://<code>.goatcounter.com — only visible to the account owner.
  * Leave the code empty to disable tracking entirely.
  */
-const GOATCOUNTER_CODE = '';
+const GOATCOUNTER_CODE = 'dinesh';
 
 declare global {
   interface Window {
