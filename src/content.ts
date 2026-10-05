@@ -62,6 +62,9 @@ export interface Translations {
     profile: string;
     toggleTheme: string;
     languageNames: { english: string; german: string };
+    contactEmail: string;
+    contactLinkedIn: string;
+    emailSubject: string;
   };
   stats: { value: string; label: string }[];
 }
@@ -333,7 +336,10 @@ export const content: Record<Language, Translations> = {
       featured: "Featured",
       profile: "Profile",
       toggleTheme: "Toggle light and dark mode",
-      languageNames: { english: "English", german: "German" }
+      languageNames: { english: "English", german: "German" },
+      contactEmail: "Send an email",
+      contactLinkedIn: "Message on LinkedIn",
+      emailSubject: "Opportunity via your website"
     },
     stats: [
       { value: "2M+", label: "Active E-Rezept app users" },
@@ -608,7 +614,10 @@ export const content: Record<Language, Translations> = {
       featured: "Schwerpunkt",
       profile: "Profil",
       toggleTheme: "Hell- und Dunkelmodus umschalten",
-      languageNames: { english: "Englisch", german: "Deutsch" }
+      languageNames: { english: "Englisch", german: "Deutsch" },
+      contactEmail: "E-Mail schreiben",
+      contactLinkedIn: "Nachricht auf LinkedIn",
+      emailSubject: "Anfrage über Ihre Website"
     },
     stats: [
       { value: "2M+", label: "Aktive Nutzer der E-Rezept App" },

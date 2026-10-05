@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   MapPin,
   Mail,
@@ -13,6 +13,7 @@ import {
   ShieldCheck,
   Bot,
   Award,
+  ChevronDown,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { content, type Experience, type Language, type Project, type Translations } from './content';
@@ -375,15 +376,75 @@ const SocialLinks: React.FC = () => (
   </div>
 );
 
-const Availability: React.FC<{ text: string }> = ({ text }) => (
-  <span className="inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-accent/30 bg-accent-soft px-3 py-1 text-[12px] font-medium text-accent sm:text-[12.5px]">
-    <span className="relative flex h-2 w-2">
-      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
-      <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
-    </span>
-    {text}
-  </span>
-);
+/** Availability badge doubles as a contact entry point: opens a small email / LinkedIn menu. */
+const Availability: React.FC<{ text: string; labels: Translations['ui'] }> = ({ text, labels }) => {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onPointer = (e: PointerEvent) => {
+      if (!ref.current?.contains(e.target as Node)) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
+    document.addEventListener('pointerdown', onPointer);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('pointerdown', onPointer);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [open]);
+
+  const mailto = `mailto:${links.email}?subject=${encodeURIComponent(labels.emailSubject)}`;
+  const item =
+    'flex items-center gap-3 rounded-lg px-3 py-2.5 text-[13.5px] text-ink hover:bg-chip transition-colors';
+
+  return (
+    <div ref={ref} className="relative inline-block">
+      <button
+        type="button"
+        onClick={() => setOpen(o => !o)}
+        aria-expanded={open}
+        aria-haspopup="menu"
+        className="inline-flex items-center gap-2 rounded-2xl border border-accent/30 bg-accent-soft px-3 py-1.5 text-left text-[12px] font-medium leading-snug text-accent transition-colors hover:border-accent sm:text-[12.5px]"
+      >
+        <span className="relative flex h-2 w-2 shrink-0">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
+          <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+        </span>
+        {text}
+        <ChevronDown size={13} className={`shrink-0 transition-transform ${open ? 'rotate-180' : ''}`} />
+      </button>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            role="menu"
+            initial={{ opacity: 0, y: -4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4 }}
+            transition={{ duration: 0.15 }}
+            className="absolute left-0 top-full z-30 mt-2 w-60 rounded-xl border border-line bg-surface p-1.5 shadow-card"
+          >
+            <a role="menuitem" href={mailto} className={item} onClick={() => setOpen(false)}>
+              <Mail size={16} className="text-accent" /> {labels.contactEmail}
+            </a>
+            <a
+              role="menuitem"
+              href={links.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={item}
+              onClick={() => setOpen(false)}
+            >
+              <LinkedInIcon size={15} className="text-accent" /> {labels.contactLinkedIn}
+              <ArrowUpRight size={14} className="ml-auto text-muted" />
+            </a>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
 
 const useActiveSection = (ids: string[]) => {
   const [active, setActive] = useState(ids[0]);
@@ -481,7 +542,7 @@ const App: React.FC = () => {
               </h1>
               <p className="mt-3 text-[14.5px] leading-snug text-ink-2">{t.hero.title}</p>
               <div className="mt-4">
-                <Availability text={t.hero.availability} />
+                <Availability text={t.hero.availability} labels={t.ui} />
               </div>
             </div>
           </div>
