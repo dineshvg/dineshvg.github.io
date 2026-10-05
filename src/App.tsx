@@ -454,6 +454,11 @@ const App: React.FC = () => {
         </div>
       </div>
 
+      {/* Desktop: language and theme switches pinned top right */}
+      <div className="fixed right-6 top-6 z-50 hidden rounded-full border border-line bg-paper/85 p-1 shadow-card backdrop-blur-md lg:block">
+        {controls}
+      </div>
+
       <div id="top" className="relative z-10 mx-auto max-w-[1240px] px-5 md:px-10 lg:grid lg:grid-cols-[280px_1fr] lg:gap-16 xl:gap-24">
         {/* Sidebar / mobile intro */}
         <aside className="pt-8 lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:overflow-y-auto lg:py-10">
@@ -481,7 +486,7 @@ const App: React.FC = () => {
             </div>
           </div>
 
-          <div className="mt-6 lg:hidden">
+          <div className="mt-6">
             <SocialLinks />
           </div>
 
@@ -507,11 +512,6 @@ const App: React.FC = () => {
               ))}
             </ul>
           </nav>
-
-          <div className="mt-auto hidden items-center justify-between gap-3 pt-8 lg:flex">
-            <SocialLinks />
-            {controls}
-          </div>
         </aside>
 
         <main className="pb-16 pt-12 lg:pt-10">
