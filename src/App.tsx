@@ -19,6 +19,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { content, type Experience, type Language, type Project, type Translations } from './content';
 import { educationLogos, experienceLogos, isaqb, links, portrait } from './media';
 import { GitHubIcon, LinkedInIcon } from './components/BrandIcons';
+import { trackEvent } from './analytics';
 
 type AppearanceMode = 'light' | 'dark';
 
@@ -367,6 +368,7 @@ const SocialLinks: React.FC = () => (
         href={l.href}
         aria-label={l.label}
         target={l.href.startsWith('http') ? '_blank' : undefined}
+        onClick={() => trackEvent(`social-${l.label.toLowerCase()}`)}
         rel="noopener noreferrer"
         className="grid h-9 w-9 place-items-center rounded-full border border-line bg-surface text-ink-2 hover:border-accent hover:text-accent transition-colors"
       >
@@ -425,7 +427,15 @@ const Availability: React.FC<{ text: string; labels: Translations['ui'] }> = ({ 
             transition={{ duration: 0.15 }}
             className="absolute left-0 top-full z-30 mt-2 w-60 rounded-xl border border-line bg-surface p-1.5 shadow-card"
           >
-            <a role="menuitem" href={mailto} className={item} onClick={() => setOpen(false)}>
+            <a
+              role="menuitem"
+              href={mailto}
+              className={item}
+              onClick={() => {
+                trackEvent('contact-badge-email');
+                setOpen(false);
+              }}
+            >
               <Mail size={16} className="text-accent" /> {labels.contactEmail}
             </a>
             <a
@@ -434,7 +444,10 @@ const Availability: React.FC<{ text: string; labels: Translations['ui'] }> = ({ 
               target="_blank"
               rel="noopener noreferrer"
               className={item}
-              onClick={() => setOpen(false)}
+              onClick={() => {
+                trackEvent('contact-badge-linkedin');
+                setOpen(false);
+              }}
             >
               <LinkedInIcon size={15} className="text-accent" /> {labels.contactLinkedIn}
               <ArrowUpRight size={14} className="ml-auto text-muted" />
@@ -734,6 +747,7 @@ const App: React.FC = () => {
                 </p>
                 <a
                   href={`mailto:${links.email}`}
+                  onClick={() => trackEvent('contact-panel-email')}
                   className="mt-8 inline-flex items-center gap-2 break-all border-b border-current/30 pb-1 text-lg md:text-xl hover:border-current transition-colors"
                 >
                   {links.email}
@@ -742,6 +756,7 @@ const App: React.FC = () => {
                 <div className="mt-8 flex flex-wrap gap-3 text-sm">
                   <a
                     href={links.linkedin}
+                    onClick={() => trackEvent('contact-panel-linkedin')}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 rounded-full border border-current/20 px-4 py-2 hover:border-current/60 transition-colors"
@@ -750,6 +765,7 @@ const App: React.FC = () => {
                   </a>
                   <a
                     href={links.github}
+                    onClick={() => trackEvent('contact-panel-github')}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 rounded-full border border-current/20 px-4 py-2 hover:border-current/60 transition-colors"
