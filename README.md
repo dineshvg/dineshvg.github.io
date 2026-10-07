@@ -46,6 +46,11 @@ npm run generate:cv
 
 The generator uses a local Tectonic installation when available and otherwise runs Tectonic through Docker. It writes `public/Software_Architect_EN.pdf`; the GitHub Pages workflow regenerates this file before each site build.
 
+## 🤖 AI Agent Skill (Create your own portfolio!)
+This repository includes a built-in AI Agent Skill (`skill/SKILL.md`) that allows you to generate your own minimalist, highly optimized developer portfolio and downloadable PDF resume based on this template!
+
+Just point your favorite AI agent (like Claude Code, Cursor, or Gemini) to this repository and ask it to **"run the create-portfolio-resume skill"**. The agent will guide you through setting up your GitHub Pages repository, interview you for your details (or parse your uploaded CV), and build the entire site for you automatically.
+
 ## 🔗 Links
 - **LinkedIn:** [dineshvg2310](https://www.linkedin.com/in/dineshvg2310/)
 - **GitHub:** [dineshvg](https://github.com/dineshvg)

@@ -14,12 +14,15 @@ import {
   Bot,
   Award,
   ChevronDown,
+  Download,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { content, type Experience, type Language, type Project, type Translations } from './content';
 import { educationLogos, experienceLogos, isaqb, links, portrait } from './media';
 import { GitHubIcon, LinkedInIcon } from './components/BrandIcons';
 import { trackEvent } from './analytics';
+import { toJpeg } from 'html-to-image';
+import { jsPDF } from 'jspdf';
 
 type AppearanceMode = 'light' | 'dark';
 
@@ -114,11 +117,11 @@ const SectionHeader: React.FC<{ index: string; title: string }> = ({ index, titl
 const Disclosure: React.FC<{ items: string[]; labels: Translations['ui'] }> = ({ items, labels }) => {
   const [open, setOpen] = useState(false);
   return (
-    <div className="mt-5">
+    <div className="mt-5 disclosure-container">
       <button
         onClick={() => setOpen(o => !o)}
         aria-expanded={open}
-        className="group inline-flex items-center gap-2 text-[13px] font-medium text-accent hover:text-ink transition-colors"
+        className="group inline-flex items-center gap-2 text-[13px] font-medium text-accent hover:text-ink transition-colors print-hidden"
       >
         <span className="grid place-items-center w-5 h-5 rounded-full border border-current">
           <Plus size={12} className={`transition-transform duration-300 ${open ? 'rotate-45' : ''}`} />
@@ -126,24 +129,21 @@ const Disclosure: React.FC<{ items: string[]; labels: Translations['ui'] }> = ({
         {open ? labels.readLess : labels.readMore}
       </button>
       <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden"
-          >
-            <ul className="mt-4 space-y-2.5 rounded-xl bg-chip/70 p-5">
-              {items.map((d, i) => (
-                <li key={i} className="flex gap-3 text-sm leading-relaxed text-ink-2">
-                  <span className="mt-[9px] h-px w-3 shrink-0 bg-muted" />
-                  {d}
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-        )}
+        <motion.div
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: open ? 'auto' : 0, opacity: open ? 1 : 0 }}
+          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          className="overflow-hidden disclosure-content"
+        >
+          <ul className="mt-4 space-y-2.5 rounded-xl bg-chip/70 p-5">
+            {items.map((d, i) => (
+              <li key={i} className="flex gap-3 text-sm leading-relaxed text-ink-2">
+                <span className="mt-[9px] h-px w-3 shrink-0 bg-muted" />
+                {d}
+              </li>
+            ))}
+          </ul>
+        </motion.div>
       </AnimatePresence>
     </div>
   );
@@ -315,7 +315,7 @@ const ProjectCard: React.FC<{ project: Project; labels: Translations['ui'] }> = 
     </div>
     {project.details && <Disclosure items={project.details} labels={labels} />}
     {project.links && (
-      <div className="mt-6 border-t border-line pt-5">
+      <div className="mt-6 border-t border-line pt-5 print-hidden">
         <ProjectLinks project={project} />
       </div>
     )}
@@ -330,8 +330,22 @@ const Controls: React.FC<{
   mode: AppearanceMode;
   setMode: (m: AppearanceMode) => void;
   label: string;
-}> = ({ lang, setLang, mode, setMode, label }) => (
-  <div className="flex items-center gap-2">
+  downloadLabel: string;
+  onDownload: () => void;
+  isGeneratingPdf: boolean;
+}> = ({ lang, setLang, mode, setMode, label, downloadLabel, onDownload, isGeneratingPdf }) => (
+  <div className="flex items-center gap-2 print:hidden" data-html2canvas-ignore="true">
+    <button
+      onClick={onDownload}
+      disabled={isGeneratingPdf}
+      aria-label={downloadLabel}
+      title={downloadLabel}
+      className={`inline-flex h-[30px] items-center gap-1.5 rounded-full border border-line bg-surface px-3 text-[11px] font-medium transition-colors uppercase tracking-wider ${
+        isGeneratingPdf ? 'text-muted cursor-wait opacity-70' : 'text-ink-2 hover:text-ink hover:border-accent'
+      }`}
+    >
+      <Download size={13} className={isGeneratingPdf ? 'animate-bounce' : ''} /> {isGeneratingPdf ? '...' : 'PDF'}
+    </button>
     <div className="flex rounded-full border border-line bg-surface p-0.5 font-mono text-[11px] font-medium">
       {(['en', 'de'] as const).map(l => (
         <button
@@ -480,7 +494,7 @@ const useActiveSection = (ids: string[]) => {
 
 /* ---------- Page ---------- */
 
-const NAV_IDS = ['experience', 'projects', 'skills', 'education', 'languages', 'contact'];
+const NAV_IDS = ['ai', 'experience', 'projects', 'skills', 'education', 'languages', 'contact'];
 
 const App: React.FC = () => {
   const [lang, setLangState] = useState<Language>(initialLanguage);
@@ -505,8 +519,12 @@ const App: React.FC = () => {
   }, [lang]);
 
   const t = content[lang];
-  const [featured, ...projects] = t.projects;
+  const featured = t.projects[0];
+  const regularProjects = t.projects.slice(1, 4);
+  const aiProjects = t.projects.slice(4);
+  
   const navLabels: Record<string, string> = {
+    ai: t.sections.aiOpenSource,
     experience: t.sections.experience,
     projects: t.sections.projects,
     skills: t.sections.expertise,
@@ -514,12 +532,65 @@ const App: React.FC = () => {
     languages: t.sections.languages,
     contact: t.ui.contact,
   };
-  const controls = <Controls lang={lang} setLang={setLang} mode={mode} setMode={setMode} label={t.ui.toggleTheme} />;
+  const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
+  const generatePdf = async () => {
+    // We'll capture the entire html element instead of body to avoid any bottom clipping
+    const element = document.documentElement;
+    setIsGeneratingPdf(true);
+    try {
+      document.body.classList.add('exporting-pdf');
+      document.documentElement.classList.add('exporting-pdf');
+      
+      // Trigger all scroll animations by scrolling down then up
+      window.scrollTo(0, document.body.scrollHeight);
+      await new Promise(r => setTimeout(r, 100));
+      window.scrollTo(0, 0);
+      
+      // Give enough time for all layout shifts, CSS overrides, and fonts to settle
+      await new Promise(r => setTimeout(r, 800));
+      
+      const imgWidth = document.documentElement.scrollWidth;
+      const imgHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+
+      const imgData = await toJpeg(element, {
+        quality: 0.8,
+        pixelRatio: 1.5, // optimal balance of sharpness and file size
+        backgroundColor: mode === 'dark' ? '#0e1012' : '#f5f2ec',
+        width: imgWidth,
+        height: imgHeight,
+        style: {
+          transform: 'translate(0, 0)',
+        },
+        filter: (node) => {
+          if (node instanceof HTMLElement && node.hasAttribute('data-html2canvas-ignore')) {
+            return false;
+          }
+          return true;
+        }
+      });
+      
+      const pdf = new jsPDF({
+        orientation: imgWidth > imgHeight ? 'l' : 'p',
+        unit: 'px',
+        format: [imgWidth, imgHeight],
+      });
+      pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight);
+      pdf.save('Dinesh_Gangatharan_Resume.pdf');
+    } catch (err) {
+      console.error('PDF generation failed:', err);
+    } finally {
+      document.body.classList.remove('exporting-pdf');
+      document.documentElement.classList.remove('exporting-pdf');
+      setIsGeneratingPdf(false);
+    }
+  };
+
+  const controls = <Controls lang={lang} setLang={setLang} mode={mode} setMode={setMode} label={t.ui.toggleTheme} downloadLabel={t.ui.downloadPdf} onDownload={generatePdf} isGeneratingPdf={isGeneratingPdf} />;
 
   return (
     <div className="grain relative min-h-screen">
       {/* Mobile top bar */}
-      <div className="sticky top-0 z-40 border-b border-line bg-paper/85 backdrop-blur-md lg:hidden">
+      <div className="sticky top-0 z-40 border-b border-line bg-paper/85 backdrop-blur-md lg:hidden print:hidden print-hidden">
         <div className="mx-auto flex h-14 max-w-[1240px] items-center justify-between px-5">
           <a href="#top" className="font-serif text-lg font-[500] tracking-tight">
             Dinesh Gangatharan
@@ -529,7 +600,7 @@ const App: React.FC = () => {
       </div>
 
       {/* Desktop: language and theme switches pinned top right */}
-      <div className="fixed right-6 top-6 z-50 hidden rounded-full border border-line bg-paper/85 p-1 shadow-card backdrop-blur-md lg:block">
+      <div className="fixed right-6 top-6 z-50 hidden rounded-full border border-line bg-paper/85 p-1 shadow-card backdrop-blur-md lg:block print:hidden print-hidden">
         {controls}
       </div>
 
@@ -537,8 +608,9 @@ const App: React.FC = () => {
         {/* Sidebar / mobile intro */}
         <aside className="pt-8 lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:overflow-y-auto lg:py-10">
           <div className="flex gap-5 lg:block">
-            <div className="relative w-28 shrink-0 sm:w-36 lg:w-full">
+            <div className="relative w-28 shrink-0 sm:w-36 lg:w-full" id="profile-photo-container">
               <img
+                id="profile-photo"
                 src={portrait}
                 alt="Dinesh Gangatharan"
                 className="aspect-[4/5] w-full rounded-[20px] object-cover object-[50%_25%] shadow-card lg:aspect-[1/1]"
@@ -554,17 +626,17 @@ const App: React.FC = () => {
                 Gangatharan
               </h1>
               <p className="mt-3 text-[14.5px] leading-snug text-ink-2">{t.hero.title}</p>
-              <div className="mt-4">
+              <div className="mt-4 print-hidden">
                 <Availability text={t.hero.availability} labels={t.ui} />
               </div>
             </div>
           </div>
 
-          <div className="mt-6">
+          <div className="mt-6 print-hidden">
             <SocialLinks />
           </div>
 
-          <nav className="mt-9 hidden lg:block" aria-label="Sections">
+          <nav className="mt-9 hidden lg:block print:hidden" aria-label="Sections">
             <ul className="space-y-0.5">
               {NAV_IDS.map((id, i) => (
                 <li key={id}>
@@ -617,9 +689,21 @@ const App: React.FC = () => {
             </motion.dl>
           </section>
 
+          {/* AI & Open Source */}
+          <section id="ai" className="mb-24 md:mb-32">
+            <SectionHeader index="01" title={t.sections.aiOpenSource} />
+            <div className="grid items-start gap-5 md:grid-cols-2">
+              {aiProjects.map(p => (
+                <div key={p.id}>
+                  <ProjectCard project={p} labels={t.ui} />
+                </div>
+              ))}
+            </div>
+          </section>
+
           {/* Experience */}
           <section id="experience" className="mb-24 md:mb-32">
-            <SectionHeader index="01" title={t.sections.experience} />
+            <SectionHeader index="02" title={t.sections.experience} />
             <ol>
               {t.experience.map((exp, i) => (
                 <ExperienceItem
@@ -635,11 +719,11 @@ const App: React.FC = () => {
 
           {/* Projects */}
           <section id="projects" className="mb-24 md:mb-32">
-            <SectionHeader index="02" title={t.sections.projects} />
+            <SectionHeader index="03" title={t.sections.projects} />
             <FeaturedProject project={featured} labels={t.ui} />
             <div className="mt-5 grid items-start gap-5 md:grid-cols-2">
-              {projects.map((p, i) => (
-                <div key={p.id} className={projects.length % 2 === 1 && i === projects.length - 1 ? 'md:col-span-2' : ''}>
+              {regularProjects.map((p, i) => (
+                <div key={p.id} className={regularProjects.length % 2 === 1 && i === regularProjects.length - 1 ? 'md:col-span-2' : ''}>
                   <ProjectCard project={p} labels={t.ui} />
                 </div>
               ))}
@@ -648,7 +732,7 @@ const App: React.FC = () => {
 
           {/* Expertise */}
           <section id="skills" className="mb-24 md:mb-32">
-            <SectionHeader index="03" title={t.sections.expertise} />
+            <SectionHeader index="04" title={t.sections.expertise} />
             <motion.div {...reveal} className="grid overflow-hidden rounded-2xl border border-line bg-surface sm:grid-cols-2">
               {t.skills.map((cat, i) => (
                 <div
@@ -678,7 +762,7 @@ const App: React.FC = () => {
 
           {/* Education & certification */}
           <section id="education" className="mb-24 md:mb-32">
-            <SectionHeader index="04" title={t.sections.education} />
+            <SectionHeader index="05" title={t.sections.education} />
             <div className="grid gap-5 md:grid-cols-[1.35fr_1fr]">
               <motion.ul {...reveal} className="divide-y divide-line rounded-2xl border border-line bg-surface">
                 {t.education.map((edu, i) => (
@@ -709,7 +793,7 @@ const App: React.FC = () => {
                   </div>
                   <img src={isaqb} alt="iSAQB CPSA-F badge" className="h-20 w-20 shrink-0" loading="lazy" />
                 </div>
-                <span className="inline-flex items-center gap-1 text-[13px] font-medium text-accent">
+                <span className="inline-flex items-center gap-1 text-[13px] font-medium text-accent print-hidden">
                   {t.ui.viewCertificate}
                   <ArrowUpRight size={14} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </span>
@@ -718,8 +802,8 @@ const App: React.FC = () => {
           </section>
 
           {/* Languages */}
-          <section id="languages" className="mb-24 md:mb-32">
-            <SectionHeader index="05" title={t.sections.languages} />
+          <section id="languages" className="mb-24 md:mb-32 print-hidden">
+            <SectionHeader index="06" title={t.sections.languages} />
             <motion.div {...reveal} className="grid grid-cols-2 overflow-hidden rounded-2xl border border-line bg-surface">
               {[
                 { name: t.ui.languageNames.english, level: 'C2 Proficient' },
@@ -734,26 +818,26 @@ const App: React.FC = () => {
           </section>
 
           {/* Contact */}
-          <section id="contact">
+          <section id="contact" className="print-hidden">
             <motion.div {...reveal} className="relative overflow-hidden rounded-[28px] bg-ink p-8 text-paper md:p-12">
               <div
                 aria-hidden
                 className="pointer-events-none absolute -bottom-32 -right-20 h-80 w-80 rounded-full bg-accent opacity-25 blur-3xl"
               />
               <div className="relative">
-                <MonoLabel className="opacity-60">06 — {t.ui.contact}</MonoLabel>
+                <MonoLabel className="opacity-60">07 — {t.ui.contact}</MonoLabel>
                 <p className="mt-5 max-w-[22ch] font-serif text-[1.9rem] md:text-[2.8rem] leading-[1.05] tracking-[-0.02em] font-[400]">
                   {t.hero.availability}.
                 </p>
                 <a
                   href={`mailto:${links.email}`}
                   onClick={() => trackEvent('contact-panel-email')}
-                  className="mt-8 inline-flex items-center gap-2 break-all border-b border-current/30 pb-1 text-lg md:text-xl hover:border-current transition-colors"
+                  className="mt-8 inline-flex items-center gap-2 break-all border-b border-current/30 pb-1 text-lg md:text-xl hover:border-current transition-colors print-hidden"
                 >
                   {links.email}
                   <ArrowUpRight size={18} className="shrink-0" />
                 </a>
-                <div className="mt-8 flex flex-wrap gap-3 text-sm">
+                <div className="mt-8 flex flex-wrap gap-3 text-sm print-hidden">
                   <a
                     href={links.linkedin}
                     onClick={() => trackEvent('contact-panel-linkedin')}
@@ -781,7 +865,7 @@ const App: React.FC = () => {
             <span>
               © {new Date().getFullYear()} Dinesh Gangatharan · {t.ui.footer}
             </span>
-            <a href="#top" className="hover:text-ink transition-colors">
+            <a href="#top" className="hover:text-ink transition-colors print-hidden">
               ↑ Top
             </a>
           </footer>

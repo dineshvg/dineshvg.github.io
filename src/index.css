@@ -16,6 +16,24 @@
   color-scheme: light;
 }
 
+/* Force light mode variables when printing, so a dark mode print doesn't result in white text on white paper. */
+@media print {
+  :root, :root.dark {
+    --paper: #ffffff;
+    --surface: #ffffff;
+    --ink: #16181c;
+    --ink-2: #3a3e45;
+    --muted: #6c7077;
+    --line: #e4ded3;
+    --chip: #eeeae2;
+    --accent: #0e6a5a;
+    --accent-ink: #ffffff;
+    --accent-soft: #e2eee9;
+    --shadow: none;
+    color-scheme: light;
+  }
+}
+
 :root.dark {
   --paper: #0e1012;
   --surface: #15181b;
@@ -66,6 +84,37 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* Force all animations and hidden elements to be fully visible and rendered without transforms during PDF generation */
+body.exporting-pdf, body.exporting-pdf * {
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+  transition: none !important;
+}
+
+html.exporting-pdf, body.exporting-pdf {
+  overflow: visible !important;
+  height: auto !important;
+}
+
+body.exporting-pdf .print-hidden {
+  display: none !important;
+}
+
+body.exporting-pdf .disclosure-content {
+  height: auto !important;
+  opacity: 1 !important;
+}
+
+body.exporting-pdf #profile-photo-container {
+  width: 75% !important;
+  margin: 0 auto !important;
+}
+
+body.exporting-pdf #profile-photo {
+  box-shadow: none !important; /* This fixes any phantom lines around the photo */
 }
 
 ::selection {
