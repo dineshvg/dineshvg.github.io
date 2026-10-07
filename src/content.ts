@@ -38,6 +38,7 @@ export interface Translations {
     expertise: string;
     education: string;
     languages: string;
+    aiOpenSource: string;
   };
   experience: Experience[];
   projects: Project[];
@@ -65,6 +66,7 @@ export interface Translations {
     contactEmail: string;
     contactLinkedIn: string;
     emailSubject: string;
+    downloadPdf: string;
   };
   stats: { value: string; label: string }[];
 }
@@ -81,7 +83,8 @@ export const content: Record<Language, Translations> = {
       projects: "Architecture & Systems",
       expertise: "Expertise",
       education: "Education",
-      languages: "Languages"
+      languages: "Languages",
+      aiOpenSource: "AI & Open Source"
     },
     projects: [
       {
@@ -170,25 +173,28 @@ export const content: Record<Language, Translations> = {
         tags: ['Docker Compose', 'PoPP Reference Stack', 'ZETA Dev Proxy', 'Integration Testing', 'Microservices', 'Network Bridging']
       },
       {
-        id: 'health-plan-app',
-        title: 'Health plan → app: AI agent skill & PWA template',
+        id: 'ai-agent-skills',
+        title: 'AI Agent Skills: Health Plan & Portfolio Generator',
         badge: 'Open Source • AI Agents',
-        category: 'Agent Skill & Offline-First PWA',
+        category: 'Agent Skills & Automation Templates',
         period: '2026',
-        description: 'Designed an AI agent skill that turns a person\'s health goals into training and nutrition plans, a Google Sheets tracker and an installable offline-first PWA with daily meals, shopping lists and logging. Built with Claude Code as a public template; personal data stays in the user\'s private Google Sheet.',
+        description: 'Engineered modular AI agent skills (for Claude Code, Cursor, Gemini) that autonomously build complete applications. The Portfolio Generator interviews users or parses CVs to create a customized React web app, while the Health Plan skill computes nutritional targets and generates an offline-first PWA.',
         iconType: 'ai',
-        links: [{ label: 'Article', url: 'https://medium.com/@dineshvg.1023/i-asked-an-ai-agent-for-a-health-plan-it-built-me-an-app-0fef893d8da4' }, { label: 'GitHub', url: 'https://github.com/dineshvg/health-plan-app' }],
+        links: [
+          { label: 'Health App', url: 'https://github.com/dineshvg/health-plan-app' },
+          { label: 'Portfolio Template', url: 'https://github.com/dineshvg/dineshvg.github.io' },
+          { label: 'Article', url: 'https://medium.com/@dineshvg.1023/i-asked-an-ai-agent-for-a-health-plan-it-built-me-an-app-0fef893d8da4' }
+        ],
         highlights: [
-          'Agent skill that interviews the user, computes energy targets, writes the plans and generates the app data and tracker.',
-          'Privacy by design: public static app on GitHub Pages, personal data only in the user\'s private Sheet via OAuth and the Sheets API, no backend.',
-          'Plan validator (diet exclusions, macro ranges, data-leak scan) and Playwright smoke tests with mocked Google APIs.'
+          'Engineered skill files that guide AI agents to extract user data, execute complex business logic, and autonomously generate functional software.',
+          'Portfolio Generator: Automatically customizes a React template, configures a GitHub Pages repository, and injects attribution footers.',
+          'Health Plan App: Computes energy targets, writes dietary plans, and outputs an installable PWA connected to a private Google Sheets backend.'
         ],
         details: [
-          'Evaluated the skill with agent dry runs on synthetic personas (vegetarian, pescatarian with allergy and hypertension) and fixed the defects they surfaced.',
-          'All UI labels are read from the private sheet after sign-in, so the public code stays free of personal details.',
-          'Service-worker caching for offline meals and shopping lists; installable on Android and iOS.'
+          'Implemented fallback strategies to handle missing inputs (e.g., providing markdown templates when CV parsing fails).',
+          'Enforced safety boundaries in prompt instructions to prevent destructive modifications to original repositories.'
         ],
-        tags: ['AI Agents', 'Agent Skills', 'Claude Code', 'PWA', 'Google Sheets API', 'OAuth 2.0', 'Playwright', 'Privacy by Design']
+        tags: ['AI Agents', 'Agent Skills', 'Claude Code', 'React', 'PWA', 'Automation']
       },
       {
         id: 'android-mcp-testing',
@@ -196,13 +202,21 @@ export const content: Record<Language, Translations> = {
         badge: 'AI Agents • App Testing',
         category: 'AI Agents & Kotlin Multiplatform',
         period: '2026',
-        description: 'Kotlin Multiplatform MCP (Model Context Protocol) server that lets AI agents test Android apps on real devices from natural-language prompts.',
+        description: 'A Kotlin Multiplatform system that lets any MCP-compatible AI agent (Claude, Gemini, Cursor) test Android apps on real devices using plain-language prompts. An MCP Server exposes device-control tools, a Cloudflare Worker relay bridges commands over WebSocket, and an Android Companion app executes them via AccessibilityService — no source code, emulators, or scripted UI tests required.',
         iconType: 'ai',
         highlights: [
-          'AI agents drive and verify Android apps on real devices through the Model Context Protocol.',
-          'Test scenarios written as plain-language prompts instead of scripted UI tests.'
+          'Natural-language test scenarios replace scripted UI tests — describe what to verify, and the AI agent drives the device.',
+          'Architecture integrates a JVM MCP Server, Cloudflare Durable Objects relay, and an Android Companion app with shared KMP models.',
+          'MCP tools give agents full device control.',
+          'AccessibilityService-based automation works on any installed app without needing its source code.'
         ],
-        tags: ['MCP', 'AI Agents', 'Kotlin Multiplatform', 'Android', 'App Testing']
+        details: [
+          'Shared Kotlin Multiplatform module for commands and models eliminates serialization drift between server and device.',
+          'Cloudflare Durable Objects maintain persistent WebSocket sessions, enabling remote testing from any network without direct device access.',
+          'Screenshot capture returns base64 images for visual assertion; accessibility-tree queries expose the full UI hierarchy for element discovery.',
+          'Built with Ktor for HTTP/WebSocket, Kotlinx Serialization, Jetpack Compose for the companion app UI, and Gradle version catalogs across all modules.'
+        ],
+        tags: ['Kotlin Multiplatform', 'MCP', 'AI Agents', 'Android', 'AccessibilityService', 'Cloudflare Workers', 'Ktor', 'WebSockets']
       }
     ],
     experience: [
@@ -339,7 +353,8 @@ export const content: Record<Language, Translations> = {
       languageNames: { english: "English", german: "German" },
       contactEmail: "Send an email",
       contactLinkedIn: "Message on LinkedIn",
-      emailSubject: "Opportunity via your website"
+      emailSubject: "Opportunity via your website",
+      downloadPdf: "Download Resume"
     },
     stats: [
       { value: "2M+", label: "Active E-Rezept app users" },
@@ -359,7 +374,8 @@ export const content: Record<Language, Translations> = {
       projects: "Architektur & Systeme",
       expertise: "Fachgebiete",
       education: "Ausbildung",
-      languages: "Sprachen"
+      languages: "Sprachen",
+      aiOpenSource: "KI & Open Source"
     },
     projects: [
       {
@@ -448,25 +464,28 @@ export const content: Record<Language, Translations> = {
         tags: ['Docker Compose', 'PoPP Referenz Stack', 'ZETA Dev Proxy', 'Integration Testing', 'Microservices', 'Network Bridging']
       },
       {
-        id: 'health-plan-app',
-        title: 'Health plan → App: KI-Agent-Skill & PWA-Vorlage',
+        id: 'ai-agent-skills',
+        title: 'KI-Agent-Skills: Health Plan & Portfolio-Generator',
         badge: 'Open Source • KI-Agenten',
-        category: 'Agent-Skill & Offline-First-PWA',
+        category: 'Agent-Skills & Automatisierungs-Vorlagen',
         period: '2026',
-        description: 'Konzeption eines KI-Agent-Skills, der aus persönlichen Gesundheitszielen Trainings- und Ernährungspläne, einen Google-Sheets-Tracker und eine installierbare Offline-First-PWA mit Tagesmahlzeiten, Einkaufslisten und Protokollierung erzeugt. Mit Claude Code als öffentliche Vorlage umgesetzt; personenbezogene Daten verbleiben im privaten Google Sheet der Nutzer.',
+        description: 'Entwicklung modularer KI-Agent-Skills (für Claude Code, Cursor, Gemini), die autonom vollständige Anwendungen erstellen. Der Portfolio-Generator befragt Nutzer oder liest Lebensläufe aus, um eine React-App anzupassen, während der Health Plan Skill Ernährungsziele berechnet und eine Offline-First PWA generiert.',
         iconType: 'ai',
-        links: [{ label: 'Artikel', url: 'https://medium.com/@dineshvg.1023/i-asked-an-ai-agent-for-a-health-plan-it-built-me-an-app-0fef893d8da4' }, { label: 'GitHub', url: 'https://github.com/dineshvg/health-plan-app' }],
+        links: [
+          { label: 'Health App', url: 'https://github.com/dineshvg/health-plan-app' },
+          { label: 'Portfolio-Vorlage', url: 'https://github.com/dineshvg/dineshvg.github.io' },
+          { label: 'Artikel', url: 'https://medium.com/@dineshvg.1023/i-asked-an-ai-agent-for-a-health-plan-it-built-me-an-app-0fef893d8da4' }
+        ],
         highlights: [
-          'Agent-Skill, der Nutzer befragt, Energiebedarf berechnet, Pläne erstellt sowie App-Daten und Tracker generiert.',
-          'Privacy by Design: statische App auf GitHub Pages, personenbezogene Daten ausschließlich im privaten Sheet (OAuth, Sheets API), kein Backend.',
-          'Plan-Validator (Ernährungsausschlüsse, Makro-Bereiche, Datenleck-Prüfung) und Playwright-Smoke-Tests mit gemockten Google-APIs.'
+          'Entwicklung von Skill-Dateien, die KI-Agenten anleiten, Nutzerdaten zu extrahieren, Geschäftslogik auszuführen und funktionale Software zu generieren.',
+          'Portfolio-Generator: Passt eine React-Vorlage automatisch an, konfiguriert ein GitHub-Pages-Repository und fügt Herkunftsnachweise ein.',
+          'Health Plan App: Berechnet Energiebedarf, erstellt Ernährungspläne und generiert eine installierbare PWA mit privatem Google Sheets Backend.'
         ],
         details: [
-          'Evaluierung des Skills durch Agent-Testläufe mit synthetischen Personas (vegetarisch; pescetarisch mit Allergie und Bluthochdruck) und Behebung der gefundenen Mängel.',
-          'Sämtliche Beschriftungen werden nach der Anmeldung aus dem privaten Sheet gelesen, sodass der öffentliche Code frei von persönlichen Angaben bleibt.',
-          'Service-Worker-Caching für Mahlzeiten und Einkaufslisten offline; installierbar auf Android und iOS.'
+          'Implementierung von Rückfallstrategien für fehlende Eingaben (z. B. Markdown-Vorlagen, wenn kein Lebenslauf hochgeladen wird).',
+          'Durchsetzung von Sicherheitsrichtlinien in den Prompt-Anweisungen, um unautorisierte Änderungen an Original-Repositories zu verhindern.'
         ],
-        tags: ['KI-Agenten', 'Agent Skills', 'Claude Code', 'PWA', 'Google Sheets API', 'OAuth 2.0', 'Playwright', 'Privacy by Design']
+        tags: ['KI-Agenten', 'Agent Skills', 'Claude Code', 'React', 'PWA', 'Automatisierung']
       },
       {
         id: 'android-mcp-testing',
@@ -474,13 +493,21 @@ export const content: Record<Language, Translations> = {
         badge: 'KI-Agenten • App-Tests',
         category: 'KI-Agenten & Kotlin Multiplatform',
         period: '2026',
-        description: 'MCP-Server (Model Context Protocol) auf Basis von Kotlin Multiplatform, mit dem KI-Agenten Android-Apps auf echten Geräten anhand von Prompts in natürlicher Sprache testen.',
+        description: 'Ein Kotlin-Multiplatform-System, das jedem MCP-kompatiblen KI-Agenten (Claude, Gemini, Cursor) ermöglicht, Android-Apps auf echten Geräten per natürlichsprachigem Prompt zu testen. Ein MCP-Server stellt Gerätesteuerungs-Tools bereit, ein Cloudflare-Worker-Relay vermittelt Befehle via WebSocket, und eine Android-Companion-App führt sie über den AccessibilityService aus — ohne Quellcode, Emulatoren oder geskriptete UI-Tests.',
         iconType: 'ai',
         highlights: [
-          'KI-Agenten steuern und prüfen Android-Apps auf echten Geräten über das Model Context Protocol.',
-          'Testszenarien als Prompts in natürlicher Sprache statt als geskriptete UI-Tests.'
+          'Natürlichsprachige Testszenarien ersetzen geskriptete UI-Tests — beschreibe, was geprüft werden soll, und der KI-Agent steuert das Gerät.',
+          'Architektur umfasst einen JVM MCP-Server, Cloudflare Durable Objects Relay und eine Android-Companion-App mit gemeinsamen KMP-Modellen.',
+          'MCP-Tools ermöglichen volle Gerätesteuerung.',
+          'AccessibilityService-basierte Automatisierung funktioniert mit jeder installierten App ohne deren Quellcode.'
         ],
-        tags: ['MCP', 'KI-Agenten', 'Kotlin Multiplatform', 'Android', 'App-Tests']
+        details: [
+          'Gemeinsames Kotlin-Multiplatform-Modul für Befehle und Modelle verhindert Serialisierungsdrift zwischen Server und Gerät.',
+          'Cloudflare Durable Objects halten persistente WebSocket-Sitzungen und ermöglichen Remote-Tests aus jedem Netzwerk ohne direkten Gerätezugriff.',
+          'Screenshot-Erfassung liefert Base64-Bilder zur visuellen Prüfung; Accessibility-Tree-Abfragen liefern die vollständige UI-Hierarchie zur Elementerkennung.',
+          'Gebaut mit Ktor (HTTP/WebSocket), Kotlinx Serialization, Jetpack Compose für die Companion-App-UI und Gradle Version Catalogs über alle Module.'
+        ],
+        tags: ['Kotlin Multiplatform', 'MCP', 'KI-Agenten', 'Android', 'AccessibilityService', 'Cloudflare Workers', 'Ktor', 'WebSockets']
       }
     ],
     experience: [
@@ -617,7 +644,8 @@ export const content: Record<Language, Translations> = {
       languageNames: { english: "Englisch", german: "Deutsch" },
       contactEmail: "E-Mail schreiben",
       contactLinkedIn: "Nachricht auf LinkedIn",
-      emailSubject: "Anfrage über Ihre Website"
+      emailSubject: "Anfrage über Ihre Website",
+      downloadPdf: "Lebenslauf herunterladen"
     },
     stats: [
       { value: "2M+", label: "Aktive Nutzer der E-Rezept App" },
