@@ -24,6 +24,7 @@ export interface Project {
   tags: string[];
   iconType: 'kmp' | 'auth' | 'server' | 'ehealth' | 'ai';
   links?: { label: string; url: string }[];
+  aiWork?: { label: string; title: string; description: string; highlights: string[] };
 }
 
 export interface Translations {
@@ -107,6 +108,17 @@ export const content: Record<Language, Translations> = {
           'Co-developed backend Push-Gateway logic ensuring app ID validation and filtering illegal push attempts.',
           'Migrated core architecture to modular Kotlin and established reusable CI/CD convention plugins across teams.'
         ],
+        aiWork: {
+          label: 'AI work',
+          title: 'AI-driven end-to-end testing',
+          description: 'Built an AI-assisted test bench for the app team. From a single chat with an AI agent, a developer can act as the prescribing doctor, the patient and the pharmacy, and walk a prescription through its whole journey to test the app, instead of clicking through several separate tools.',
+          highlights: [
+            'Play every role from one chat: issue a prescription, order it, and answer as the pharmacy.',
+            'Describe the test in plain language and the agent runs the steps, with no IDs to look up or forms to fill.',
+            'Hard-to-reproduce cases, such as delivery updates or long message threads, set up in seconds.',
+            'A click-through test case that took almost 15 minutes now runs in about half a minute with the MCP tool.'
+          ]
+        },
         tags: ['Android SDK', 'Das E-Rezept (Android)', 'Push-Gateway', 'Push Notifications (FCM)', 'Room DB', 'FHIR', 'Clean Architecture', 'CI/CD']
       },
       {
@@ -398,6 +410,17 @@ export const content: Record<Language, Translations> = {
           'Mitwirkung an Push-Gateway-Backend-Logik zur App-ID-Validierung und Abwehr unberechtigter Push-Anfragen.',
           'Modernisierung der Kernarchitektur auf modulares Kotlin und Etablierung wiederverwendbarer CI/CD-Plugins.'
         ],
+        aiWork: {
+          label: 'KI-Arbeit',
+          title: 'KI-gestütztes End-to-End-Testen',
+          description: 'Aufbau eines KI-gestützten Testplatzes für das App-Team. In einem einzigen Chat mit einem KI-Agenten übernehmen Entwickler die Rolle der verordnenden Praxis, des Patienten und der Apotheke und begleiten ein Rezept durch seinen gesamten Weg, um die App zu testen, statt sich durch mehrere Tools zu klicken.',
+          highlights: [
+            'Alle Rollen in einem Chat: Rezept ausstellen, bestellen und als Apotheke antworten.',
+            'Test in Alltagssprache beschreiben, der Agent führt die Schritte aus, ohne IDs nachzuschlagen oder Formulare auszufüllen.',
+            'Schwer reproduzierbare Fälle wie Lieferstatus oder lange Nachrichtenverläufe in Sekunden aufgesetzt.',
+            'Ein Testfall, der durchgeklickt fast 15 Minuten dauerte, läuft jetzt mit dem MCP-Tool in etwa einer halben Minute.'
+          ]
+        },
         tags: ['Android SDK', 'Das E-Rezept (Android)', 'Push-Gateway', 'Push Notifications (FCM)', 'Room DB', 'FHIR', 'Clean Architecture', 'CI/CD']
       },
       {

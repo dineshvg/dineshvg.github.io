@@ -288,6 +288,21 @@ const FeaturedProject: React.FC<{ project: Project; labels: Translations['ui'] }
       <div className="mt-7">
         <Tags tags={project.tags} />
       </div>
+      {project.aiWork && (
+        <div className="mt-8 rounded-2xl border border-accent/30 bg-accent/[0.04] p-6 md:p-7">
+          <div className="mb-4 flex items-center gap-3">
+            <span className="grid h-9 w-9 place-items-center rounded-lg bg-accent/15 text-accent">
+              {projectIcon('ai', 18)}
+            </span>
+            <div>
+              <MonoLabel className="text-accent">{project.aiWork.label}</MonoLabel>
+              <h4 className="font-serif text-[1.3rem] leading-tight tracking-[-0.01em]">{project.aiWork.title}</h4>
+            </div>
+          </div>
+          <p className="mb-5 max-w-[70ch] text-[15px] leading-relaxed text-ink-2">{project.aiWork.description}</p>
+          <Highlights items={project.aiWork.highlights} columns />
+        </div>
+      )}
       {project.details && <Disclosure items={project.details} labels={labels} />}
     </div>
   </motion.article>
