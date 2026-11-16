@@ -1,56 +1,47 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark"><meta name="theme-color" content="#1f6f5c">
 <title>03 · Kotlin coroutines and Flow · Android interview playbook</title>
-<style>
-:root{--bg:#fafaf9;--card:#fff;--text:#1c1917;--muted:#6b6560;--line:#e7e5e4;--accent:#1f6f5c;--code:#f3f2f0}
-@media (prefers-color-scheme:dark){:root{--bg:#141413;--card:#1c1b1a;--text:#e9e6e2;--muted:#a39d96;--line:#2e2c2a;--accent:#5fb89e;--code:#242321}}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
-.layout{display:flex;min-height:100vh}
-nav{width:290px;flex:none;border-right:1px solid var(--line);padding:20px 16px;position:sticky;top:0;height:100vh;overflow:auto;font-size:14px}
-nav h2{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:18px 0 6px}
-nav a{display:block;padding:4px 8px;border-radius:6px;color:var(--text);text-decoration:none}
-nav a:hover{background:var(--code)}nav a.cur{background:var(--code);color:var(--accent);font-weight:600}
-nav .brand{font-weight:700;font-size:16px;margin-bottom:4px}
-main{flex:1;min-width:0;max-width:860px;padding:32px 28px 80px}
-h1{font-size:1.8rem;line-height:1.25;margin-top:0}h2{margin-top:2rem;border-bottom:1px solid var(--line);padding-bottom:.3rem}
-a{color:var(--accent)}
-table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}
-th,td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--code)}
-code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.9em}
-pre{background:var(--code);padding:12px;border-radius:8px;overflow:auto}pre code{background:none;padding:0}
-pre.mermaid{background:var(--card);border:1px solid var(--line);text-align:center}
-blockquote{margin:1em 0;padding:.2em 1em;border-left:3px solid var(--accent);color:var(--muted)}
-.meta{color:var(--muted);font-size:13px;margin:-8px 0 16px}
-li.task{list-style:none;margin-left:-1.2em}
-@media(max-width:800px){.layout{display:block}nav{position:static;width:auto;height:auto;border:0;border-bottom:1px solid var(--line)}main{padding:20px 16px 60px}}
-</style></head>
-<body><div class="layout"><nav><div class="brand">Android interview playbook</div>
+<link rel="stylesheet" href="../assets/site.css">
+</head><body>
+<header class="topbar"><button class="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav">&#9776;</button>
+<a class="brand" href="../index.html">Android interview playbook</a></header>
+<div class="scrim"></div>
+<div class="layout"><nav id="nav" aria-label="Playbook"><a class="brand" href="../index.html">Android interview playbook</a>
 <h2>Start</h2>
-<a href="../index.html">Roadmap</a>
-<a href="../00-role-profile.html">Role profile</a>
-<h2>Reference</h2>
-<a href="../reading-list.html">Reading list</a>
+<a class="item" href="../index.html">Roadmap</a>
+<a class="item" href="../00-role-profile.html">Role profile</a>
+<h2>Practice</h2>
+<a class="item" href="../flashcards.html">Flashcards (111)</a>
 <h2>Modules</h2>
-<a href="../modules/01-agentic-android-dev.html">01 · Agentic Android development</a>
-<a href="../modules/02-architecture-modularization.html">02 · Architecture and modularization</a>
-<a class="cur" href="../modules/03-kotlin-coroutines-flow.html">03 · Kotlin coroutines and Flow</a>
-<a href="../modules/05-testing-verification.html">05 · Testing and verification</a>
-<a href="../modules/08-mobile-system-design.html">08 · Mobile system design</a>
-<a href="../modules/09-leadership-behavioral.html">09 · Leadership and behavioral</a>
-<a href="../modules/04-compose-state-performance.html">04 · Compose state and performance</a>
-<a href="../modules/06-security-regulated.html">06 · Security for regulated apps</a>
-<a href="../modules/07-build-release-performance.html">07 · Build, release and performance</a>
-<a href="../modules/10-interview-german.html">10 · Interview vocabulary in German</a>
+<a class="item" href="../modules/01-agentic-android-dev.html">01 · Agentic Android development</a>
+<a class="item" href="../modules/02-architecture-modularization.html">02 · Architecture and modularization</a>
+<a class="item cur" aria-current="page" href="../modules/03-kotlin-coroutines-flow.html">03 · Kotlin coroutines and Flow</a>
+<a class="item" href="../modules/05-testing-verification.html">05 · Testing and verification</a>
+<a class="item" href="../modules/08-mobile-system-design.html">08 · Mobile system design</a>
+<a class="item" href="../modules/09-leadership-behavioral.html">09 · Leadership and behavioral</a>
+<a class="item" href="../modules/04-compose-state-performance.html">04 · Compose state and performance</a>
+<a class="item" href="../modules/06-security-regulated.html">06 · Security for regulated apps</a>
+<a class="item" href="../modules/07-build-release-performance.html">07 · Build, release and performance</a>
+<a class="item" href="../modules/10-interview-german.html">10 · Interview vocabulary in German</a>
 <h2>Diagrams</h2>
-<a href="../diagrams/acp-vs-mcp.html">ACP vs MCP</a>
-<a href="../diagrams/agentic-verification-loop.html">Agentic verification loop</a>
-<a href="../diagrams/app-architecture-layers.html">App architecture layers</a>
-<a href="../diagrams/module-graph.html">Module graph</a>
-<a href="../diagrams/state-flow-compose.html">State flow: data to Compose</a>
-<a href="../diagrams/system-design-framework.html">System design framework</a></nav>
-<main><h1 id="03-kotlin-coroutines-and-flow">03 · Kotlin coroutines and Flow</h1><p class="meta">status: todo · priority P1 · 4h · verified 2026-11-16</p>
+<a class="item" href="../diagrams/index.html">All diagrams</a>
+<a class="item" href="../diagrams/acp-vs-mcp.html">ACP vs MCP</a>
+<a class="item" href="../diagrams/agentic-verification-loop.html">Agentic verification loop</a>
+<a class="item" href="../diagrams/android-cli-toolchain.html">Android CLI toolchain</a>
+<a class="item" href="../diagrams/app-architecture-layers.html">App architecture layers</a>
+<a class="item" href="../diagrams/compose-phases.html">Compose phases and deferred reads</a>
+<a class="item" href="../diagrams/coroutine-scope-tree.html">Coroutine scope tree and cancellation</a>
+<a class="item" href="../diagrams/module-graph.html">Module graph</a>
+<a class="item" href="../diagrams/offline-first-sync.html">Offline-first sync</a>
+<a class="item" href="../diagrams/state-flow-compose.html">State flow: data to Compose</a>
+<a class="item" href="../diagrams/system-design-framework.html">System design framework</a>
+<a class="item" href="../diagrams/testing-pyramid.html">Testing pyramid with agent-era gates</a>
+<a class="item" href="../diagrams/trust-boundaries.html">Trust boundaries of an Android app</a>
+<h2>Reference</h2>
+<a class="item" href="../reading-list.html">Reading list</a></nav>
+<main><h1 id="03-kotlin-coroutines-and-flow">03 · Kotlin coroutines and Flow</h1><p class="meta">status: todo · priority P1 · 4h · verified 2026-11-16</p><p class="chips"><a class="chip primary" href="../flashcards.html#03">Practice 15 flashcards</a></p>
 <blockquote>
 <p>Concurrency questions separate people who use coroutines from people who understand cancellation, scopes and testing.</p>
 </blockquote>
@@ -70,7 +61,7 @@ li.task{list-style:none;margin-left:-1.2em}
 <li><strong>UI collection:</strong> convert Flow to Compose <code>State</code> with <code>collectAsStateWithLifecycle()</code> (<a href="https://developer.android.com/develop/ui/compose/state">R13</a>).</li>
 </ul>
 <h2 id="likely-questions">Likely questions</h2>
-<table>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Question</th>
@@ -79,35 +70,35 @@ li.task{list-style:none;margin-left:-1.2em}
 </thead>
 <tbody>
 <tr>
-<td>Why inject dispatchers?</td>
-<td>Testability and one place to change threading; show the test replacement.</td>
+<td data-label="Question">Why inject dispatchers?</td>
+<td data-label="What a strong answer contains">Testability and one place to change threading; show the test replacement.</td>
 </tr>
 <tr>
-<td>StateFlow vs SharedFlow vs a channel for one-off events?</td>
-<td>State has a current value and conflates; events must not be lost or replayed; state your choice and its failure mode.</td>
+<td data-label="Question">StateFlow vs SharedFlow vs a channel for one-off events?</td>
+<td data-label="What a strong answer contains">State has a current value and conflates; events must not be lost or replayed; state your choice and its failure mode.</td>
 </tr>
 <tr>
-<td>What happens if you catch <code>Exception</code> around a suspend call?</td>
-<td>You can swallow <code>CancellationException</code> and break structured concurrency; rethrow or catch narrower types.</td>
+<td data-label="Question">What happens if you catch <code>Exception</code> around a suspend call?</td>
+<td data-label="What a strong answer contains">You can swallow <code>CancellationException</code> and break structured concurrency; rethrow or catch narrower types.</td>
 </tr>
 <tr>
-<td><code>coroutineScope</code> vs <code>supervisorScope</code>?</td>
-<td>Failure propagation: one child failing cancels siblings or not.</td>
+<td data-label="Question"><code>coroutineScope</code> vs <code>supervisorScope</code>?</td>
+<td data-label="What a strong answer contains">Failure propagation: one child failing cancels siblings or not.</td>
 </tr>
 <tr>
-<td>How do you make a CPU-bound loop cancellable?</td>
-<td>Cooperative checks such as <code>ensureActive()</code> or <code>yield()</code>.</td>
+<td data-label="Question">How do you make a CPU-bound loop cancellable?</td>
+<td data-label="What a strong answer contains">Cooperative checks such as <code>ensureActive()</code> or <code>yield()</code>.</td>
 </tr>
 <tr>
-<td>How do you test a ViewModel exposing a StateFlow?</td>
-<td>Injected test dispatcher, <code>runTest</code>, assert emitted states, no real delays.</td>
+<td data-label="Question">How do you test a ViewModel exposing a StateFlow?</td>
+<td data-label="What a strong answer contains">Injected test dispatcher, <code>runTest</code>, assert emitted states, no real delays.</td>
 </tr>
 <tr>
-<td>Where do you launch work that must survive the screen?</td>
-<td>Injected application-level scope, not <code>GlobalScope</code>.</td>
+<td data-label="Question">Where do you launch work that must survive the screen?</td>
+<td data-label="What a strong answer contains">Injected application-level scope, not <code>GlobalScope</code>.</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h2 id="practice">Practice</h2>
 <ul>
 <li class="task">&#9744; Write a repository exposing <code>Flow</code>, a ViewModel using <code>stateIn</code>, and a test with <code>runTest</code> and a test dispatcher.</li>
@@ -122,10 +113,18 @@ li.task{list-style:none;margin-left:-1.2em}
 <h2 id="diagrams">Diagrams</h2>
 <ul>
 <li><a href="../diagrams/state-flow-compose.html">State flow: data to Compose</a></li>
+<li><a href="../diagrams/coroutine-scope-tree.html">Coroutine scope tree</a>: draw it for structured concurrency and cancellation.</li>
+</ul>
+<h2 id="flashcards">Flashcards</h2>
+<ul>
+<li><a href="../flashcards.html#03">15 cards</a>: study them on the website or read the file; drill until you answer without looking.</li>
 </ul>
 <h2 id="definition-of-done">Definition of done</h2>
 <ul>
 <li class="task">&#9744; I can explain the "Know cold" list aloud in under 5 minutes.</li>
 <li class="task">&#9744; I answered every "Likely question" out loud at least once.</li>
+<li class="task">&#9744; I went through the flashcard deck until I could answer every card without looking.</li>
 <li class="task">&#9744; The repository, ViewModel and test from Practice are saved in a scratch repo or <code>inputs/notes/</code>.</li>
-</ul></main></div></body></html>
+</ul><footer class="pager"><a class="prev" href="../modules/02-architecture-modularization.html"><small>Previous</small>02 · Architecture and modularization</a><a class="next" href="../modules/05-testing-verification.html"><small>Next</small>05 · Testing and verification</a></footer></main></div>
+<script src="../assets/site.js" defer></script>
+</body></html>

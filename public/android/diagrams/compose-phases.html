@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark"><meta name="theme-color" content="#1f6f5c">
+<title>Compose phases and deferred reads · Android interview playbook</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head><body>
+<header class="topbar"><button class="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav">&#9776;</button>
+<a class="brand" href="../index.html">Android interview playbook</a></header>
+<div class="scrim"></div>
+<div class="layout"><nav id="nav" aria-label="Playbook"><a class="brand" href="../index.html">Android interview playbook</a>
+<h2>Start</h2>
+<a class="item" href="../index.html">Roadmap</a>
+<a class="item" href="../00-role-profile.html">Role profile</a>
+<h2>Practice</h2>
+<a class="item" href="../flashcards.html">Flashcards (111)</a>
+<h2>Modules</h2>
+<a class="item" href="../modules/01-agentic-android-dev.html">01 · Agentic Android development</a>
+<a class="item" href="../modules/02-architecture-modularization.html">02 · Architecture and modularization</a>
+<a class="item" href="../modules/03-kotlin-coroutines-flow.html">03 · Kotlin coroutines and Flow</a>
+<a class="item" href="../modules/05-testing-verification.html">05 · Testing and verification</a>
+<a class="item" href="../modules/08-mobile-system-design.html">08 · Mobile system design</a>
+<a class="item" href="../modules/09-leadership-behavioral.html">09 · Leadership and behavioral</a>
+<a class="item" href="../modules/04-compose-state-performance.html">04 · Compose state and performance</a>
+<a class="item" href="../modules/06-security-regulated.html">06 · Security for regulated apps</a>
+<a class="item" href="../modules/07-build-release-performance.html">07 · Build, release and performance</a>
+<a class="item" href="../modules/10-interview-german.html">10 · Interview vocabulary in German</a>
+<h2>Diagrams</h2>
+<a class="item" href="../diagrams/index.html">All diagrams</a>
+<a class="item" href="../diagrams/acp-vs-mcp.html">ACP vs MCP</a>
+<a class="item" href="../diagrams/agentic-verification-loop.html">Agentic verification loop</a>
+<a class="item" href="../diagrams/android-cli-toolchain.html">Android CLI toolchain</a>
+<a class="item" href="../diagrams/app-architecture-layers.html">App architecture layers</a>
+<a class="item cur" aria-current="page" href="../diagrams/compose-phases.html">Compose phases and deferred reads</a>
+<a class="item" href="../diagrams/coroutine-scope-tree.html">Coroutine scope tree and cancellation</a>
+<a class="item" href="../diagrams/module-graph.html">Module graph</a>
+<a class="item" href="../diagrams/offline-first-sync.html">Offline-first sync</a>
+<a class="item" href="../diagrams/state-flow-compose.html">State flow: data to Compose</a>
+<a class="item" href="../diagrams/system-design-framework.html">System design framework</a>
+<a class="item" href="../diagrams/testing-pyramid.html">Testing pyramid with agent-era gates</a>
+<a class="item" href="../diagrams/trust-boundaries.html">Trust boundaries of an Android app</a>
+<h2>Reference</h2>
+<a class="item" href="../reading-list.html">Reading list</a></nav>
+<main><h1 id="compose-phases-and-deferred-reads">Compose phases and deferred reads</h1>
+<p><strong>Use it when:</strong> asked why something recomposes, or how to reduce recomposition work.</p>
+<pre class="mermaid">flowchart LR
+  ST[&quot;State changes&quot;] --&gt; COMP[&quot;Composition&lt;br/&gt;what to show&quot;]
+  COMP --&gt; LAY[&quot;Layout&lt;br/&gt;measure and place&quot;]
+  LAY --&gt; DRAW[&quot;Drawing&lt;br/&gt;render pixels&quot;]
+
+  RC[&quot;Read state in the composable body&quot;] -.-&gt;|&quot;invalidates&quot;| COMP
+  RL[&quot;Read state in a layout lambda&lt;br/&gt;for example Modifier.offset&quot;] -.-&gt;|&quot;invalidates&quot;| LAY
+  RD[&quot;Read state in a draw lambda&quot;] -.-&gt;|&quot;invalidates&quot;| DRAW
+
+  classDef phase fill:#c7d2fe,stroke:#4338ca,color:#1c1917
+  classDef read fill:#fde68a,stroke:#b45309,color:#1c1917
+  classDef start fill:#bae6fd,stroke:#0369a1,color:#1c1917
+  class COMP,LAY,DRAW phase
+  class RC,RL,RD read
+  class ST start
+</pre>
+<h2 id="say-it-like-this">Say it like this</h2>
+<ol>
+<li>A frame has three phases: composition, layout, drawing.</li>
+<li>Where you <strong>read</strong> state decides which phase it invalidates; reading in the composable body re-runs composition, reading inside a lambda modifier defers the read to a later phase.</li>
+<li>So "defer state reads with lambdas" means cheaper updates, as in <code>Modifier.offset { ... }</code>.</li>
+<li>Confirm with recomposition tracing (Compose 1.13) instead of guessing.</li>
+</ol>
+<h2 id="source">Source</h2>
+<ul>
+<li>The three phases and the "defer reads" best practice: reading list R14; recomposition tracing: R1. Which phase each read invalidates is standard Compose behavior, stated here from general knowledge.</li>
+</ul><footer class="pager"><a class="prev" href="../diagrams/app-architecture-layers.html"><small>Previous</small>App architecture layers</a><a class="next" href="../diagrams/coroutine-scope-tree.html"><small>Next</small>Coroutine scope tree and cancellation</a></footer></main></div>
+<script src="../assets/site.js" defer></script><script type="module" src="../assets/diagrams.js"></script>
+</body></html>

@@ -1,82 +1,89 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark"><meta name="theme-color" content="#1f6f5c">
 <title>Agentic verification loop · Android interview playbook</title>
-<style>
-:root{--bg:#fafaf9;--card:#fff;--text:#1c1917;--muted:#6b6560;--line:#e7e5e4;--accent:#1f6f5c;--code:#f3f2f0}
-@media (prefers-color-scheme:dark){:root{--bg:#141413;--card:#1c1b1a;--text:#e9e6e2;--muted:#a39d96;--line:#2e2c2a;--accent:#5fb89e;--code:#242321}}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
-.layout{display:flex;min-height:100vh}
-nav{width:290px;flex:none;border-right:1px solid var(--line);padding:20px 16px;position:sticky;top:0;height:100vh;overflow:auto;font-size:14px}
-nav h2{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:18px 0 6px}
-nav a{display:block;padding:4px 8px;border-radius:6px;color:var(--text);text-decoration:none}
-nav a:hover{background:var(--code)}nav a.cur{background:var(--code);color:var(--accent);font-weight:600}
-nav .brand{font-weight:700;font-size:16px;margin-bottom:4px}
-main{flex:1;min-width:0;max-width:860px;padding:32px 28px 80px}
-h1{font-size:1.8rem;line-height:1.25;margin-top:0}h2{margin-top:2rem;border-bottom:1px solid var(--line);padding-bottom:.3rem}
-a{color:var(--accent)}
-table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}
-th,td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--code)}
-code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.9em}
-pre{background:var(--code);padding:12px;border-radius:8px;overflow:auto}pre code{background:none;padding:0}
-pre.mermaid{background:var(--card);border:1px solid var(--line);text-align:center}
-blockquote{margin:1em 0;padding:.2em 1em;border-left:3px solid var(--accent);color:var(--muted)}
-.meta{color:var(--muted);font-size:13px;margin:-8px 0 16px}
-li.task{list-style:none;margin-left:-1.2em}
-@media(max-width:800px){.layout{display:block}nav{position:static;width:auto;height:auto;border:0;border-bottom:1px solid var(--line)}main{padding:20px 16px 60px}}
-</style></head>
-<body><div class="layout"><nav><div class="brand">Android interview playbook</div>
+<link rel="stylesheet" href="../assets/site.css">
+</head><body>
+<header class="topbar"><button class="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav">&#9776;</button>
+<a class="brand" href="../index.html">Android interview playbook</a></header>
+<div class="scrim"></div>
+<div class="layout"><nav id="nav" aria-label="Playbook"><a class="brand" href="../index.html">Android interview playbook</a>
 <h2>Start</h2>
-<a href="../index.html">Roadmap</a>
-<a href="../00-role-profile.html">Role profile</a>
-<h2>Reference</h2>
-<a href="../reading-list.html">Reading list</a>
+<a class="item" href="../index.html">Roadmap</a>
+<a class="item" href="../00-role-profile.html">Role profile</a>
+<h2>Practice</h2>
+<a class="item" href="../flashcards.html">Flashcards (111)</a>
 <h2>Modules</h2>
-<a href="../modules/01-agentic-android-dev.html">01 · Agentic Android development</a>
-<a href="../modules/02-architecture-modularization.html">02 · Architecture and modularization</a>
-<a href="../modules/03-kotlin-coroutines-flow.html">03 · Kotlin coroutines and Flow</a>
-<a href="../modules/05-testing-verification.html">05 · Testing and verification</a>
-<a href="../modules/08-mobile-system-design.html">08 · Mobile system design</a>
-<a href="../modules/09-leadership-behavioral.html">09 · Leadership and behavioral</a>
-<a href="../modules/04-compose-state-performance.html">04 · Compose state and performance</a>
-<a href="../modules/06-security-regulated.html">06 · Security for regulated apps</a>
-<a href="../modules/07-build-release-performance.html">07 · Build, release and performance</a>
-<a href="../modules/10-interview-german.html">10 · Interview vocabulary in German</a>
+<a class="item" href="../modules/01-agentic-android-dev.html">01 · Agentic Android development</a>
+<a class="item" href="../modules/02-architecture-modularization.html">02 · Architecture and modularization</a>
+<a class="item" href="../modules/03-kotlin-coroutines-flow.html">03 · Kotlin coroutines and Flow</a>
+<a class="item" href="../modules/05-testing-verification.html">05 · Testing and verification</a>
+<a class="item" href="../modules/08-mobile-system-design.html">08 · Mobile system design</a>
+<a class="item" href="../modules/09-leadership-behavioral.html">09 · Leadership and behavioral</a>
+<a class="item" href="../modules/04-compose-state-performance.html">04 · Compose state and performance</a>
+<a class="item" href="../modules/06-security-regulated.html">06 · Security for regulated apps</a>
+<a class="item" href="../modules/07-build-release-performance.html">07 · Build, release and performance</a>
+<a class="item" href="../modules/10-interview-german.html">10 · Interview vocabulary in German</a>
 <h2>Diagrams</h2>
-<a href="../diagrams/acp-vs-mcp.html">ACP vs MCP</a>
-<a class="cur" href="../diagrams/agentic-verification-loop.html">Agentic verification loop</a>
-<a href="../diagrams/app-architecture-layers.html">App architecture layers</a>
-<a href="../diagrams/module-graph.html">Module graph</a>
-<a href="../diagrams/state-flow-compose.html">State flow: data to Compose</a>
-<a href="../diagrams/system-design-framework.html">System design framework</a></nav>
+<a class="item" href="../diagrams/index.html">All diagrams</a>
+<a class="item" href="../diagrams/acp-vs-mcp.html">ACP vs MCP</a>
+<a class="item cur" aria-current="page" href="../diagrams/agentic-verification-loop.html">Agentic verification loop</a>
+<a class="item" href="../diagrams/android-cli-toolchain.html">Android CLI toolchain</a>
+<a class="item" href="../diagrams/app-architecture-layers.html">App architecture layers</a>
+<a class="item" href="../diagrams/compose-phases.html">Compose phases and deferred reads</a>
+<a class="item" href="../diagrams/coroutine-scope-tree.html">Coroutine scope tree and cancellation</a>
+<a class="item" href="../diagrams/module-graph.html">Module graph</a>
+<a class="item" href="../diagrams/offline-first-sync.html">Offline-first sync</a>
+<a class="item" href="../diagrams/state-flow-compose.html">State flow: data to Compose</a>
+<a class="item" href="../diagrams/system-design-framework.html">System design framework</a>
+<a class="item" href="../diagrams/testing-pyramid.html">Testing pyramid with agent-era gates</a>
+<a class="item" href="../diagrams/trust-boundaries.html">Trust boundaries of an Android app</a>
+<h2>Reference</h2>
+<a class="item" href="../reading-list.html">Reading list</a></nav>
 <main><h1 id="agentic-verification-loop">Agentic verification loop</h1>
 <p><strong>Use it when:</strong> asked how you verify agent-written code, or how agentic development fits a quality process.</p>
 <pre class="mermaid">flowchart TD
-  S[&quot;Spec and acceptance criteria&quot;] --&gt; P[&quot;Plan, approved by a human&quot;]
-  P --&gt; C[&quot;Agent edits code&quot;]
-  C --&gt; B[&quot;Build: android build or Gradle&quot;]
-  B --&gt; T[&quot;Unit and instrumented tests&quot;]
-  T --&gt; J[&quot;Journeys on emulator or remote device&quot;]
-  J --&gt; V[&quot;Preview and profiler checks&quot;]
-  V --&gt; OK{&quot;All gates green?&quot;}
-  OK --&gt;|&quot;no&quot;| C
-  OK --&gt;|&quot;yes&quot;| R[&quot;Change Review and human review&quot;]
-  R --&gt; M[&quot;Merge&quot;]
+  subgraph HUMAN[&quot;Human&quot;]
+    S[&quot;1 Spec and acceptance criteria&quot;]
+    P[&quot;2 Approve the plan&quot;]
+    R[&quot;8 Review: Change Review plus your own read&quot;]
+    M[&quot;9 Merge&quot;]
+  end
+  subgraph AGENT[&quot;Agent&quot;]
+    C[&quot;3 Edit code&quot;]
+  end
+  subgraph GATES[&quot;Verification gates, cheapest first&quot;]
+    B[&quot;4 Build and lint&quot;]
+    T[&quot;5 Unit and instrumented tests&quot;]
+    J[&quot;6 Journeys on emulator or remote device&quot;]
+    V[&quot;7 Previews and profiler checks&quot;]
+  end
+  S --&gt; P --&gt; C --&gt; B --&gt; T --&gt; J --&gt; V --&gt; OK{&quot;All green?&quot;}
+  OK --&gt;|&quot;no: feed the failures back&quot;| C
+  OK --&gt;|&quot;yes&quot;| R --&gt; M
+
+  classDef human fill:#fde68a,stroke:#b45309,color:#1c1917
+  classDef agent fill:#c7d2fe,stroke:#4338ca,color:#1c1917
+  classDef gate fill:#bbf7d0,stroke:#15803d,color:#1c1917
+  classDef decision fill:#fecaca,stroke:#b91c1c,color:#1c1917
+  class S,P,R,M human
+  class C agent
+  class B,T,J,V gate
+  class OK decision
 </pre>
 <h2 id="say-it-like-this">Say it like this</h2>
 <ol>
 <li>Start from a written spec; without acceptance criteria the loop has nothing to verify against.</li>
 <li>A human approves the plan before code is written (the checkpoint pattern from Backlog.md).</li>
-<li>The agent builds and runs tests itself; Journeys add device-level validation; previews and the profiler cover UI and performance.</li>
-<li>Failing gates send the agent back to editing; green gates still end in human review, and the human merges.</li>
+<li>The agent builds and tests itself, cheapest gates first; Journeys add device-level validation, previews and the profiler cover UI and performance.</li>
+<li>Failing gates go back to the agent with the failures as input; green gates still end in human review, and the human merges.</li>
 <li>The weak point is the tests themselves: gates only prove what they assert.</li>
 </ol>
 <h2 id="source">Source</h2>
 <ul>
 <li>Loop steps: CLI verification loop and Journeys (reading list R1, R2); Change Review (R1); plan approval (R7).</li>
 <li>The ordering and the human-merge rule are common practice, not a Google-defined process.</li>
-</ul></main></div><script type="module">
-import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
-mermaid.initialize({startOnLoad:true,theme:matchMedia("(prefers-color-scheme: dark)").matches?"dark":"default"});
-</script></body></html>
+</ul><footer class="pager"><a class="prev" href="../diagrams/acp-vs-mcp.html"><small>Previous</small>ACP vs MCP</a><a class="next" href="../diagrams/android-cli-toolchain.html"><small>Next</small>Android CLI toolchain</a></footer></main></div>
+<script src="../assets/site.js" defer></script><script type="module" src="../assets/diagrams.js"></script>
+</body></html>
