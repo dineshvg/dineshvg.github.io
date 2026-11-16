@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>06 · Security for regulated apps · Android interview playbook</title>
+<style>
+:root{--bg:#fafaf9;--card:#fff;--text:#1c1917;--muted:#6b6560;--line:#e7e5e4;--accent:#1f6f5c;--code:#f3f2f0}
+@media (prefers-color-scheme:dark){:root{--bg:#141413;--card:#1c1b1a;--text:#e9e6e2;--muted:#a39d96;--line:#2e2c2a;--accent:#5fb89e;--code:#242321}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+.layout{display:flex;min-height:100vh}
+nav{width:290px;flex:none;border-right:1px solid var(--line);padding:20px 16px;position:sticky;top:0;height:100vh;overflow:auto;font-size:14px}
+nav h2{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:18px 0 6px}
+nav a{display:block;padding:4px 8px;border-radius:6px;color:var(--text);text-decoration:none}
+nav a:hover{background:var(--code)}nav a.cur{background:var(--code);color:var(--accent);font-weight:600}
+nav .brand{font-weight:700;font-size:16px;margin-bottom:4px}
+main{flex:1;min-width:0;max-width:860px;padding:32px 28px 80px}
+h1{font-size:1.8rem;line-height:1.25;margin-top:0}h2{margin-top:2rem;border-bottom:1px solid var(--line);padding-bottom:.3rem}
+a{color:var(--accent)}
+table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--code)}
+code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.9em}
+pre{background:var(--code);padding:12px;border-radius:8px;overflow:auto}pre code{background:none;padding:0}
+pre.mermaid{background:var(--card);border:1px solid var(--line);text-align:center}
+blockquote{margin:1em 0;padding:.2em 1em;border-left:3px solid var(--accent);color:var(--muted)}
+.meta{color:var(--muted);font-size:13px;margin:-8px 0 16px}
+li.task{list-style:none;margin-left:-1.2em}
+@media(max-width:800px){.layout{display:block}nav{position:static;width:auto;height:auto;border:0;border-bottom:1px solid var(--line)}main{padding:20px 16px 60px}}
+</style></head>
+<body><div class="layout"><nav><div class="brand">Android interview playbook</div>
+<h2>Start</h2>
+<a href="../index.html">Roadmap</a>
+<a href="../00-role-profile.html">Role profile</a>
+<h2>Reference</h2>
+<a href="../reading-list.html">Reading list</a>
+<h2>Modules</h2>
+<a href="../modules/01-agentic-android-dev.html">01 · Agentic Android development</a>
+<a href="../modules/02-architecture-modularization.html">02 · Architecture and modularization</a>
+<a href="../modules/03-kotlin-coroutines-flow.html">03 · Kotlin coroutines and Flow</a>
+<a href="../modules/05-testing-verification.html">05 · Testing and verification</a>
+<a href="../modules/08-mobile-system-design.html">08 · Mobile system design</a>
+<a href="../modules/09-leadership-behavioral.html">09 · Leadership and behavioral</a>
+<a href="../modules/04-compose-state-performance.html">04 · Compose state and performance</a>
+<a class="cur" href="../modules/06-security-regulated.html">06 · Security for regulated apps</a>
+<a href="../modules/07-build-release-performance.html">07 · Build, release and performance</a>
+<a href="../modules/10-interview-german.html">10 · Interview vocabulary in German</a>
+<h2>Diagrams</h2>
+<a href="../diagrams/acp-vs-mcp.html">ACP vs MCP</a>
+<a href="../diagrams/agentic-verification-loop.html">Agentic verification loop</a>
+<a href="../diagrams/app-architecture-layers.html">App architecture layers</a>
+<a href="../diagrams/module-graph.html">Module graph</a>
+<a href="../diagrams/state-flow-compose.html">State flow: data to Compose</a>
+<a href="../diagrams/system-design-framework.html">System design framework</a></nav>
+<main><h1 id="06-security-for-regulated-apps">06 · Security for regulated apps</h1><p class="meta">status: todo · priority P2 · 4h · verified 2026-11-16</p>
+<blockquote>
+<p>In health and public-sector apps, security is part of architecture; expect scenario questions, not trivia.</p>
+</blockquote>
+<h2 id="why-it-comes-up">Why it comes up</h2>
+<ul>
+<li>Regulated employers test whether you design for threats, data minimization and auditability.</li>
+<li>With agents in the workflow, "who reviews generated code for security" is a new follow-up.</li>
+</ul>
+<h2 id="know-cold">Know cold</h2>
+<p>From the <a href="https://developer.android.com/topic/security/best-practices">security checklist, R16</a> (page last updated 2026-09-01) unless marked.</p>
+<ul>
+<li><strong>Checklist areas:</strong> authentication, app integrity, data storage, permissions, networking, input validation, user data, WebView, credential requests, API key management, cryptography, interprocess communication, dynamically loaded code, virtual machine and native code.</li>
+<li><strong>Concrete rules from the page:</strong> keep content providers private (<code>android:exported="false"</code>) unless needed; use parameterized queries, not concatenated input; prefer explicit intents, since binding a service with an implicit intent throws on API 21+; initialize keys with <code>SecureRandom</code>; use 256-bit AES for commercial purposes (128-bit if unavailable).</li>
+<li><strong>Agent-related security skills</strong> (<a href="https://developer.android.com/blog/posts/android-dev-summit-26-developer-tools-performance">R1</a>): <code>android-intent-security</code> and <code>android-permissions-security</code> give project-aware reviews with fixes; <code>play-policy-insights</code> audits against Play policy and is advisory, not legal advice.</li>
+<li><strong>Your own domain experience:</strong> certificate transparency, app-to-app communication and push notification security are areas you work in. Prepare real examples. </li>
+</ul>
+<h2 id="likely-questions">Likely questions</h2>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>What a strong answer contains</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Walk me through the threat model of an app handling prescriptions or health data.</td>
+<td>Assets, attackers, trust boundaries, data at rest and in transit, what you log, what you never log.</td>
+</tr>
+<tr>
+<td>How do you secure app-to-app communication?</td>
+<td>Explicit intents, permission checks, caller verification, minimal exported surface.</td>
+</tr>
+<tr>
+<td>Where do keys and tokens live?</td>
+<td>Hardware-backed keystore where available, short-lived tokens, no secrets in the repo or APK.</td>
+</tr>
+<tr>
+<td>How do you protect against a compromised network?</td>
+<td>TLS, pinning or transparency checks and their operational cost (rotation, outage risk).</td>
+</tr>
+<tr>
+<td>How do you review agent-generated code for security?</td>
+<td>Same bar as human code plus targeted skills, secret scanning, dependency and permission diffs, no data in prompts.</td>
+</tr>
+<tr>
+<td>What do you log and what do you refuse to log?</td>
+<td>Minimal, no personal or health data, correlation IDs instead.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="practice">Practice</h2>
+<ul>
+<li class="task">&#9744; Write a one-page threat model for an app you know (assets, actors, boundaries, mitigations).</li>
+<li class="task">&#9744; Audit one manifest for exported components and over-broad permissions; note fixes.</li>
+<li class="task">&#9744; Add story 6 (a security or compliance trade-off) to the story bank. </li>
+</ul>
+<h2 id="reading">Reading</h2>
+<ol>
+<li><a href="https://developer.android.com/topic/security/best-practices">Security checklist</a> (25 min)</li>
+<li><a href="https://developer.android.com/blog/posts/android-dev-summit-26-developer-tools-performance">Android Dev Summit: developer tools and performance</a>, the policy and security section.</li>
+</ol>
+<h2 id="definition-of-done">Definition of done</h2>
+<ul>
+<li class="task">&#9744; I can explain the "Know cold" list aloud in under 5 minutes.</li>
+<li class="task">&#9744; I answered every "Likely question" out loud at least once.</li>
+<li class="task">&#9744; My threat model and manifest audit are saved.</li>
+</ul></main></div></body></html>

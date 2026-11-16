@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reading list · Android interview playbook</title>
+<style>
+:root{--bg:#fafaf9;--card:#fff;--text:#1c1917;--muted:#6b6560;--line:#e7e5e4;--accent:#1f6f5c;--code:#f3f2f0}
+@media (prefers-color-scheme:dark){:root{--bg:#141413;--card:#1c1b1a;--text:#e9e6e2;--muted:#a39d96;--line:#2e2c2a;--accent:#5fb89e;--code:#242321}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+.layout{display:flex;min-height:100vh}
+nav{width:290px;flex:none;border-right:1px solid var(--line);padding:20px 16px;position:sticky;top:0;height:100vh;overflow:auto;font-size:14px}
+nav h2{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:18px 0 6px}
+nav a{display:block;padding:4px 8px;border-radius:6px;color:var(--text);text-decoration:none}
+nav a:hover{background:var(--code)}nav a.cur{background:var(--code);color:var(--accent);font-weight:600}
+nav .brand{font-weight:700;font-size:16px;margin-bottom:4px}
+main{flex:1;min-width:0;max-width:860px;padding:32px 28px 80px}
+h1{font-size:1.8rem;line-height:1.25;margin-top:0}h2{margin-top:2rem;border-bottom:1px solid var(--line);padding-bottom:.3rem}
+a{color:var(--accent)}
+table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--code)}
+code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.9em}
+pre{background:var(--code);padding:12px;border-radius:8px;overflow:auto}pre code{background:none;padding:0}
+pre.mermaid{background:var(--card);border:1px solid var(--line);text-align:center}
+blockquote{margin:1em 0;padding:.2em 1em;border-left:3px solid var(--accent);color:var(--muted)}
+.meta{color:var(--muted);font-size:13px;margin:-8px 0 16px}
+li.task{list-style:none;margin-left:-1.2em}
+@media(max-width:800px){.layout{display:block}nav{position:static;width:auto;height:auto;border:0;border-bottom:1px solid var(--line)}main{padding:20px 16px 60px}}
+</style></head>
+<body><div class="layout"><nav><div class="brand">Android interview playbook</div>
+<h2>Start</h2>
+<a href="index.html">Roadmap</a>
+<a href="00-role-profile.html">Role profile</a>
+<h2>Reference</h2>
+<a class="cur" href="reading-list.html">Reading list</a>
+<h2>Modules</h2>
+<a href="modules/01-agentic-android-dev.html">01 · Agentic Android development</a>
+<a href="modules/02-architecture-modularization.html">02 · Architecture and modularization</a>
+<a href="modules/03-kotlin-coroutines-flow.html">03 · Kotlin coroutines and Flow</a>
+<a href="modules/05-testing-verification.html">05 · Testing and verification</a>
+<a href="modules/08-mobile-system-design.html">08 · Mobile system design</a>
+<a href="modules/09-leadership-behavioral.html">09 · Leadership and behavioral</a>
+<a href="modules/04-compose-state-performance.html">04 · Compose state and performance</a>
+<a href="modules/06-security-regulated.html">06 · Security for regulated apps</a>
+<a href="modules/07-build-release-performance.html">07 · Build, release and performance</a>
+<a href="modules/10-interview-german.html">10 · Interview vocabulary in German</a>
+<h2>Diagrams</h2>
+<a href="diagrams/acp-vs-mcp.html">ACP vs MCP</a>
+<a href="diagrams/agentic-verification-loop.html">Agentic verification loop</a>
+<a href="diagrams/app-architecture-layers.html">App architecture layers</a>
+<a href="diagrams/module-graph.html">Module graph</a>
+<a href="diagrams/state-flow-compose.html">State flow: data to Compose</a>
+<a href="diagrams/system-design-framework.html">System design framework</a></nav>
+<main><h1 id="reading-list">Reading list</h1>
+<p>Every source used by the playbook. <code>Verified</code> is the date the page was opened and its
+content checked, or <code>unverified</code> (seen in search results or supplied but not opened).
+Re-check dates before relying on time-sensitive claims.</p>
+<p>Type: <code>official</code> = vendor or standards docs, <code>primary</code> = author's own repo or site,
+<code>third-party</code> = recap or opinion.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Source</th>
+<th>Type</th>
+<th>Modules</th>
+<th>Time</th>
+<th>Verified</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R1</td>
+<td><a href="https://developer.android.com/blog/posts/android-dev-summit-26-developer-tools-performance">Android Dev Summit: developer tools and performance</a></td>
+<td>official</td>
+<td>01, 07</td>
+<td>25 min</td>
+<td>2026-11-16</td>
+<td>The main source: BYOA/ACP, Change Review, CLI commands, skills, performance tooling, availability table. Contains vendor measurements.</td>
+</tr>
+<tr>
+<td>R2</td>
+<td><a href="https://android-developers.googleblog.com/2026/05/android-cli-stable-1-0-agent-development.html">Android CLI 1.0 announcement</a></td>
+<td>official</td>
+<td>01</td>
+<td>10 min</td>
+<td>2026-11-16</td>
+<td><code>android studio</code> subcommands, Journeys, install methods. Dated May 2026; Studio features need the Quail preview.</td>
+</tr>
+<tr>
+<td>R3</td>
+<td><a href="https://developer.android.com/tools/agents/android-cli/agent-plugins">Android CLI agent plugins</a></td>
+<td>official</td>
+<td>01</td>
+<td>5 min</td>
+<td>2026-11-16</td>
+<td>Exact install commands for Claude Code, Codex, Antigravity.</td>
+</tr>
+<tr>
+<td>R4</td>
+<td><a href="https://github.com/android/skills">android/skills repository</a></td>
+<td>official</td>
+<td>01</td>
+<td>10 min</td>
+<td>2026-11-16</td>
+<td>SKILL.md format, install commands. Contributions not accepted at fetch time.</td>
+</tr>
+<tr>
+<td>R5</td>
+<td><a href="https://developer.android.com/bench">Android Bench</a></td>
+<td>official</td>
+<td>01</td>
+<td>10 min</td>
+<td>2026-11-16</td>
+<td>Benchmark design (30 tasks, 5 runs); pass rates are low. Page was truncated in the fetch.</td>
+</tr>
+<tr>
+<td>R6</td>
+<td><a href="https://dev.to/diego_f_caetano/android-dev-summit-2026-google-brings-developers-back-together-after-four-years-and-puts-agents-at-3jjo">Android Dev Summit 2026 recap (DEV Community)</a></td>
+<td>third-party</td>
+<td>01, 04, 08</td>
+<td>20 min</td>
+<td>2026-11-16</td>
+<td>Broader coverage (AppState, A2UI, Gemini Nano 4, AppFunctions); maturity labels are the author's.</td>
+</tr>
+<tr>
+<td>R7</td>
+<td><a href="https://github.com/MrLesk/Backlog.md">Backlog.md</a></td>
+<td>primary</td>
+<td>01</td>
+<td>10 min</td>
+<td>2026-11-16</td>
+<td>Markdown-native task format and the spec, plan, code review checkpoints this repo imitates.</td>
+</tr>
+<tr>
+<td>R8</td>
+<td><a href="https://agentclientprotocol.com">Agent Client Protocol</a></td>
+<td>official</td>
+<td>01</td>
+<td>10 min</td>
+<td>2026-11-16</td>
+<td>What ACP standardizes; relation to MCP. Authorship not stated on the page.</td>
+</tr>
+<tr>
+<td>R9</td>
+<td><a href="https://developer.android.com/topic/architecture">Guide to app architecture</a></td>
+<td>official</td>
+<td>02, 08</td>
+<td>20 min</td>
+<td>2026-11-16</td>
+<td>Layers, SSOT, UDF, DI recommendation.</td>
+</tr>
+<tr>
+<td>R10</td>
+<td><a href="https://developer.android.com/topic/modularization">Guide to Android app modularization</a></td>
+<td>official</td>
+<td>02</td>
+<td>15 min</td>
+<td>2026-11-16</td>
+<td>Benefits, pitfalls, granularity. Page last updated 2026-03-05.</td>
+</tr>
+<tr>
+<td>R11</td>
+<td><a href="https://developer.android.com/kotlin/coroutines/coroutines-best-practices">Best practices for coroutines in Android</a></td>
+<td>official</td>
+<td>03, 05</td>
+<td>15 min</td>
+<td>2026-11-16</td>
+<td>The ten practices; dispatcher injection, cancellation, exceptions.</td>
+</tr>
+<tr>
+<td>R12</td>
+<td><a href="https://kotlinlang.org/docs/coroutines-flow.html">Kotlin Flows</a></td>
+<td>official</td>
+<td>03</td>
+<td>30 min</td>
+<td>2026-11-16</td>
+<td>Cold and hot flows, StateFlow, SharedFlow, exceptions. The older <code>flow.html</code> URL is a redirect.</td>
+</tr>
+<tr>
+<td>R13</td>
+<td><a href="https://developer.android.com/develop/ui/compose/state">State and Jetpack Compose</a></td>
+<td>official</td>
+<td>04</td>
+<td>20 min</td>
+<td>2026-11-16</td>
+<td>remember, hoisting, rememberSaveable, state holders.</td>
+</tr>
+<tr>
+<td>R14</td>
+<td><a href="https://developer.android.com/develop/ui/compose/performance">Jetpack Compose performance</a></td>
+<td>official</td>
+<td>04</td>
+<td>20 min</td>
+<td>2026-11-16</td>
+<td>Phases, stability, best practices; benchmark claims are Google's.</td>
+</tr>
+<tr>
+<td>R15</td>
+<td><a href="https://developer.android.com/training/testing">Test apps on Android</a></td>
+<td>official</td>
+<td>05</td>
+<td>10 min</td>
+<td>2026-11-16</td>
+<td>Index page; open "Using test doubles" and "Testing strategies" from it.</td>
+</tr>
+<tr>
+<td>R16</td>
+<td><a href="https://developer.android.com/topic/security/best-practices">Security checklist</a></td>
+<td>official</td>
+<td>06</td>
+<td>25 min</td>
+<td>2026-11-16</td>
+<td>Page last updated 2026-09-01.</td>
+</tr>
+<tr>
+<td>R17</td>
+<td><a href="https://developer.android.com/topic/performance/baselineprofiles/overview">Baseline Profiles overview</a></td>
+<td>official</td>
+<td>07</td>
+<td>15 min</td>
+<td>2026-11-16</td>
+<td>How profiles work, generation vs release builds, limitations.</td>
+</tr>
+<tr>
+<td>R18</td>
+<td><a href="https://proandroiddev.com/android-dev-summit-2026-6b6cdf59cbe0">ProAndroidDev: Android Dev Summit 2026</a></td>
+<td>third-party</td>
+<td>01</td>
+<td>10 min</td>
+<td>unverified</td>
+<td>Appeared in search; the page failed to load.</td>
+</tr>
+<tr>
+<td>R19</td>
+<td><a href="https://www.i-programmer.info/news/193-android/19255-android-dev-summit-focuses-on-ai-and-performance.html">I-Programmer: Android Dev Summit focuses on AI and performance</a></td>
+<td>third-party</td>
+<td>01</td>
+<td>5 min</td>
+<td>unverified</td>
+<td>Search snippet only.</td>
+</tr>
+</tbody>
+</table></main></div></body></html>

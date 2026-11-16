@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>09 · Leadership and behavioral · Android interview playbook</title>
+<style>
+:root{--bg:#fafaf9;--card:#fff;--text:#1c1917;--muted:#6b6560;--line:#e7e5e4;--accent:#1f6f5c;--code:#f3f2f0}
+@media (prefers-color-scheme:dark){:root{--bg:#141413;--card:#1c1b1a;--text:#e9e6e2;--muted:#a39d96;--line:#2e2c2a;--accent:#5fb89e;--code:#242321}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+.layout{display:flex;min-height:100vh}
+nav{width:290px;flex:none;border-right:1px solid var(--line);padding:20px 16px;position:sticky;top:0;height:100vh;overflow:auto;font-size:14px}
+nav h2{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:18px 0 6px}
+nav a{display:block;padding:4px 8px;border-radius:6px;color:var(--text);text-decoration:none}
+nav a:hover{background:var(--code)}nav a.cur{background:var(--code);color:var(--accent);font-weight:600}
+nav .brand{font-weight:700;font-size:16px;margin-bottom:4px}
+main{flex:1;min-width:0;max-width:860px;padding:32px 28px 80px}
+h1{font-size:1.8rem;line-height:1.25;margin-top:0}h2{margin-top:2rem;border-bottom:1px solid var(--line);padding-bottom:.3rem}
+a{color:var(--accent)}
+table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--code)}
+code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.9em}
+pre{background:var(--code);padding:12px;border-radius:8px;overflow:auto}pre code{background:none;padding:0}
+pre.mermaid{background:var(--card);border:1px solid var(--line);text-align:center}
+blockquote{margin:1em 0;padding:.2em 1em;border-left:3px solid var(--accent);color:var(--muted)}
+.meta{color:var(--muted);font-size:13px;margin:-8px 0 16px}
+li.task{list-style:none;margin-left:-1.2em}
+@media(max-width:800px){.layout{display:block}nav{position:static;width:auto;height:auto;border:0;border-bottom:1px solid var(--line)}main{padding:20px 16px 60px}}
+</style></head>
+<body><div class="layout"><nav><div class="brand">Android interview playbook</div>
+<h2>Start</h2>
+<a href="../index.html">Roadmap</a>
+<a href="../00-role-profile.html">Role profile</a>
+<h2>Reference</h2>
+<a href="../reading-list.html">Reading list</a>
+<h2>Modules</h2>
+<a href="../modules/01-agentic-android-dev.html">01 · Agentic Android development</a>
+<a href="../modules/02-architecture-modularization.html">02 · Architecture and modularization</a>
+<a href="../modules/03-kotlin-coroutines-flow.html">03 · Kotlin coroutines and Flow</a>
+<a href="../modules/05-testing-verification.html">05 · Testing and verification</a>
+<a href="../modules/08-mobile-system-design.html">08 · Mobile system design</a>
+<a class="cur" href="../modules/09-leadership-behavioral.html">09 · Leadership and behavioral</a>
+<a href="../modules/04-compose-state-performance.html">04 · Compose state and performance</a>
+<a href="../modules/06-security-regulated.html">06 · Security for regulated apps</a>
+<a href="../modules/07-build-release-performance.html">07 · Build, release and performance</a>
+<a href="../modules/10-interview-german.html">10 · Interview vocabulary in German</a>
+<h2>Diagrams</h2>
+<a href="../diagrams/acp-vs-mcp.html">ACP vs MCP</a>
+<a href="../diagrams/agentic-verification-loop.html">Agentic verification loop</a>
+<a href="../diagrams/app-architecture-layers.html">App architecture layers</a>
+<a href="../diagrams/module-graph.html">Module graph</a>
+<a href="../diagrams/state-flow-compose.html">State flow: data to Compose</a>
+<a href="../diagrams/system-design-framework.html">System design framework</a></nav>
+<main><h1 id="09-leadership-and-behavioral">09 · Leadership and behavioral</h1><p class="meta">status: todo · priority P1 · 3h · verified 2026-11-16</p>
+<blockquote>
+<p>Lead and architect roles are hired on judgment and influence; your stories are the evidence.</p>
+</blockquote>
+<h2 id="why-it-comes-up">Why it comes up</h2>
+<ul>
+<li>Behavioral rounds probe how you decide, disagree, mentor and recover, usually with "tell me about a time".</li>
+</ul>
+<h2 id="know-cold">Know cold</h2>
+<ul>
+<li><strong>Story structure:</strong> Situation, Task, Action, Result, and what you would do differently. Two minutes each.</li>
+<li><strong>Themes to cover</strong> (see the story bank, which is personal): architecture decision with trade-offs; an agent was wrong and you caught it; leading a migration; disagreement; incident or release problem; security trade-off; mentoring and raising standards; a tool you built yourself.</li>
+<li><strong>AI adoption on a team:</strong> your stance on introducing agents (pilot, policy, measurement, review standards) is a likely lead-level question; connect it to module 01.</li>
+<li><strong>Architect habits:</strong> decisions recorded as ADRs, quality goals named, trade-offs stated, reviews that teach rather than gatekeep.</li>
+</ul>
+<h2 id="likely-questions">Likely questions</h2>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>What a strong answer contains</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tell me about an architecture decision you got wrong.</td>
+<td>Honest account, what signal you missed, what changed.</td>
+</tr>
+<tr>
+<td>How do you handle a disagreement with a senior peer?</td>
+<td>Shared goal, data, options with trade-offs, decision rule, how you disagreed and committed.</td>
+</tr>
+<tr>
+<td>How do you raise code quality across a team?</td>
+<td>Standards in tooling, review culture, examples, measured outcomes.</td>
+</tr>
+<tr>
+<td>How would you introduce coding agents to a team?</td>
+<td>Pilot, guardrails, verification standards, metrics, handling skeptics.</td>
+</tr>
+<tr>
+<td>Describe a production incident you led.</td>
+<td>Detection, mitigation, root cause, follow-up changes.</td>
+</tr>
+<tr>
+<td>How do you mentor?</td>
+<td>A specific person and outcome, not a philosophy.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="practice">Practice</h2>
+<ul>
+<li class="task">&#9744; Fill at least six stories in the story bank (kept private) with numbers.</li>
+<li class="task">&#9744; Record each story aloud once; trim to two minutes.</li>
+<li class="task">&#9744; Prepare a 60-second answer to "why this role, why now".</li>
+</ul>
+<h2 id="reading">Reading</h2>
+<p>No verified external source was gathered for this module; your own experience is the material.
+Add sources to <code>inputs/links.md</code> and re-run the skill if you want a reading list.</p>
+<h2 id="definition-of-done">Definition of done</h2>
+<ul>
+<li class="task">&#9744; I can explain the "Know cold" list aloud in under 5 minutes.</li>
+<li class="task">&#9744; I answered every "Likely question" out loud at least once.</li>
+<li class="task">&#9744; Six stories are written and rehearsed.</li>
+</ul></main></div></body></html>

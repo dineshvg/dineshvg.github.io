@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>01 · Agentic Android development · Android interview playbook</title>
+<style>
+:root{--bg:#fafaf9;--card:#fff;--text:#1c1917;--muted:#6b6560;--line:#e7e5e4;--accent:#1f6f5c;--code:#f3f2f0}
+@media (prefers-color-scheme:dark){:root{--bg:#141413;--card:#1c1b1a;--text:#e9e6e2;--muted:#a39d96;--line:#2e2c2a;--accent:#5fb89e;--code:#242321}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+.layout{display:flex;min-height:100vh}
+nav{width:290px;flex:none;border-right:1px solid var(--line);padding:20px 16px;position:sticky;top:0;height:100vh;overflow:auto;font-size:14px}
+nav h2{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:18px 0 6px}
+nav a{display:block;padding:4px 8px;border-radius:6px;color:var(--text);text-decoration:none}
+nav a:hover{background:var(--code)}nav a.cur{background:var(--code);color:var(--accent);font-weight:600}
+nav .brand{font-weight:700;font-size:16px;margin-bottom:4px}
+main{flex:1;min-width:0;max-width:860px;padding:32px 28px 80px}
+h1{font-size:1.8rem;line-height:1.25;margin-top:0}h2{margin-top:2rem;border-bottom:1px solid var(--line);padding-bottom:.3rem}
+a{color:var(--accent)}
+table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--code)}
+code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.9em}
+pre{background:var(--code);padding:12px;border-radius:8px;overflow:auto}pre code{background:none;padding:0}
+pre.mermaid{background:var(--card);border:1px solid var(--line);text-align:center}
+blockquote{margin:1em 0;padding:.2em 1em;border-left:3px solid var(--accent);color:var(--muted)}
+.meta{color:var(--muted);font-size:13px;margin:-8px 0 16px}
+li.task{list-style:none;margin-left:-1.2em}
+@media(max-width:800px){.layout{display:block}nav{position:static;width:auto;height:auto;border:0;border-bottom:1px solid var(--line)}main{padding:20px 16px 60px}}
+</style></head>
+<body><div class="layout"><nav><div class="brand">Android interview playbook</div>
+<h2>Start</h2>
+<a href="../index.html">Roadmap</a>
+<a href="../00-role-profile.html">Role profile</a>
+<h2>Reference</h2>
+<a href="../reading-list.html">Reading list</a>
+<h2>Modules</h2>
+<a class="cur" href="../modules/01-agentic-android-dev.html">01 · Agentic Android development</a>
+<a href="../modules/02-architecture-modularization.html">02 · Architecture and modularization</a>
+<a href="../modules/03-kotlin-coroutines-flow.html">03 · Kotlin coroutines and Flow</a>
+<a href="../modules/05-testing-verification.html">05 · Testing and verification</a>
+<a href="../modules/08-mobile-system-design.html">08 · Mobile system design</a>
+<a href="../modules/09-leadership-behavioral.html">09 · Leadership and behavioral</a>
+<a href="../modules/04-compose-state-performance.html">04 · Compose state and performance</a>
+<a href="../modules/06-security-regulated.html">06 · Security for regulated apps</a>
+<a href="../modules/07-build-release-performance.html">07 · Build, release and performance</a>
+<a href="../modules/10-interview-german.html">10 · Interview vocabulary in German</a>
+<h2>Diagrams</h2>
+<a href="../diagrams/acp-vs-mcp.html">ACP vs MCP</a>
+<a href="../diagrams/agentic-verification-loop.html">Agentic verification loop</a>
+<a href="../diagrams/app-architecture-layers.html">App architecture layers</a>
+<a href="../diagrams/module-graph.html">Module graph</a>
+<a href="../diagrams/state-flow-compose.html">State flow: data to Compose</a>
+<a href="../diagrams/system-design-framework.html">System design framework</a></nav>
+<main><h1 id="01-agentic-android-development">01 · Agentic Android development</h1><p class="meta">status: todo · priority P1 · 6h · verified 2026-11-16</p>
+<blockquote>
+<p>Interviewers increasingly ask how you use coding agents and, more importantly, how you know their output is right.</p>
+</blockquote>
+<h2 id="why-it-comes-up">Why it comes up</h2>
+<ul>
+<li>Android Dev Summit 2026 centred on agents, and a recent r/androiddev thread claims candidates are expected to know the tooling (anecdotal, see notes).</li>
+<li>Architect and lead roles are asked about policy: what you delegate, what you review, what you forbid.</li>
+</ul>
+<h2 id="know-cold">Know cold</h2>
+<p>Status as of 2026-11-16, from <a href="https://developer.android.com/blog/posts/android-dev-summit-26-developer-tools-performance">R1</a> unless noted.</p>
+<p><strong>What ships and how stable it is</strong></p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bring Your Own Agent (BYOA) over ACP in Android Studio Rabbit 2</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td>Change Review (agentic review of agent changes, <code>/review</code>)</td>
+<td>Stable per the third-party recap <a href="https://dev.to/diego_f_caetano/android-dev-summit-2026-google-brings-developers-back-together-after-four-years-and-puts-agents-at-3jjo">R6</a></td>
+</tr>
+<tr>
+<td>Android CLI and plugins for Claude Code, Codex, Antigravity</td>
+<td>Available (CLI 1.0 since 19 May 2026, <a href="https://android-developers.googleblog.com/2026/05/android-cli-stable-1-0-agent-development.html">R2</a>)</td>
+</tr>
+<tr>
+<td>XML-to-Compose Migration Assistant, Fix with AI for leaks, Lightbuild</td>
+<td>Canary / preview</td>
+</tr>
+<tr>
+<td>Memory-leak CLI subcommand</td>
+<td>"Coming soon" in R1; another article lists it as available. Treat as unresolved.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Android CLI (R1, R2)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>android init</code></td>
+<td>Set up your agent</td>
+</tr>
+<tr>
+<td><code>android docs search</code></td>
+<td>Search the Android Knowledge Base</td>
+</tr>
+<tr>
+<td><code>android skills list</code> / <code>add</code></td>
+<td>Browse and install skills</td>
+</tr>
+<tr>
+<td><code>android preview</code></td>
+<td>Render Compose Previews without an emulator or IDE</td>
+</tr>
+<tr>
+<td><code>android device remote</code></td>
+<td>Use a real device from a Google device lab</td>
+</tr>
+<tr>
+<td><code>android profiler</code></td>
+<td>System traces via Android Performance Analyzer</td>
+</tr>
+<tr>
+<td><code>android signals</code></td>
+<td>Production crashes, ANRs, memory issues</td>
+</tr>
+<tr>
+<td><code>android analyze</code></td>
+<td>R8 shrink and obfuscation report, JSON for CI</td>
+</tr>
+<tr>
+<td><code>android studio ...</code></td>
+<td>Let any agent use Studio's analysis (needs the Quail preview and an open project, per R2)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Journeys</strong> (<a href="https://android-developers.googleblog.com/2026/05/android-cli-stable-1-0-agent-development.html">R2</a>): natural-language descriptions of core user experiences, saved in the project, which any agent can run through the CLI by navigating the app as a user.</p>
+<p><strong>Skills</strong> (<a href="https://github.com/android/skills">R4</a>): SKILL.md files with task specifications; 30+ across 20+ areas, evaluated, aimed at areas where models often fall short. Install with <code>android skills add &lt;name&gt;</code>.</p>
+<p><strong>Claude Code plugin</strong> (<a href="https://developer.android.com/tools/agents/android-cli/agent-plugins">R3</a>): <code>/plugin marketplace add android/android-cli-plugin</code>, then <code>/plugin install android-cli@android-cli-plugin</code>.</p>
+<p><strong>ACP</strong> (<a href="https://agentclientprotocol.com">R8</a>): standardizes communication between editors and coding agents (local over stdio, remote over HTTP or WebSocket) and reuses MCP's JSON representations where possible. The recap R6 frames it as ACP for building in the IDE, MCP for agents using tools or your app; treat that framing as the author's.</p>
+<p><strong>Android Bench</strong> (<a href="https://developer.android.com/bench">R5</a>): 30 tasks, 5 runs each, covering app conversion, creation, migration and new features on real open-source apps; reports pass rate, completion rate, latency and cost. When fetched, the best visible pass rate was about 40%. Lesson: even top model-agent pairs fail most multi-day tasks without supervision.</p>
+<p><strong>Vendor claims, not independent results (R1):</strong> <code>android preview</code> made UI tasks 77% faster with up to 3x fewer tokens; the LeakCanary tool made top models about 2x faster with up to 25% fewer tokens (tested with Claude Opus 5.5).</p>
+<p><strong>Process pattern worth borrowing</strong> (<a href="https://github.com/MrLesk/Backlog.md">R7</a>): one task per agent session, one PR per task, a written plan approved before coding, and review checkpoints for spec, plan and code.</p>
+<h2 id="likely-questions">Likely questions</h2>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>What a strong answer contains</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>How do you use agents day to day, and what do you not delegate?</td>
+<td>A concrete workflow (spec, plan, implement, verify), plus explicit no-go areas such as crypto, auth and architecture decisions.</td>
+</tr>
+<tr>
+<td>How do you verify agent output?</td>
+<td>Layered gates: build, deterministic tests, Journeys on a device, previews or screenshots, profiler for performance, then human review. Mention test quality, not just coverage.</td>
+</tr>
+<tr>
+<td>ACP vs MCP?</td>
+<td>ACP connects editor and agent; MCP connects agent and tools. They share JSON representations.</td>
+</tr>
+<tr>
+<td>Would you allow agents in a regulated health codebase?</td>
+<td>Controls: approved models, no secrets or patient data in prompts, scoped repo access, PR-only changes with review, audit trail, license check. Your own policy, not a slogan.</td>
+</tr>
+<tr>
+<td>Is prompting a durable differentiator?</td>
+<td>Tool-specific prompting decays quickly; durable skills are decomposition, specs, building verification harnesses and judging diffs.</td>
+</tr>
+<tr>
+<td>What do Android Bench results tell you?</td>
+<td>Agents help but are not autonomous on long tasks; pass rates are far from 100%, so verification is the job.</td>
+</tr>
+<tr>
+<td>Where do Journeys fit next to Espresso or UI Automator?</td>
+<td>My reasoning, to test yourself: Journeys are LLM-driven and so less deterministic, which suits exploratory and critical-path validation; keep deterministic tests as CI gates.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="practice">Practice</h2>
+<ul>
+<li class="task">&#9744; Install the CLI (<code>android init</code>) and the Claude Code plugin on a real module. Write down what the agent did well and where it needed correction.</li>
+<li class="task">&#9744; Write three Journeys for one critical flow, run each five times, and log pass or flake.</li>
+<li class="task">&#9744; Compare your Conduit MCP server with CLI plus Journeys on device control, UI inspection, test authoring, CI use, determinism and extensibility. </li>
+<li class="task">&#9744; Write a one-page agent policy for a regulated codebase.</li>
+<li class="task">&#9744; Add story 2 (an agent was wrong and you caught it) to the story bank. </li>
+</ul>
+<h2 id="reading">Reading</h2>
+<ol>
+<li><a href="https://developer.android.com/blog/posts/android-dev-summit-26-developer-tools-performance">Android Dev Summit: developer tools and performance</a> (25 min): the main source.</li>
+<li><a href="https://android-developers.googleblog.com/2026/05/android-cli-stable-1-0-agent-development.html">Android CLI 1.0</a> (10 min): Journeys and <code>android studio</code>.</li>
+<li><a href="https://developer.android.com/tools/agents/android-cli/agent-plugins">Agent plugins</a> (5 min): install commands.</li>
+<li><a href="https://github.com/android/skills">android/skills</a> (10 min): skill format.</li>
+<li><a href="https://developer.android.com/bench">Android Bench</a> (10 min): benchmark design.</li>
+<li><a href="https://agentclientprotocol.com">Agent Client Protocol</a> (10 min): what ACP is.</li>
+<li><a href="https://github.com/MrLesk/Backlog.md">Backlog.md</a> (10 min): the workflow this repo copies.</li>
+</ol>
+<h2 id="diagrams">Diagrams</h2>
+<ul>
+<li><a href="../diagrams/agentic-verification-loop.html">Agentic verification loop</a>: draw it when asked how you verify agents.</li>
+<li><a href="../diagrams/acp-vs-mcp.html">ACP vs MCP</a>: draw it when asked about protocols.</li>
+</ul>
+<h2 id="definition-of-done">Definition of done</h2>
+<ul>
+<li class="task">&#9744; I can explain the "Know cold" list aloud in under 5 minutes.</li>
+<li class="task">&#9744; I answered every "Likely question" out loud at least once.</li>
+<li class="task">&#9744; I ran the CLI and plugin on real code and saved the notes in <code>inputs/notes/</code>.</li>
+<li class="task">&#9744; My Conduit comparison and agent policy are written.</li>
+</ul></main></div></body></html>

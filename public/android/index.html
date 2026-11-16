@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roadmap · Android interview playbook</title>
+<style>
+:root{--bg:#fafaf9;--card:#fff;--text:#1c1917;--muted:#6b6560;--line:#e7e5e4;--accent:#1f6f5c;--code:#f3f2f0}
+@media (prefers-color-scheme:dark){:root{--bg:#141413;--card:#1c1b1a;--text:#e9e6e2;--muted:#a39d96;--line:#2e2c2a;--accent:#5fb89e;--code:#242321}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+.layout{display:flex;min-height:100vh}
+nav{width:290px;flex:none;border-right:1px solid var(--line);padding:20px 16px;position:sticky;top:0;height:100vh;overflow:auto;font-size:14px}
+nav h2{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:18px 0 6px}
+nav a{display:block;padding:4px 8px;border-radius:6px;color:var(--text);text-decoration:none}
+nav a:hover{background:var(--code)}nav a.cur{background:var(--code);color:var(--accent);font-weight:600}
+nav .brand{font-weight:700;font-size:16px;margin-bottom:4px}
+main{flex:1;min-width:0;max-width:860px;padding:32px 28px 80px}
+h1{font-size:1.8rem;line-height:1.25;margin-top:0}h2{margin-top:2rem;border-bottom:1px solid var(--line);padding-bottom:.3rem}
+a{color:var(--accent)}
+table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--code)}
+code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.9em}
+pre{background:var(--code);padding:12px;border-radius:8px;overflow:auto}pre code{background:none;padding:0}
+pre.mermaid{background:var(--card);border:1px solid var(--line);text-align:center}
+blockquote{margin:1em 0;padding:.2em 1em;border-left:3px solid var(--accent);color:var(--muted)}
+.meta{color:var(--muted);font-size:13px;margin:-8px 0 16px}
+li.task{list-style:none;margin-left:-1.2em}
+@media(max-width:800px){.layout{display:block}nav{position:static;width:auto;height:auto;border:0;border-bottom:1px solid var(--line)}main{padding:20px 16px 60px}}
+</style></head>
+<body><div class="layout"><nav><div class="brand">Android interview playbook</div>
+<h2>Start</h2>
+<a class="cur" href="index.html">Roadmap</a>
+<a href="00-role-profile.html">Role profile</a>
+<h2>Reference</h2>
+<a href="reading-list.html">Reading list</a>
+<h2>Modules</h2>
+<a href="modules/01-agentic-android-dev.html">01 · Agentic Android development</a>
+<a href="modules/02-architecture-modularization.html">02 · Architecture and modularization</a>
+<a href="modules/03-kotlin-coroutines-flow.html">03 · Kotlin coroutines and Flow</a>
+<a href="modules/05-testing-verification.html">05 · Testing and verification</a>
+<a href="modules/08-mobile-system-design.html">08 · Mobile system design</a>
+<a href="modules/09-leadership-behavioral.html">09 · Leadership and behavioral</a>
+<a href="modules/04-compose-state-performance.html">04 · Compose state and performance</a>
+<a href="modules/06-security-regulated.html">06 · Security for regulated apps</a>
+<a href="modules/07-build-release-performance.html">07 · Build, release and performance</a>
+<a href="modules/10-interview-german.html">10 · Interview vocabulary in German</a>
+<h2>Diagrams</h2>
+<a href="diagrams/acp-vs-mcp.html">ACP vs MCP</a>
+<a href="diagrams/agentic-verification-loop.html">Agentic verification loop</a>
+<a href="diagrams/app-architecture-layers.html">App architecture layers</a>
+<a href="diagrams/module-graph.html">Module graph</a>
+<a href="diagrams/state-flow-compose.html">State flow: data to Compose</a>
+<a href="diagrams/system-design-framework.html">System design framework</a></nav>
+<main><h1 id="android-architect-lead-interview-playbook">Android architect / lead interview playbook</h1>
+<p>Generated 2026-11-16 from <code>inputs/</code> and <code>playbook.config.yml</code>.
+Target: Android Software Architect / Lead Android Engineer (senior-lead). Interview date: not set yet.</p>
+<h2 id="roadmap">Roadmap</h2>
+<p><strong>Progress:</strong> 0/10 modules done · 41h of 41h remaining</p>
+<p>Work top to bottom. Each line is one module (<code>[ ]</code> todo · <code>[~]</code> in progress · <code>[x]</code> done · <code>[-]</code> skipped).</p>
+<ul>
+<li class="task">&#9744; <strong>01</strong> <a href="modules/01-agentic-android-dev.html">Agentic Android development</a> · P1 · 6h</li>
+<li class="task">&#9744; <strong>02</strong> <a href="modules/02-architecture-modularization.html">Architecture and modularization</a> · P1 · 5h</li>
+<li class="task">&#9744; <strong>03</strong> <a href="modules/03-kotlin-coroutines-flow.html">Kotlin coroutines and Flow</a> · P1 · 4h</li>
+<li class="task">&#9744; <strong>05</strong> <a href="modules/05-testing-verification.html">Testing and verification</a> · P1 · 4h · after 02</li>
+<li class="task">&#9744; <strong>08</strong> <a href="modules/08-mobile-system-design.html">Mobile system design</a> · P1 · 5h · after 02, 03</li>
+<li class="task">&#9744; <strong>09</strong> <a href="modules/09-leadership-behavioral.html">Leadership and behavioral</a> · P1 · 3h</li>
+<li class="task">&#9744; <strong>04</strong> <a href="modules/04-compose-state-performance.html">Compose state and performance</a> · P2 · 4h · after 03</li>
+<li class="task">&#9744; <strong>06</strong> <a href="modules/06-security-regulated.html">Security for regulated apps</a> · P2 · 4h</li>
+<li class="task">&#9744; <strong>07</strong> <a href="modules/07-build-release-performance.html">Build, release and performance</a> · P2 · 4h</li>
+<li class="task">&#9744; <strong>10</strong> <a href="modules/10-interview-german.html">Interview vocabulary in German</a> · P3 · 2h · after 02</li>
+</ul>
+<h2 id="how-to-use-this-playbook">How to use this playbook</h2>
+<ol>
+<li>Work the roadmap top to bottom. Mark progress with
+   <code>python3 .claude/skills/interview-playbook/scripts/playbook.py status &lt;id&gt; &lt;status&gt;</code>.</li>
+<li>For each module: read, do the practice items, then answer the questions aloud.</li>
+<li>Draw the diagrams from memory before an interview; they double as whiteboard material.</li>
+<li>Keep the story bank current; behavioral rounds draw on it.</li>
+</ol>
+<h2 id="contents">Contents</h2>
+<ul>
+<li><a href="00-role-profile.html">Role profile</a>: what the role is tested on and the likely loop</li>
+<li><a href="reading-list.html">Reading list</a>: every source, with verification status</li>
+<li>Story bank (personal, not published)</li>
+<li><code>modules/</code>: one file per topic</li>
+<li><code>diagrams/</code>: Mermaid diagrams with talking points</li>
+</ul>
+<h2 id="diagrams">Diagrams</h2>
+<ul>
+<li><a href="diagrams/agentic-verification-loop.html">Agentic verification loop</a></li>
+<li><a href="diagrams/acp-vs-mcp.html">ACP vs MCP</a></li>
+<li><a href="diagrams/app-architecture-layers.html">App architecture layers</a></li>
+<li><a href="diagrams/module-graph.html">Module graph</a></li>
+<li><a href="diagrams/state-flow-compose.html">State flow: data to Compose</a></li>
+<li><a href="diagrams/system-design-framework.html">System design framework</a></li>
+</ul></main></div></body></html>

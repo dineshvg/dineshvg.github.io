@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>04 · Compose state and performance · Android interview playbook</title>
+<style>
+:root{--bg:#fafaf9;--card:#fff;--text:#1c1917;--muted:#6b6560;--line:#e7e5e4;--accent:#1f6f5c;--code:#f3f2f0}
+@media (prefers-color-scheme:dark){:root{--bg:#141413;--card:#1c1b1a;--text:#e9e6e2;--muted:#a39d96;--line:#2e2c2a;--accent:#5fb89e;--code:#242321}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+.layout{display:flex;min-height:100vh}
+nav{width:290px;flex:none;border-right:1px solid var(--line);padding:20px 16px;position:sticky;top:0;height:100vh;overflow:auto;font-size:14px}
+nav h2{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:18px 0 6px}
+nav a{display:block;padding:4px 8px;border-radius:6px;color:var(--text);text-decoration:none}
+nav a:hover{background:var(--code)}nav a.cur{background:var(--code);color:var(--accent);font-weight:600}
+nav .brand{font-weight:700;font-size:16px;margin-bottom:4px}
+main{flex:1;min-width:0;max-width:860px;padding:32px 28px 80px}
+h1{font-size:1.8rem;line-height:1.25;margin-top:0}h2{margin-top:2rem;border-bottom:1px solid var(--line);padding-bottom:.3rem}
+a{color:var(--accent)}
+table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--code)}
+code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.9em}
+pre{background:var(--code);padding:12px;border-radius:8px;overflow:auto}pre code{background:none;padding:0}
+pre.mermaid{background:var(--card);border:1px solid var(--line);text-align:center}
+blockquote{margin:1em 0;padding:.2em 1em;border-left:3px solid var(--accent);color:var(--muted)}
+.meta{color:var(--muted);font-size:13px;margin:-8px 0 16px}
+li.task{list-style:none;margin-left:-1.2em}
+@media(max-width:800px){.layout{display:block}nav{position:static;width:auto;height:auto;border:0;border-bottom:1px solid var(--line)}main{padding:20px 16px 60px}}
+</style></head>
+<body><div class="layout"><nav><div class="brand">Android interview playbook</div>
+<h2>Start</h2>
+<a href="../index.html">Roadmap</a>
+<a href="../00-role-profile.html">Role profile</a>
+<h2>Reference</h2>
+<a href="../reading-list.html">Reading list</a>
+<h2>Modules</h2>
+<a href="../modules/01-agentic-android-dev.html">01 · Agentic Android development</a>
+<a href="../modules/02-architecture-modularization.html">02 · Architecture and modularization</a>
+<a href="../modules/03-kotlin-coroutines-flow.html">03 · Kotlin coroutines and Flow</a>
+<a href="../modules/05-testing-verification.html">05 · Testing and verification</a>
+<a href="../modules/08-mobile-system-design.html">08 · Mobile system design</a>
+<a href="../modules/09-leadership-behavioral.html">09 · Leadership and behavioral</a>
+<a class="cur" href="../modules/04-compose-state-performance.html">04 · Compose state and performance</a>
+<a href="../modules/06-security-regulated.html">06 · Security for regulated apps</a>
+<a href="../modules/07-build-release-performance.html">07 · Build, release and performance</a>
+<a href="../modules/10-interview-german.html">10 · Interview vocabulary in German</a>
+<h2>Diagrams</h2>
+<a href="../diagrams/acp-vs-mcp.html">ACP vs MCP</a>
+<a href="../diagrams/agentic-verification-loop.html">Agentic verification loop</a>
+<a href="../diagrams/app-architecture-layers.html">App architecture layers</a>
+<a href="../diagrams/module-graph.html">Module graph</a>
+<a href="../diagrams/state-flow-compose.html">State flow: data to Compose</a>
+<a href="../diagrams/system-design-framework.html">System design framework</a></nav>
+<main><h1 id="04-compose-state-and-performance">04 · Compose state and performance</h1><p class="meta">status: todo · priority P2 · 4h · verified 2026-11-16</p>
+<blockquote>
+<p>Expect a deep dive on where state lives and why something recomposes.</p>
+</blockquote>
+<h2 id="why-it-comes-up">Why it comes up</h2>
+<ul>
+<li>Compose is the default UI toolkit; leads are asked to review and design state handling, not only write it.</li>
+</ul>
+<h2 id="know-cold">Know cold</h2>
+<p>From <a href="https://developer.android.com/develop/ui/compose/state">R13</a> and <a href="https://developer.android.com/develop/ui/compose/performance">R14</a>.</p>
+<ul>
+<li><strong>State and composition:</strong> Compose is declarative; recomposition happens when state changes, and composables update only when they receive new arguments.</li>
+<li><strong><code>remember</code> and <code>mutableStateOf</code>:</strong> <code>remember</code> keeps an object across recompositions; <code>mutableStateOf</code> creates observable state. <code>rememberSaveable</code> survives configuration changes but not the user dismissing the activity; non-Bundle types need a saver.</li>
+<li><strong>Stateful vs stateless; hoisting:</strong> replace internal state with a <code>value</code> parameter and an <code>onValueChange</code> event so the caller owns state. This gives a single source of truth and unidirectional data flow. Plain state-holder classes can own logic and state.</li>
+<li><strong>Other state sources:</strong> <code>Flow</code> via <code>collectAsStateWithLifecycle()</code>, <code>LiveData</code>, RxJava, and <code>produceState</code> for custom sources.</li>
+<li><strong>Performance model:</strong> three phases (composition, layout, drawing); stability; Baseline Profiles; release builds with R8.</li>
+<li><strong>Best practices (R14):</strong> <code>remember</code> for expensive work; stable <code>key</code> and <code>contentType</code> in lazy layouts; <code>derivedStateOf</code> (or <code>computedStateOf</code> in Compose 1.13+) for fast-changing state; defer state reads with lambdas and lambda modifiers such as <code>Modifier.offset { }</code>; avoid backwards writes.</li>
+<li><strong>Tooling:</strong> Compose 1.13 recomposition tracing shows which functions recomposed and the state write that caused it (<a href="https://developer.android.com/blog/posts/android-dev-summit-26-developer-tools-performance">R1</a>).</li>
+<li><strong>Vendor claim:</strong> Google's benchmarks report Compose matching Views for scroll jank since Compose 1.9.0 (R14).</li>
+</ul>
+<h2 id="likely-questions">Likely questions</h2>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>What a strong answer contains</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Where should state live?</td>
+<td>Hoist to the lowest common owner; business state in a ViewModel, UI-only state in a state holder or <code>remember</code>.</td>
+</tr>
+<tr>
+<td>Why does this composable recompose too often?</td>
+<td>Unstable parameters, reading state too early, lambdas capturing changing values; how to confirm with recomposition tracing.</td>
+</tr>
+<tr>
+<td><code>remember</code> vs <code>rememberSaveable</code>?</td>
+<td>Survival across configuration changes and process death, and the cost of saving.</td>
+</tr>
+<tr>
+<td><code>derivedStateOf</code>: when and why?</td>
+<td>Converts rapidly changing input into rarely changing output to limit recomposition.</td>
+</tr>
+<tr>
+<td>How do you make a long list scroll smoothly?</td>
+<td>Keys and content types, avoid heavy work in composition, Baseline Profiles, release build.</td>
+</tr>
+<tr>
+<td>How do you test Compose UI?</td>
+<td>Behavior tests on semantics, screenshot tests, previews as a fast check (see module 05).</td>
+</tr>
+</tbody>
+</table>
+<h2 id="practice">Practice</h2>
+<ul>
+<li class="task">&#9744; Take a screen with an unstable parameter, find the extra recompositions with the profiler, fix, and record before and after.</li>
+<li class="task">&#9744; Hoist state out of a stateful composable and explain the testability gain aloud.</li>
+</ul>
+<h2 id="reading">Reading</h2>
+<ol>
+<li><a href="https://developer.android.com/develop/ui/compose/state">State and Jetpack Compose</a> (20 min)</li>
+<li><a href="https://developer.android.com/develop/ui/compose/performance">Jetpack Compose performance</a> (20 min)</li>
+</ol>
+<h2 id="diagrams">Diagrams</h2>
+<ul>
+<li><a href="../diagrams/state-flow-compose.html">State flow: data to Compose</a></li>
+</ul>
+<h2 id="definition-of-done">Definition of done</h2>
+<ul>
+<li class="task">&#9744; I can explain the "Know cold" list aloud in under 5 minutes.</li>
+<li class="task">&#9744; I answered every "Likely question" out loud at least once.</li>
+<li class="task">&#9744; My before/after recomposition measurement is saved.</li>
+</ul></main></div></body></html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Role profile · Android interview playbook</title>
+<style>
+:root{--bg:#fafaf9;--card:#fff;--text:#1c1917;--muted:#6b6560;--line:#e7e5e4;--accent:#1f6f5c;--code:#f3f2f0}
+@media (prefers-color-scheme:dark){:root{--bg:#141413;--card:#1c1b1a;--text:#e9e6e2;--muted:#a39d96;--line:#2e2c2a;--accent:#5fb89e;--code:#242321}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+.layout{display:flex;min-height:100vh}
+nav{width:290px;flex:none;border-right:1px solid var(--line);padding:20px 16px;position:sticky;top:0;height:100vh;overflow:auto;font-size:14px}
+nav h2{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:18px 0 6px}
+nav a{display:block;padding:4px 8px;border-radius:6px;color:var(--text);text-decoration:none}
+nav a:hover{background:var(--code)}nav a.cur{background:var(--code);color:var(--accent);font-weight:600}
+nav .brand{font-weight:700;font-size:16px;margin-bottom:4px}
+main{flex:1;min-width:0;max-width:860px;padding:32px 28px 80px}
+h1{font-size:1.8rem;line-height:1.25;margin-top:0}h2{margin-top:2rem;border-bottom:1px solid var(--line);padding-bottom:.3rem}
+a{color:var(--accent)}
+table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--code)}
+code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.9em}
+pre{background:var(--code);padding:12px;border-radius:8px;overflow:auto}pre code{background:none;padding:0}
+pre.mermaid{background:var(--card);border:1px solid var(--line);text-align:center}
+blockquote{margin:1em 0;padding:.2em 1em;border-left:3px solid var(--accent);color:var(--muted)}
+.meta{color:var(--muted);font-size:13px;margin:-8px 0 16px}
+li.task{list-style:none;margin-left:-1.2em}
+@media(max-width:800px){.layout{display:block}nav{position:static;width:auto;height:auto;border:0;border-bottom:1px solid var(--line)}main{padding:20px 16px 60px}}
+</style></head>
+<body><div class="layout"><nav><div class="brand">Android interview playbook</div>
+<h2>Start</h2>
+<a href="index.html">Roadmap</a>
+<a class="cur" href="00-role-profile.html">Role profile</a>
+<h2>Reference</h2>
+<a href="reading-list.html">Reading list</a>
+<h2>Modules</h2>
+<a href="modules/01-agentic-android-dev.html">01 · Agentic Android development</a>
+<a href="modules/02-architecture-modularization.html">02 · Architecture and modularization</a>
+<a href="modules/03-kotlin-coroutines-flow.html">03 · Kotlin coroutines and Flow</a>
+<a href="modules/05-testing-verification.html">05 · Testing and verification</a>
+<a href="modules/08-mobile-system-design.html">08 · Mobile system design</a>
+<a href="modules/09-leadership-behavioral.html">09 · Leadership and behavioral</a>
+<a href="modules/04-compose-state-performance.html">04 · Compose state and performance</a>
+<a href="modules/06-security-regulated.html">06 · Security for regulated apps</a>
+<a href="modules/07-build-release-performance.html">07 · Build, release and performance</a>
+<a href="modules/10-interview-german.html">10 · Interview vocabulary in German</a>
+<h2>Diagrams</h2>
+<a href="diagrams/acp-vs-mcp.html">ACP vs MCP</a>
+<a href="diagrams/agentic-verification-loop.html">Agentic verification loop</a>
+<a href="diagrams/app-architecture-layers.html">App architecture layers</a>
+<a href="diagrams/module-graph.html">Module graph</a>
+<a href="diagrams/state-flow-compose.html">State flow: data to Compose</a>
+<a href="diagrams/system-design-framework.html">System design framework</a></nav>
+<main><h1 id="role-profile-android-software-architect-lead-android-engineer">Role profile: Android Software Architect / Lead Android Engineer</h1>
+<h2 id="target">Target</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Role / level</td>
+<td>Android Software Architect / Lead Android Engineer (senior-lead)</td>
+</tr>
+<tr>
+<td>Company type</td>
+<td>Product or regulated-domain (health, public sector, enterprise)</td>
+</tr>
+<tr>
+<td>Interview date</td>
+<td>Not set (set <code>interview_date</code> in <code>playbook.config.yml</code> for a pacing line)</td>
+</tr>
+<tr>
+<td>Interview language(s)</td>
+<td>English, possibly German</td>
+</tr>
+</tbody>
+</table>
+<p>No job description was supplied, so the weights below come from the role level, the
+architect emphasis in the owner's stated focus, and the signals in the Reddit thread
+captured in <code>inputs/notes/</code>. Replace them with job-description evidence when you have it.</p>
+<h2 id="competency-map">Competency map</h2>
+<table>
+<thead>
+<tr>
+<th>Competency</th>
+<th>Weight</th>
+<th>Evidence for weight</th>
+<th>Module</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Agentic development and verification</td>
+<td>High</td>
+<td>Recent thread says interviewers probe it; Android Dev Summit 2026 centred on it (notes)</td>
+<td><a href="modules/01-agentic-android-dev.html">01</a></td>
+</tr>
+<tr>
+<td>Architecture and modularization</td>
+<td>High</td>
+<td>Core of an architect role</td>
+<td><a href="modules/02-architecture-modularization.html">02</a></td>
+</tr>
+<tr>
+<td>Kotlin concurrency</td>
+<td>High</td>
+<td>Standard senior screen</td>
+<td><a href="modules/03-kotlin-coroutines-flow.html">03</a></td>
+</tr>
+<tr>
+<td>Testing and verification</td>
+<td>High</td>
+<td>Links to agent verification; thread cites mock-heavy tests</td>
+<td><a href="modules/05-testing-verification.html">05</a></td>
+</tr>
+<tr>
+<td>Mobile system design</td>
+<td>High</td>
+<td>Typical architect round <em>(assumed)</em></td>
+<td><a href="modules/08-mobile-system-design.html">08</a></td>
+</tr>
+<tr>
+<td>Leadership and behavioral</td>
+<td>High</td>
+<td>Lead level</td>
+<td><a href="modules/09-leadership-behavioral.html">09</a></td>
+</tr>
+<tr>
+<td>Compose state and performance</td>
+<td>Medium</td>
+<td>Common deep dive</td>
+<td><a href="modules/04-compose-state-performance.html">04</a></td>
+</tr>
+<tr>
+<td>Security</td>
+<td>Medium</td>
+<td>Higher for regulated domains</td>
+<td><a href="modules/06-security-regulated.html">06</a></td>
+</tr>
+<tr>
+<td>Build, release, performance</td>
+<td>Medium</td>
+<td>Lead owns delivery</td>
+<td><a href="modules/07-build-release-performance.html">07</a></td>
+</tr>
+<tr>
+<td>German interview vocabulary</td>
+<td>Low</td>
+<td>Only if a loop is in German</td>
+<td><a href="modules/10-interview-german.html">10</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="likely-interview-loop-assumed">Likely interview loop <em>(assumed)</em></h2>
+<table>
+<thead>
+<tr>
+<th>Round</th>
+<th>Format</th>
+<th>What is tested</th>
+<th>Prepared by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Recruiter screen</td>
+<td>30 min call</td>
+<td>Motivation, scope, compensation range</td>
+<td>Story bank</td>
+</tr>
+<tr>
+<td>Technical screen</td>
+<td>Live coding or Q&amp;A</td>
+<td>Kotlin, coroutines, Compose</td>
+<td>03, 04</td>
+</tr>
+<tr>
+<td>Architecture deep dive</td>
+<td>Whiteboard</td>
+<td>Layers, modules, trade-offs</td>
+<td>02, 08, diagrams</td>
+</tr>
+<tr>
+<td>AI-assisted development</td>
+<td>Discussion or exercise</td>
+<td>How you use and verify agents</td>
+<td>01, 05</td>
+</tr>
+<tr>
+<td>Behavioral / leadership</td>
+<td>Structured questions</td>
+<td>Influence, conflict, mentoring</td>
+<td>09, story bank</td>
+</tr>
+</tbody>
+</table>
+<p>Confirm the real loop with each company; formats vary.</p>
+<h2 id="strengths-to-lead-with-gaps-to-close">Strengths to lead with / gaps to close</h2>
+<ul>
+<li>Lead with: modular multi-module architecture at scale, regulated-domain security awareness, and your own agent-testing tool (Conduit) as proof of hands-on agent work.</li>
+<li>Close first: concrete, rehearsed hands-on experience with the Android CLI and Journeys (module 01), since this is newest and least likely to be in your muscle memory.</li>
+</ul>
+<h2 id="open-questions">Open questions</h2>
+<ul>
+<li>Which companies and what job descriptions? They change module weights.</li>
+<li>Are any rounds in German?</li>
+<li>Is the target a pure architect role (less coding) or a hands-on lead role?</li>
+</ul></main></div></body></html>
