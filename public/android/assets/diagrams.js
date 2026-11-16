@@ -1,7 +1,8 @@
 // Renders Mermaid diagrams and adds a full-screen pan/zoom viewer (touch, mouse, keyboard).
 import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
 
-const dark = matchMedia("(prefers-color-scheme: dark)").matches;
+const _t = document.documentElement.getAttribute("data-theme");
+const dark = _t ? _t === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
 const light = {
   background: "#ffffff", primaryColor: "#eef2ff", primaryTextColor: "#1c1917",
   primaryBorderColor: "#4338ca", lineColor: "#57534e", secondaryColor: "#f5f5f4",

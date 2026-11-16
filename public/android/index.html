@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="color-scheme" content="light dark"><meta name="theme-color" content="#1f6f5c">
-<title>Roadmap · Android interview playbook</title>
+<meta name="color-scheme" content="light dark"><meta name="theme-color" content="#4f46e5">
+<title>Android interview playbook · Android interview playbook</title>
+<script>try{var t=localStorage.getItem("apb-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
 <link rel="stylesheet" href="assets/site.css">
 </head><body>
-<header class="topbar"><button class="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav">&#9776;</button>
-<a class="brand" href="index.html">Android interview playbook</a></header>
+<header class="site-header"><div class="header-in">
+<button class="icon-btn menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav">&#9776;</button>
+<a class="brand" href="index.html"><span class="logo" aria-hidden="true">A</span>Android interview playbook</a>
+<nav class="topnav" aria-label="Sections"><a href="index.html" aria-current="page">Home</a><a href="modules/01-agentic-android-dev.html">Modules</a><a href="diagrams/index.html">Diagrams</a><a href="flashcards.html">Flashcards</a><a href="reading-list.html">Reading list</a></nav><span class="header-sp"></span>
+<button class="icon-btn theme-btn" type="button" aria-label="Toggle theme">&#9790;</button></div></header>
 <div class="scrim"></div>
-<div class="layout"><nav id="nav" aria-label="Playbook"><a class="brand" href="index.html">Android interview playbook</a>
-<h2>Start</h2>
-<a class="item cur" aria-current="page" href="index.html">Roadmap</a>
+<div class="layout wide"><nav id="nav" aria-label="Playbook"><h2>Start</h2>
+<a class="item cur" aria-current="page" href="index.html">Home</a>
 <a class="item" href="00-role-profile.html">Role profile</a>
 <h2>Practice</h2>
 <a class="item" href="flashcards.html">Flashcards (111)</a>
@@ -41,49 +44,7 @@
 <a class="item" href="diagrams/trust-boundaries.html">Trust boundaries of an Android app</a>
 <h2>Reference</h2>
 <a class="item" href="reading-list.html">Reading list</a></nav>
-<main><h1 id="android-architect-lead-interview-playbook">Android architect / lead interview playbook</h1>
-<p>Generated 2026-11-16 from <code>inputs/</code> and <code>playbook.config.yml</code>.
-Target: Android Software Architect / Lead Android Engineer (senior-lead). Interview date: not set yet.</p>
-<h2 id="roadmap">Roadmap</h2>
-<p><strong>Progress:</strong> 0/10 modules done · 41h of 41h remaining</p>
-<p><strong>Flashcards:</strong> 111 cards in 10 decks (study them on the website, or read <code>flashcards/</code>).</p>
-<p>Work top to bottom. Each line is one module (<code>[ ]</code> todo · <code>[~]</code> in progress · <code>[x]</code> done · <code>[-]</code> skipped).</p>
-<ul>
-<li class="task">&#9744; <strong>01</strong> <a href="modules/01-agentic-android-dev.html">Agentic Android development</a> · P1 · 6h</li>
-<li class="task">&#9744; <strong>02</strong> <a href="modules/02-architecture-modularization.html">Architecture and modularization</a> · P1 · 5h</li>
-<li class="task">&#9744; <strong>03</strong> <a href="modules/03-kotlin-coroutines-flow.html">Kotlin coroutines and Flow</a> · P1 · 4h</li>
-<li class="task">&#9744; <strong>05</strong> <a href="modules/05-testing-verification.html">Testing and verification</a> · P1 · 4h · after 02</li>
-<li class="task">&#9744; <strong>08</strong> <a href="modules/08-mobile-system-design.html">Mobile system design</a> · P1 · 5h · after 02, 03</li>
-<li class="task">&#9744; <strong>09</strong> <a href="modules/09-leadership-behavioral.html">Leadership and behavioral</a> · P1 · 3h</li>
-<li class="task">&#9744; <strong>04</strong> <a href="modules/04-compose-state-performance.html">Compose state and performance</a> · P2 · 4h · after 03</li>
-<li class="task">&#9744; <strong>06</strong> <a href="modules/06-security-regulated.html">Security for regulated apps</a> · P2 · 4h</li>
-<li class="task">&#9744; <strong>07</strong> <a href="modules/07-build-release-performance.html">Build, release and performance</a> · P2 · 4h</li>
-<li class="task">&#9744; <strong>10</strong> <a href="modules/10-interview-german.html">Interview vocabulary in German</a> · P3 · 2h · after 02</li>
-</ul>
-<h2 id="how-to-use-this-playbook">How to use this playbook</h2>
-<ol>
-<li>Work the roadmap top to bottom. Mark progress with
-   <code>python3 .claude/skills/interview-playbook/scripts/playbook.py status &lt;id&gt; &lt;status&gt;</code>.</li>
-<li>For each module: read, do the practice items, then answer the questions aloud.</li>
-<li>Draw the diagrams from memory before an interview; they double as whiteboard material.</li>
-<li>Keep the story bank current; behavioral rounds draw on it.</li>
-</ol>
-<h2 id="contents">Contents</h2>
-<ul>
-<li><a href="00-role-profile.html">Role profile</a>: what the role is tested on and the likely loop</li>
-<li><a href="reading-list.html">Reading list</a>: every source, with verification status</li>
-<li>Story bank (personal, not published)</li>
-<li><code>modules/</code>: one file per topic</li>
-<li><code>diagrams/</code>: Mermaid diagrams with talking points</li>
-<li><code>flashcards/</code>: Q/A decks per module</li>
-</ul>
-<h2 id="diagrams">Diagrams</h2>
-<p>See the <a href="diagrams/index.html">diagram gallery</a>: 12 diagrams with a shared colour code
-(agentic loop, ACP vs MCP, CLI toolchain, architecture layers, module graph, state flow,
-Compose phases, coroutine scope tree, testing pyramid, offline-first sync, trust
-boundaries, system design framework).</p>
-<h2 id="flashcards">Flashcards</h2>
-<p>111 cards in <code>flashcards/</code>, one deck per module. On the website they run as spaced
-repetition (Again / Good / Easy), with progress saved in your browser only.</p><footer class="pager"><a class="next" href="00-role-profile.html"><small>Next</small>Role profile</a></footer></main></div>
+<main><section class="hero"><p class="eyebrow">Interview playbook</p><h1>Android Software Architect / Lead Android Engineer</h1><p>A structured, evidence-based preparation path: 10 focused modules, 111 flashcards and 12 whiteboard diagrams.</p><div class="row"><a class="btn primary" href="flashcards.html">Start flashcards</a><a class="btn" href="modules/01-agentic-android-dev.html">Begin module 1</a><a class="btn" href="00-role-profile.html">Role profile</a></div></section><div class="stats"><div class="stat"><b>10</b><span>Modules</span></div><div class="stat"><b>41h</b><span>Estimated effort</span></div><div class="stat"><b>111</b><span>Flashcards</span></div><div class="stat"><b>12</b><span>Diagrams</span></div></div><div class="sec-head"><h2>Modules</h2><a href="reading-list.html">Reading list &rarr;</a></div><div class="grid"><a class="card-link" href="modules/01-agentic-android-dev.html"><span class="num">MODULE 01</span><h3>Agentic Android development</h3><p>Interviewers increasingly ask how you use coding agents and, more importantly, how you know their output is right.</p><div class="pills"><span class="pill p1">P1</span><span class="pill">6h</span><span class="pill">todo</span></div></a><a class="card-link" href="modules/02-architecture-modularization.html"><span class="num">MODULE 02</span><h3>Architecture and modularization</h3><p>For an architect role this is the core: layers, boundaries, and the trade-offs behind them.</p><div class="pills"><span class="pill p1">P1</span><span class="pill">5h</span><span class="pill">todo</span></div></a><a class="card-link" href="modules/03-kotlin-coroutines-flow.html"><span class="num">MODULE 03</span><h3>Kotlin coroutines and Flow</h3><p>Concurrency questions separate people who use coroutines from people who understand cancellation, scopes and testing.</p><div class="pills"><span class="pill p1">P1</span><span class="pill">4h</span><span class="pill">todo</span></div></a><a class="card-link" href="modules/05-testing-verification.html"><span class="num">MODULE 05</span><h3>Testing and verification</h3><p>Agent-written code makes test quality the main safeguard, so interviewers probe what your tests actually prove.</p><div class="pills"><span class="pill p1">P1</span><span class="pill">4h</span><span class="pill">todo</span></div></a><a class="card-link" href="modules/08-mobile-system-design.html"><span class="num">MODULE 08</span><h3>Mobile system design</h3><p>The architect round: turn a vague prompt into requirements, a structure, and defended trade-offs in 45 minutes.</p><div class="pills"><span class="pill p1">P1</span><span class="pill">5h</span><span class="pill">todo</span></div></a><a class="card-link" href="modules/09-leadership-behavioral.html"><span class="num">MODULE 09</span><h3>Leadership and behavioral</h3><p>Lead and architect roles are hired on judgment and influence; your stories are the evidence.</p><div class="pills"><span class="pill p1">P1</span><span class="pill">3h</span><span class="pill">todo</span></div></a><a class="card-link" href="modules/04-compose-state-performance.html"><span class="num">MODULE 04</span><h3>Compose state and performance</h3><p>Expect a deep dive on where state lives and why something recomposes.</p><div class="pills"><span class="pill p2">P2</span><span class="pill">4h</span><span class="pill">todo</span></div></a><a class="card-link" href="modules/06-security-regulated.html"><span class="num">MODULE 06</span><h3>Security for regulated apps</h3><p>In health and public-sector apps, security is part of architecture; expect scenario questions, not trivia.</p><div class="pills"><span class="pill p2">P2</span><span class="pill">4h</span><span class="pill">todo</span></div></a><a class="card-link" href="modules/07-build-release-performance.html"><span class="num">MODULE 07</span><h3>Build, release and performance</h3><p>Leads own delivery: build speed, app size, startup, and safe releases.</p><div class="pills"><span class="pill p2">P2</span><span class="pill">4h</span><span class="pill">todo</span></div></a><a class="card-link" href="modules/10-interview-german.html"><span class="num">MODULE 10</span><h3>Interview vocabulary in German</h3><p>Only needed if a loop is in German; speaking is comfortable, writing needs care, so rehearse phrases aloud and have a native speaker proofread.</p><div class="pills"><span class="pill p3">P3</span><span class="pill">2h</span><span class="pill">todo</span></div></a></div><div class="sec-head"><h2>Diagrams</h2><a href="diagrams/index.html">All diagrams &rarr;</a></div><div class="grid"><a class="card-link" href="diagrams/acp-vs-mcp.html"><span class="num">DIAGRAM</span><h3>ACP vs MCP</h3><p>asked what protocols sit between the IDE, the agent and your tools.</p></a><a class="card-link" href="diagrams/agentic-verification-loop.html"><span class="num">DIAGRAM</span><h3>Agentic verification loop</h3><p>asked how you verify agent-written code, or how agentic development fits a quality process.</p></a><a class="card-link" href="diagrams/android-cli-toolchain.html"><span class="num">DIAGRAM</span><h3>Android CLI toolchain</h3><p>asked what the Android CLI is for, or what an agent can actually do with it.</p></a><a class="card-link" href="diagrams/app-architecture-layers.html"><span class="num">DIAGRAM</span><h3>App architecture layers</h3><p>asked to structure an app or explain unidirectional data flow.</p></a><a class="card-link" href="diagrams/compose-phases.html"><span class="num">DIAGRAM</span><h3>Compose phases and deferred reads</h3><p>asked why something recomposes, or how to reduce recomposition work.</p></a><a class="card-link" href="diagrams/coroutine-scope-tree.html"><span class="num">DIAGRAM</span><h3>Coroutine scope tree and cancellation</h3><p>asked about structured concurrency, who cancels what, or where to launch long-lived work.</p></a><a class="card-link" href="diagrams/module-graph.html"><span class="num">DIAGRAM</span><h3>Module graph</h3><p>asked how you would split an app into modules and keep teams from coupling.</p></a><a class="card-link" href="diagrams/offline-first-sync.html"><span class="num">DIAGRAM</span><h3>Offline-first sync</h3><p>asked to design an app that works without a connection, such as viewing and redeeming prescriptions.</p></a><a class="card-link" href="diagrams/state-flow-compose.html"><span class="num">DIAGRAM</span><h3>State flow: data to Compose</h3><p>asked how data reaches the screen, or where state should live.</p></a><a class="card-link" href="diagrams/system-design-framework.html"><span class="num">DIAGRAM</span><h3>System design framework</h3><p>given an open-ended mobile design prompt in a 45-minute round.</p></a><a class="card-link" href="diagrams/testing-pyramid.html"><span class="num">DIAGRAM</span><h3>Testing pyramid with agent-era gates</h3><p>asked about test strategy, or how you trust agent-written tests.</p></a><a class="card-link" href="diagrams/trust-boundaries.html"><span class="num">DIAGRAM</span><h3>Trust boundaries of an Android app</h3><p>asked for a threat model of an app handling sensitive data.</p></a></div><div class="sec-head"><h2>How to use it</h2></div><ol class="steps"><li><strong>Work the roadmap</strong>Modules run in priority order; do P1 first.</li><li><strong>Answer aloud</strong>Practice the likely questions out loud, not in your head.</li><li><strong>Drill the cards</strong>Multiple choice with spaced repetition.</li><li><strong>Draw from memory</strong>The diagrams double as whiteboard material.</li></ol></main></div>
+<footer class="site-footer"><div class="in"><span>Android interview playbook &middot; built from Markdown, progress stays in your browser.</span><a href="https://github.com/dineshvg/2026-Android-Interview-Prep">Source on GitHub</a></div></footer>
 <script src="assets/site.js" defer></script>
 </body></html>
